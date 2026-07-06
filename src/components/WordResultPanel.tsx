@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import type { ReactNode } from "react";
 import type { WordEntry, ExampleAyat } from "../types";
 import { formatSurahAyah } from "../data/surahMeta";
 import { audioUrl, getAyahBilingual } from "../services/alQuranApi";
@@ -22,6 +23,75 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
 
   // Helper to optionally strip diacritics from Arabic text.
   const arText = (text: string) => (showDiacritics ? text : stripDiacritics(text));
+
+  // Render Arabic ayat text with the target word highlighted.
+  // Matches the wordForm (or headword) within the full ayat text,
+  // comparing without diacritics for robust matching.
+  const renderHighlightedAyat = (arabicText: string, wordForm: string | undefined): ReactNode => {
+    const target = wordForm ?? entry.arabic;
+    if (!target) return arText(arabicText);
+    // Compare without diacritics for matching, but render original text.
+    const textNoDiac = stripDiacritics(arabicText);
+    const targetNoDiac = stripDiacritics(target);
+    // Search for the target in the ayat text (without diacritics).
+    const idx = textNoDiac.indexOf(targetNoDiac);
+    if (idx === -1) return arText(arabicText);
+    // Split original text at the matching positions (accounting for diacritics length diff).
+    // Since stripping diacritics removes characters, we need to map indices.
+    // Simpler approach: walk through original text and find the matching span.
+    let before = "";
+    let match = "";
+    let after = "";
+    let origIdx = 0;
+    // Build a mapping from no-diac indices to original indices.
+    const origText = arabicText;
+    let noDiacPos = 0;
+    const matchEnd = idx + targetNoDiac.length;
+    while (origIdx < origText.length && noDiacPos < textNoDiac.length) {
+      const origChar = origText[origIdx] ?? "";
+      if (textNoDiac[noDiacPos] === stripDiacritics(origChar)) {
+        if (noDiacPos < idx) {
+          before += origChar;
+        } else if (noDiacPos < matchEnd) {
+          match += origChar;
+        } else {
+          after += origChar;
+        }
+        noDiacPos++;
+      } else {
+        // This is a diacritic character — attach to current segment.
+        if (noDiacPos <= idx) {
+          before += origChar;
+        } else if (noDiacPos <= matchEnd) {
+          match += origChar;
+        } else {
+          after += origChar;
+        }
+      }
+      origIdx++;
+    }
+    // Append remaining original text (trailing diacritics).
+    // If we haven't passed the match end yet, they belong to match.
+    while (origIdx < origText.length) {
+      if (noDiacPos <= matchEnd) {
+        match += origText[origIdx] ?? "";
+      } else {
+        after += origText[origIdx] ?? "";
+      }
+      origIdx++;
+    }
+
+    if (!match) return arText(arabicText);
+    return (
+      <>
+        {arText(before)}
+        <mark className="bg-accent-100 text-accent-800 rounded px-0.5 font-semibold">
+          {arText(match)}
+        </mark>
+        {arText(after)}
+      </>
+    );
+  };
 
   useEffect(() => {
     setBookmarked(isBookmarked(entry.id));
@@ -285,7 +355,7 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
                   )}
               </div>
               <p className="font-arabic text-2xl leading-loose text-ink-900" dir="rtl">
-                {arText(ex.arabicText)}
+                {renderHighlightedAyat(ex.arabicText, ex.wordForm)}
               </p>
               {ex.wordForm && (
                 <p className="mt-1 text-xs text-accent-600">

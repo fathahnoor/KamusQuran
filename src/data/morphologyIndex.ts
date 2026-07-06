@@ -118,30 +118,72 @@ export function searchWords(query: string, limit = 50): WordEntry[] {
       }
     }
   } else {
-    // 3. Indonesian meaning substring.
+    // 3. Indonesian meaning matching — word-level to avoid false positives.
+    // Split meaning into individual words and match against query words.
+    const queryWords = qLower.split(/\s+/).filter(Boolean);
     for (const w of HIGH_FREQ_WORDS) {
       const meaning = w.meaningId.toLowerCase();
+      // Exact full-meaning match.
       if (meaning === qLower) {
         results.add(w);
         ranked.push({ entry: w, score: 80 });
-      } else if (meaning.includes(qLower)) {
-        results.add(w);
-        ranked.push({ entry: w, score: 60 });
+        continue;
       }
-      for (const alt of w.meaningIdAlt ?? []) {
-        if (alt.toLowerCase().includes(qLower)) {
-          if (!results.has(w)) {
+      // Word-level match: query must match a whole word in the meaning.
+      const meaningWords = meaning.split(/[\s,;·()]+/).filter(Boolean);
+      let bestAltScore = 0;
+      for (const qw of queryWords) {
+        // Exact word match (highest score for word-level).
+        if (meaningWords.includes(qw)) {
+          if (!results.has(w) || bestAltScore < 70) {
             results.add(w);
-            ranked.push({ entry: w, score: 55 });
+            bestAltScore = Math.max(bestAltScore, 70);
+          }
+          continue;
+        }
+        // Word starts-with match (for inflected forms like "beriman" → "iman").
+        for (const mw of meaningWords) {
+          if (mw.startsWith(qw) && qw.length >= 4) {
+            if (bestAltScore < 55) {
+              results.add(w);
+              bestAltScore = Math.max(bestAltScore, 55);
+            }
+          } else if (qw.startsWith(mw) && mw.length >= 4) {
+            if (bestAltScore < 55) {
+              results.add(w);
+              bestAltScore = Math.max(bestAltScore, 55);
+            }
+          } else if (mw.includes(qw) && qw.length >= 4 && bestAltScore < 45) {
+            // Within-word substring fallback (e.g. "iman" in "beriman").
+            results.add(w);
+            bestAltScore = Math.max(bestAltScore, 45);
+          }
+        }
+      }
+      if (bestAltScore > 0) {
+        ranked.push({ entry: w, score: bestAltScore });
+      }
+      // Check alternative meanings.
+      for (const alt of w.meaningIdAlt ?? []) {
+        const altLower = alt.toLowerCase();
+        const altWords = altLower.split(/[\s,;·()]+/).filter(Boolean);
+        for (const qw of queryWords) {
+          if (altWords.includes(qw) || altLower === qLower) {
+            if (!results.has(w)) {
+              results.add(w);
+              ranked.push({ entry: w, score: 50 });
+            }
           }
         }
       }
     }
     // 4. Root / id text match.
     for (const w of HIGH_FREQ_WORDS) {
-      if (w.id.toLowerCase().includes(qLower) && !results.has(w)) {
-        results.add(w);
-        ranked.push({ entry: w, score: 40 });
+      if (w.id.toLowerCase() === qLower) {
+        if (!results.has(w)) {
+          results.add(w);
+          ranked.push({ entry: w, score: 45 });
+        }
       }
     }
   }

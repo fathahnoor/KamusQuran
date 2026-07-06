@@ -13,6 +13,23 @@ import type {
   ExampleAyat,
 } from "../types";
 import { audioUrl } from "../services/alQuranApi";
+import { SURAHS } from "./surahMeta";
+
+// Precompute cumulative ayah counts for fast surah:ayah → globalAyahNumber lookup.
+const AYAH_OFFSETS: number[] = (() => {
+  const offsets: number[] = [0];
+  let cumulative = 0;
+  for (const s of SURAHS) {
+    offsets.push(cumulative);
+    cumulative += s.numberOfAyahs;
+  }
+  return offsets;
+})();
+
+/** Compute the global ayah number (1..6236) from surah + ayah-within-surah. */
+export function toGlobalAyahNumber(surah: number, ayah: number): number {
+  return (AYAH_OFFSETS[surah] ?? 0) + ayah;
+}
 
 // ============================================================
 // Compact word format — minimizes per-word data size.
@@ -306,24 +323,28 @@ export function buildWordEntry(cw: CompactWord): WordEntry {
     }
   }
 
-  // Build occurrences
-  const occurrences: OccurrenceRef[] = (cw.occ ?? []).map(([surah, ayah, globalAyahNumber, token]) => ({
+  // Build occurrences — compute correct globalAyahNumber from surah+ayah.
+  // (Hardcoded values in batch data were unreliable; computing ensures correctness.)
+  const occurrences: OccurrenceRef[] = (cw.occ ?? []).map(([surah, ayah, _globalAyahNumber, token]) => ({
     surah,
     ayah,
-    globalAyahNumber,
+    globalAyahNumber: toGlobalAyahNumber(surah, ayah),
     token,
   }));
 
-  // Build example ayat with audio URLs
-  const examples: ExampleAyat[] = (cw.ex ?? []).map(([surah, ayah, globalAyahNumber, arabicText, translation, wordForm]) => ({
-    surah,
-    ayah,
-    globalAyahNumber,
-    arabicText,
-    translation,
-    wordForm,
-    audioUrl: audioUrl(globalAyahNumber),
-  }));
+  // Build example ayat with audio URLs — compute correct globalAyahNumber.
+  const examples: ExampleAyat[] = (cw.ex ?? []).map(([surah, ayah, _globalAyahNumber, arabicText, translation, wordForm]) => {
+    const correctGlobal = toGlobalAyahNumber(surah, ayah);
+    return {
+      surah,
+      ayah,
+      globalAyahNumber: correctGlobal,
+      arabicText,
+      translation,
+      wordForm,
+      audioUrl: audioUrl(correctGlobal),
+    };
+  });
 
   return {
     id: cw.id,

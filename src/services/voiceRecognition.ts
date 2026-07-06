@@ -158,6 +158,13 @@ export function useVoiceRecognition(onFinalResult: (transcript: string) => void)
     setListening(false);
   }, []);
 
+  // Auto-clear error after 5 seconds so it doesn't persist indefinitely.
+  useEffect(() => {
+    if (!error) return;
+    const timer = setTimeout(() => setError(null), 5000);
+    return () => clearTimeout(timer);
+  }, [error]);
+
   const reset = useCallback(() => {
     setError(null);
     setInterimTranscript("");
