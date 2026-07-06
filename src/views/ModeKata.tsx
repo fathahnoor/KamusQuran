@@ -1,6 +1,6 @@
 import { useState, useCallback, useMemo } from "react";
 import type { WordEntry } from "../types";
-import { searchWords, wordCount } from "../data/morphologyIndex";
+import { searchWords, wordCount, getWordsByFrequency } from "../data/morphologyIndex";
 import { useVoiceRecognition } from "../services/voiceRecognition";
 import { detectLanguage } from "../services/sentenceAnalysis";
 import { SearchBar } from "../components/SearchBar";
@@ -35,6 +35,9 @@ export function ModeKata() {
     return "Ketik kata Arab atau Indonesia...";
   }, [inputLang]);
 
+  const [showBrowse, setShowBrowse] = useState(false);
+  const browseWords = useMemo(() => getWordsByFrequency(), []);
+
   return (
     <div className="space-y-6">
       <div className="rounded-lg border border-ink-200 bg-white p-6 shadow-sm">
@@ -55,10 +58,49 @@ export function ModeKata() {
             inputLang={inputLang}
           />
         </div>
-        <p className="mt-2 text-xs text-ink-400">
-          Basis data: {wordCount()} kata frekuensi tinggi (target ~300 kata v1)
-        </p>
+        <div className="mt-3 flex items-center gap-3">
+          <p className="text-xs text-ink-400">
+            Basis data: {wordCount()} kata frekuensi tinggi (target ~300 kata v1)
+          </p>
+          <button
+            onClick={() => setShowBrowse((v) => !v)}
+            className="text-xs font-medium text-accent-600 hover:text-accent-700"
+          >
+            {showBrowse ? "Sembunyikan daftar" : "Jelajahi semua kata →"}
+          </button>
+        </div>
       </div>
+
+      {/* Word browsing by frequency */}
+      {showBrowse && !selected && (
+        <div className="rounded-lg border border-ink-200 bg-white p-4 shadow-sm">
+          <h3 className="mb-3 text-sm font-bold text-ink-700">
+            Kata Berdasarkan Frekuensi ({browseWords.length} kata)
+          </h3>
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {browseWords.map((entry) => (
+              <button
+                key={entry.id}
+                onClick={() => {
+                  setSelected(entry);
+                  setShowBrowse(false);
+                }}
+                className="flex items-center justify-between rounded-md border border-ink-200 px-3 py-2 text-left transition-colors hover:border-accent-500 hover:bg-accent-50/30"
+              >
+                <div className="flex items-center gap-2 overflow-hidden">
+                  <span className="font-arabic text-lg text-accent-700" dir="rtl">
+                    {entry.arabic}
+                  </span>
+                  <span className="truncate text-xs text-ink-500">{entry.meaningId}</span>
+                </div>
+                <span className="ml-2 shrink-0 text-xs font-bold text-ink-300">
+                  {entry.rank ?? entry.frequency}×
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Result list */}
       {submittedQuery && !selected && (

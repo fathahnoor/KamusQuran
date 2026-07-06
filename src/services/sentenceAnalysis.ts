@@ -1,29 +1,13 @@
 import type { SentenceAnalysis, SentenceToken, SentenceObservation, MorphoFeatures, PosMajor } from "../types";
 import { findByArabic, searchWords, HIGH_FREQ_WORDS } from "../data/morphologyIndex";
-
-// --- Tokenization -------------------------------------------
-
-/** Arabic punctuation and Quranic stop marks to split on. */
-const AR_SPLIT_RE = /[\s\u060C\u061B\u061F\u06D4\u064B-\u065F\u0670\u06D6-\u06ED]+/u;
+import { stripDiacritics, tokenizeArabic, isArabicText } from "../utils/arabic";
 
 /** Detect whether input text is Arabic or Indonesian. */
 export function detectLanguage(input: string): "ar" | "id" {
+  if (!isArabicText(input)) return "id";
   const arabicChars = (input.match(/[\u0600-\u06FF]/g) ?? []).length;
   const latinChars = (input.match(/[a-zA-Z]/g) ?? []).length;
   return arabicChars > latinChars ? "ar" : "id";
-}
-
-/** Tokenize an Arabic sentence into word tokens, stripping diacritics for matching. */
-export function tokenizeArabic(text: string): string[] {
-  return text
-    .split(AR_SPLIT_RE)
-    .map((t) => t.trim())
-    .filter((t) => t.length > 0);
-}
-
-/** Strip Arabic diacritics (tashkil) for normalized matching. */
-export function stripDiacritics(arabic: string): string {
-  return arabic.replace(/[\u064B-\u065F\u0670\u06D6-\u06ED]/g, "");
 }
 
 // --- Matching ------------------------------------------------
