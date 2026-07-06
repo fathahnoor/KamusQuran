@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-arabic: "Noto Naskh Arabic", "Amiri", serif;
+  --font-arabic-display: "Amiri", "Noto Naskh Arabic", serif;
+
+  /* Academic palette: warm parchment ink on paper */
+  --color-ink-50: #f7f5f0;
+  --color-ink-100: #ece8de;
+  --color-ink-200: #d9d2c2;
+  --color-ink-300: #b8ad96;
+  --color-ink-400: #938775;
+  --color-ink-500: #756a59;
+  --color-ink-600: #5f5648;
+  --color-ink-700: #4d463a;
+  --color-ink-800: #3f3a30;
+  --color-ink-900: #2b2820;
+  --color-ink-950: #1c1a14;
+
+  --color-accent-500: #2d5a3d;
+  --color-accent-600: #244832;
+  --color-accent-700: #1c3826;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--color-ink-50);
+  color: var(--color-ink-900);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-arabic {
+  font-family: var(--font-arabic);
+}
+
+.font-arabic-display {
+  font-family: var(--font-arabic-display);
+}
+
+/* Better Arabic rendering: enable ligatures & context-aware shaping */
+.font-arabic,
+.font-arabic-display {
+  font-feature-settings: "ccmp", "liga", "calt";
+  text-align: right;
+  direction: rtl;
+  unicode-bidi: bidi-override;
+}
+
+/* Scrollbar styling for academic feel */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-ink-100);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-ink-300);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-ink-400);
+}
