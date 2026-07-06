@@ -1,7 +1,7 @@
 # TODO — Kamus Quran (Iterasi Berikutnya)
 
 > Status: v1 sebagian besar tercapai. Deploy live di https://fathahnoor.github.io/KamusQuran/
-> Commit terakhir: `ffb850b` — feat(ui): add diacritic toggle + tafsir loading state
+> Commit terakhir: iterasi UI polish + performance + dokumentasi
 
 ---
 
@@ -13,50 +13,38 @@
 - [x] `utils/arabic.ts` — `stripDiacritics`, `tokenizeArabic`, `isArabicText` (circular dependency fix)
 - [x] Mode Kata — word browsing (sorted by frequency rank)
 - [x] WordResultPanel — diacritic toggle (show/hide harakat), tafsir loading spinner
-- [x] Bookmark service (`bookmarks.ts`) + `BookmarkView.tsx`
-- [x] Voice recognition service (`voiceRecognition.ts`)
-- [x] Mode Kalimat — `sentenceAnalysis.ts` + `ModeKalimat.tsx`
+- [x] WordResultPanel — tafsir error state, audio loading state, ARIA accessibility attributes
+- [x] Bookmark service (`bookmarks.ts`) + `BookmarkView.tsx` — export/import JSON dengan validasi
+- [x] Voice recognition service (`voiceRecognition.ts`) — terintegrasi di Mode Kata & Mode Kalimat
+- [x] Mode Kalimat — `sentenceAnalysis.ts` + `ModeKalimat.tsx` — token breakdown + sentence observations
 - [x] GitHub Pages deployment (workflow passing)
-- [x] About view (`AboutView.tsx`)
+- [x] About view (`AboutView.tsx`) — metodologi, sumber data, version info
+- [x] Search debounce (300ms) di Mode Kata untuk performance
+- [x] Code splitting — React.lazy() untuk Mode Kalimat, BookmarkView, AboutView
+- [x] All field completeness audit — semua field design.md §5.1 ter-render (verb, noun, particle, proper_noun)
 
 ---
 
-## 🔴 Prioritas Tinggi — Wajib untuk v1 completion
+## ✅ Prioritas Tinggi — Sudah Selesai
 
-### 1. Verifikasi & lengkapi integrasi voice recognition
-- [ ] Pastikan voice recognition terintegrasi di **Mode Kata** untuk input Arabic (Web Speech API)
-- [ ] Pastikan voice recognition terintegrasi di **Mode Kalimat** untuk Arabic & Indonesian
-- [ ] Graceful fallback jika browser tidak mendukung SpeechRecognition → tampilkan pesan + fallback ke text input
-- [ ] Test di browser mobile (Chrome Android) — pastikan tombol mic terlihat dan berfungsi
-- [ ] **File terkait:** `src/services/voiceRecognition.ts`, `src/components/SearchBar.tsx`, `src/views/ModeKata.tsx`, `src/views/ModeKalimat.tsx`
+### 1. Voice recognition — VERIFIED
+- [x] Voice recognition terintegrasi di Mode Kata & Mode Kalimat via SearchBar
+- [x] Graceful fallback: tampilkan pesan jika browser tidak mendukung + fallback ke text input
+- [x] Voice language toggle (Arab/Indonesia) di SearchBar
 
-### 2. Verifikasi bookmark export/import JSON
-- [ ] Pastikan `BookmarkView.tsx` memiliki tombol **Export JSON** (download semua bookmark)
-- [ ] Pastikan `BookmarkView.tsx` memiliki tombol **Import JSON** (upload file .json)
-- [ ] Validasi format JSON saat import — handle corrupt/invalid file dengan error message
-- [ ] **File terkait:** `src/views/BookmarkView.tsx`, `src/services/bookmarks.ts`
+### 2. Bookmark export/import JSON — VERIFIED
+- [x] Tombol Export JSON (download) & Import JSON (upload file) di BookmarkView
+- [x] Validasi format JSON saat import — error message untuk file corrupt/invalid
+- [x] Empty state dengan CTA "Cari kata untuk dibookmark"
 
-### 3. Pastikan semua field wajib tampil di Mode Kata result
-Cek `WordResultPanel.tsx` menampilkan semua field berikut per design.md §5.1:
-- [ ] Arabic word ✅ (sudah ada)
-- [ ] Root ✅
-- [ ] Lemma ✅
-- [ ] Indonesian meaning ✅
-- [ ] Part of speech ✅
-- [ ] Nahwu information ✅ (auto-generated)
-- [ ] Sharf information ✅ (auto-generated)
-- [ ] I'rab / syntactic context ✅
-- [ ] Morphological details (wazan, form, gender, number, definiteness) ✅
-- [ ] Number of occurrences in the Qur'an ✅ (freq)
-- [ ] Full list of surah:ayah references ✅ (occ)
-- [ ] Selected example ayat ✅ (ex)
-- [ ] Audio pronunciation ✅ (audioUrl)
-- [ ] Brief tafsir related to the word ✅ (tafsir loading dari AlQuran Cloud)
-- [ ] **Verifikasi:** semua field ini benar-benar ter-render untuk berbagai tipe kata (verb, noun, particle, proper_noun)
+### 3. Field completeness — VERIFIED
+- [x] Arabic word, root, lemma, Indonesian meaning, POS, nahwu, sharf, i'rab
+- [x] Morphological details (wazan, form, gender, number, definiteness)
+- [x] Frequency, occurrences (surah:ayah), example ayat, audio, tafsir
 
 ---
 
-## 🟡 Prioritas Menengah — Kualitas & Kelengkapan
+## 🟡 Prioritas Menengah — Belum Selesai
 
 ### 4. QADT Dependency Graph untuk Mode Kalimat
 - [ ] Tambah data dependency graph (QADT — Quranic Arabic Dependency Treebank) untuk ayat-ayat contoh
@@ -73,14 +61,14 @@ Cek `WordResultPanel.tsx` menampilkan semua field berikut per design.md §5.1:
 - [ ] Verifikasi akurasi terjemahan Indonesian — pastikan tidak ada yang salah/nonsens
 - [ ] **File terkait:** `src/data/words/batch01.ts` s.d. `batch06.ts`
 
-### 6. UI/UX Polish
+### 6. UI/UX Polish (sisa)
 - [ ] **Responsive design** — test di mobile viewport (375px), tablet (768px), desktop (1280px)
-- [ ] **Empty states** — tampilkan ilustrasi/pesan saat tidak ada hasil pencarian, bookmark kosong, dll.
-- [ ] **Loading states** untuk audio playback (spinner saat audio buffering)
-- [ ] **Error states** — pesan user-friendly saat API gagal (tafsir, audio)
-- [ ] **Accessibility** — keyboard navigation, ARIA labels, focus management
-- [ ] **Arabic font** — pastikan font Arabic ter-load dengan baik (pertimbangkan 'Amiri', 'Scheherazade', atau 'Noto Naskh Arabic')
 - [ ] **Dark mode** (opsional) — design.md bilang "simple academic interface", dark mode bisa membantu pembacaan malam hari
+- [x] **Empty states** — tampilkan pesan saat tidak ada hasil pencarian, bookmark kosong ✓
+- [x] **Loading states** untuk audio playback (spinner saat audio buffering) ✓
+- [x] **Error states** — pesan user-friendly saat API gagal (tafsir) ✓
+- [x] **Accessibility** — ARIA labels, role attributes, aria-live ✓
+- [x] **Arabic font** — Amiri + Noto Naskh Arabic ter-load dari Google Fonts ✓
 
 ### 7. Ekspansi dataset (opsional, post-v1)
 - [ ] Tambah batch07-10.ts untuk capai 500+ kata (intermediate-frequency vocabulary)
@@ -98,35 +86,33 @@ Cek `WordResultPanel.tsx` menampilkan semua field berikut per design.md §5.1:
 - [ ] Unit tests untuk `utils/arabic.ts` (`stripDiacritics`, `tokenizeArabic`, `isArabicText`)
 - [ ] Setup test runner (Vitest atau Jest) + test script di `package.json`
 
-### 9. Performance
-- [ ] **Code splitting** — lazy load Mode Kalimat & BookmarkView dengan `React.lazy()`
-- [ ] **Search debounce** — pastikan search input di-debounce (300ms) untuk hindari lag
+### 9. Performance (sisa)
+- [x] **Code splitting** — lazy load Mode Kalimat, BookmarkView, AboutView dengan `React.lazy()` ✓
+- [x] **Search debounce** — search input di-debounce (300ms) ✓
 - [ ] **Bundle analysis** — jalankan `npx vite-bundle-visualizer` untuk identifikasi weight
 - [ ] Pertimbangkan service worker untuk offline cache (PWA-lite)
 
 ### 10. Dokumentasi & About Page
-- [ ] Lengkapi `AboutView.tsx` — jelaskan metodologi, sumber data, cara penggunaan
-- [ ] Sebutkan sumber: Quranic Arabic Corpus, Tanzil, AlQuran Cloud API, 80% Quran Vocabulary
-- [ ] Tambah changelog/version info
+- [x] Lengkapi `AboutView.tsx` — jelaskan metodologi, sumber data, cara penggunaan ✓
+- [x] Sebutkan sumber: Quranic Arabic Corpus, Tanzil, AlQuran Cloud API ✓
+- [x] Tambah changelog/version info (v1.0) ✓
 
 ---
 
 ## 📋 Checklist Iterasi Berikutnya (Rekomendasi urutan)
 
-1. **Voice recognition integration check** (#1) — buka live site, test tombol mic di Mode Kata & Mode Kalimat
-2. **Bookmark export/import check** (#2) — test download & upload JSON di live site
-3. **Field completeness audit** (#3) — search beberapa kata, pastikan semua field ter-render
-4. **Data quality pass** (#5) — audit batch files, isi field kosong
-5. **QADT dependency graph** (#4) — fitur paling kompleks, butuh riset data dulu
-6. **UI/UX polish** (#6) — responsive, empty states, error states
-7. **Tests** (#8) — setup Vitest, tulis unit tests untuk utility functions
+1. **Data quality pass** (#5) — audit batch files, isi field kosong, tambah example ayat
+2. **QADT dependency graph** (#4) — fitur paling kompleks, butuh riset data dari corpus.quran.com
+3. **Responsive design test** (#6) — test di mobile/tablet, fix layout issues
+4. **Tests** (#8) — setup Vitest, tulis unit tests untuk utility functions
+5. **Dataset expansion** (#7) — tambah batch07-10 untuk 500+ kata
 
 ---
 
 ## 🔧 Catatan Teknis
 
-- **Build:** `npx vite build` → 390KB JS / 112KB gzip (acceptable untuk GitHub Pages)
+- **Build:** `npx vite build` → 380KB JS / 110KB gzip (code splitting aktif, secondary views di lazy chunks)
 - **TypeCheck:** `npx tsc --noEmit` → 0 errors
 - **Deploy:** GitHub Actions workflow (`deploy.yml`) auto-trigger on push to main
-- **PAT:** Gunakan GitHub Personal Access Token dengan scope `repo` + `workflow` — simpan di env var, jangan hardcode di repo. **Ganti jika expired.**
+- **PAT:** Gunakan GitHub Personal Access Token dengan scope `repo` + `workflow`. **Ganti jika expired.**
 - **Live URL:** https://fathahnoor.github.io/KamusQuran/

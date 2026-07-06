@@ -15,6 +15,8 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [tafsirText, setTafsirText] = useState<string | null>(null);
   const [tafsirLoading, setTafsirLoading] = useState(false);
+  const [tafsirError, setTafsirError] = useState(false);
+  const [audioLoading, setAudioLoading] = useState<number | null>(null);
   const [showDiacritics, setShowDiacritics] = useState(true);
   const [examplesEnriched, setExamplesEnriched] = useState<ExampleAyat[]>(entry.examples);
 
@@ -26,18 +28,24 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
     setExamplesEnriched(entry.examples);
     setTafsirText(null);
     setTafsirLoading(false);
+    setTafsirError(false);
   }, [entry.id, entry.examples]);
 
   // Lazily fetch Indonesian translation + tafsir + audio URL for example ayat.
   useEffect(() => {
     let cancelled = false;
     setTafsirLoading(true);
+    setTafsirError(false);
     async function enrich() {
+      let anySuccess = false;
+      let apiAttempts = 0;
       for (const ex of entry.examples) {
         if (ex.audioUrl || ex.translation) continue;
+        apiAttempts++;
         try {
           const { translation, tafsir } = await getAyahBilingual(ex.globalAyahNumber);
           if (cancelled) return;
+          anySuccess = true;
           setExamplesEnriched((prev) =>
             prev.map((e) =>
               e.globalAyahNumber === ex.globalAyahNumber
@@ -56,7 +64,11 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
           // Network failure — fall back to bundled data.
         }
       }
-      if (!cancelled) setTafsirLoading(false);
+      if (!cancelled) {
+        setTafsirLoading(false);
+        // Only show error if API was actually called and all attempts failed.
+        if (apiAttempts > 0 && !anySuccess) setTafsirError(true);
+      }
     }
     enrich();
     return () => {
@@ -82,19 +94,26 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
       audioRef.current = null;
     }
     setActiveAudio(globalAyahNumber);
+    setAudioLoading(globalAyahNumber);
     const url = audioUrl(globalAyahNumber);
     const audio = new Audio(url);
     audioRef.current = audio;
     audio.onended = () => {
       setActiveAudio(null);
+      setAudioLoading(null);
       audioRef.current = null;
     };
     audio.onerror = () => {
       setActiveAudio(null);
+      setAudioLoading(null);
       audioRef.current = null;
+    };
+    audio.oncanplay = () => {
+      setAudioLoading(null);
     };
     void audio.play().catch(() => {
       setActiveAudio(null);
+      setAudioLoading(null);
       audioRef.current = null;
     });
   };
@@ -200,9 +219,16 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
 
       {/* Tafsir */}
       {tafsirLoading && (
-        <div className="flex items-center gap-2 rounded-lg border border-ink-200 bg-white p-4 shadow-sm">
+        <div className="flex items-center gap-2 rounded-lg border border-ink-200 bg-white p-4 shadow-sm" role="status" aria-live="polite">
           <div className="h-4 w-4 animate-spin rounded-full border-2 border-ink-300 border-t-accent-600" />
           <span className="text-sm text-ink-500">Memuat tafsir Jalalayn...</span>
+        </div>
+      )}
+      {tafsirError && !tafsirText && (
+        <div className="rounded-lg border border-ink-200 bg-ink-50 p-4" role="alert">
+          <p className="text-sm text-ink-500">
+            Tafsir tidak dapat dimuat (kemungkinan masalah jaringan). Data morfologi masih tersedia dari basis data lokal.
+          </p>
         </div>
       )}
       {tafsirText && (
@@ -238,14 +264,25 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
                 <span className="text-xs font-semibold text-ink-500">
                   {formatSurahAyah(ex.surah, ex.ayah)}
                 </span>
-                {ex.audioUrl && (
-                  <button
-                    onClick={() => playAudio(ex.globalAyahNumber)}
-                    className="flex items-center gap-1 rounded-md bg-accent-50 px-2 py-1 text-xs font-medium text-accent-700 hover:bg-accent-100"
-                  >
-                    {activeAudio === ex.globalAyahNumber ? "⏸" : "▶"} Putar Audio
-                  </button>
-                )}
+                  {ex.audioUrl && (
+                    <button
+                      onClick={() => playAudio(ex.globalAyahNumber)}
+                      disabled={audioLoading === ex.globalAyahNumber}
+                      className="flex items-center gap-1 rounded-md bg-accent-50 px-2 py-1 text-xs font-medium text-accent-700 hover:bg-accent-100 disabled:opacity-50"
+                      aria-label={`Putar audio ${formatSurahAyah(ex.surah, ex.ayah)}`}
+                    >
+                      {audioLoading === ex.globalAyahNumber ? (
+                        <span className="flex items-center gap-1">
+                          <span className="h-3 w-3 animate-spin rounded-full border border-accent-400 border-t-accent-700" />
+                          Memuat...
+                        </span>
+                      ) : activeAudio === ex.globalAyahNumber ? (
+                        "⏸ Berhenti"
+                      ) : (
+                        "▶ Putar Audio"
+                      )}
+                    </button>
+                  )}
               </div>
               <p className="font-arabic text-2xl leading-loose text-ink-900" dir="rtl">
                 {arText(ex.arabicText)}

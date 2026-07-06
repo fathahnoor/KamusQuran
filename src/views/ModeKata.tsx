@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, useEffect } from "react";
 import type { WordEntry } from "../types";
 import { searchWords, wordCount, getWordsByFrequency } from "../data/morphologyIndex";
 import { useVoiceRecognition } from "../services/voiceRecognition";
@@ -20,15 +20,33 @@ export function ModeKata() {
 
   const voice = useVoiceRecognition(handleVoiceResult);
 
-  const results = useMemo(() => {
-    if (!submittedQuery) return [];
-    return searchWords(submittedQuery, 50);
-  }, [submittedQuery]);
+  // Debounced live search — avoids lag on every keystroke.
+  const [debouncedQuery, setDebouncedQuery] = useState("");
+  useEffect(() => {
+    const t = setTimeout(() => setDebouncedQuery(query), 300);
+    return () => clearTimeout(t);
+  }, [query]);
+
+  // submittedQuery is used only to trigger immediate search on Enter/Cari.
+  // It's cleared on the next keystroke so debouncedQuery takes over for live search.
+  useEffect(() => {
+    if (submittedQuery && query !== submittedQuery) {
+      setSubmittedQuery("");
+    }
+  }, [query, submittedQuery]);
 
   const handleSubmit = useCallback(() => {
     setSubmittedQuery(query);
     setSelected(null);
+    // Bypass debounce by setting debouncedQuery immediately on submit.
+    setDebouncedQuery(query);
   }, [query]);
+
+  const activeQuery = submittedQuery || debouncedQuery;
+  const results = useMemo(() => {
+    if (!activeQuery.trim()) return [];
+    return searchWords(activeQuery, 50);
+  }, [activeQuery]);
 
   const placeholder = useMemo(() => {
     if (inputLang === "ar") return "اكتب كلمة عربية...";
@@ -103,11 +121,11 @@ export function ModeKata() {
       )}
 
       {/* Result list */}
-      {submittedQuery && !selected && (
+      {activeQuery && !selected && (
         <div className="space-y-2">
           {results.length === 0 ? (
             <div className="rounded-lg border border-ink-200 bg-white p-6 text-center text-ink-500">
-              <p>Tidak ada hasil untuk &quot;{submittedQuery}&quot;.</p>
+              <p>Tidak ada hasil untuk &quot;{activeQuery}&quot;.</p>
               <p className="mt-1 text-sm">
                 Coba kata Arab tanpa harakat, atau kata kunci Indonesia yang lebih umum.
               </p>
@@ -159,7 +177,7 @@ export function ModeKata() {
       )}
 
       {/* Initial state hint */}
-      {!submittedQuery && (
+      {!activeQuery && (
         <div className="rounded-lg border border-dashed border-ink-300 bg-white/50 p-8 text-center">
           <p className="text-ink-500">
             Mulai dengan mengetik kata Arab atau Indonesia, atau gunakan input suara.

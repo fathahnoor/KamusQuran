@@ -1,10 +1,21 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, Suspense, lazy } from "react";
 import type { AppView } from "./types";
 import { Header } from "./components/Header";
 import { ModeKata } from "./views/ModeKata";
-import { ModeKalimat } from "./views/ModeKalimat";
-import { BookmarkView } from "./views/BookmarkView";
-import { AboutView } from "./views/AboutView";
+
+// Lazy-load secondary views to reduce initial bundle.
+const ModeKalimat = lazy(() => import("./views/ModeKalimat").then((m) => ({ default: m.ModeKalimat })));
+const BookmarkView = lazy(() => import("./views/BookmarkView").then((m) => ({ default: m.BookmarkView })));
+const AboutView = lazy(() => import("./views/AboutView").then((m) => ({ default: m.AboutView })));
+
+/** Loading fallback for lazy-loaded views. */
+function ViewFallback() {
+  return (
+    <div className="flex items-center justify-center py-20">
+      <div className="h-6 w-6 animate-spin rounded-full border-2 border-ink-300 border-t-accent-600" />
+    </div>
+  );
+}
 
 export default function App() {
   const [view, setView] = useState<AppView>("kata");
@@ -20,9 +31,21 @@ export default function App() {
       <Header current={view} onNavigate={navigate} />
       <main className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
         {view === "kata" && <ModeKata />}
-        {view === "kalimat" && <ModeKalimat />}
-        {view === "bookmark" && <BookmarkView onNavigateToKata={() => navigate("kata")} />}
-        {view === "about" && <AboutView />}
+        {view === "kalimat" && (
+          <Suspense fallback={<ViewFallback />}>
+            <ModeKalimat />
+          </Suspense>
+        )}
+        {view === "bookmark" && (
+          <Suspense fallback={<ViewFallback />}>
+            <BookmarkView onNavigateToKata={() => navigate("kata")} />
+          </Suspense>
+        )}
+        {view === "about" && (
+          <Suspense fallback={<ViewFallback />}>
+            <AboutView />
+          </Suspense>
+        )}
       </main>
       <footer className="border-t border-ink-200 bg-ink-100/60 py-6 text-center text-sm text-ink-500">
         <p>
