@@ -3,6 +3,7 @@ import type { WordEntry, ExampleAyat } from "../types";
 import { formatSurahAyah } from "../data/surahMeta";
 import { audioUrl, getAyahBilingual } from "../services/alQuranApi";
 import { isBookmarked, toggleBookmark } from "../services/bookmarks";
+import { stripDiacritics } from "../utils/arabic";
 
 interface WordResultPanelProps {
   entry: WordEntry;
@@ -13,17 +14,24 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
   const [activeAudio, setActiveAudio] = useState<number | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [tafsirText, setTafsirText] = useState<string | null>(null);
+  const [tafsirLoading, setTafsirLoading] = useState(false);
+  const [showDiacritics, setShowDiacritics] = useState(true);
   const [examplesEnriched, setExamplesEnriched] = useState<ExampleAyat[]>(entry.examples);
+
+  // Helper to optionally strip diacritics from Arabic text.
+  const arText = (text: string) => (showDiacritics ? text : stripDiacritics(text));
 
   useEffect(() => {
     setBookmarked(isBookmarked(entry.id));
     setExamplesEnriched(entry.examples);
     setTafsirText(null);
+    setTafsirLoading(false);
   }, [entry.id, entry.examples]);
 
   // Lazily fetch Indonesian translation + tafsir + audio URL for example ayat.
   useEffect(() => {
     let cancelled = false;
+    setTafsirLoading(true);
     async function enrich() {
       for (const ex of entry.examples) {
         if (ex.audioUrl || ex.translation) continue;
@@ -48,6 +56,7 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
           // Network failure — fall back to bundled data.
         }
       }
+      if (!cancelled) setTafsirLoading(false);
     }
     enrich();
     return () => {
@@ -94,11 +103,21 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
 
   return (
     <div className="space-y-6">
+      {/* Diacritic toggle */}
+      <div className="flex justify-end">
+        <button
+          onClick={() => setShowDiacritics((v) => !v)}
+          className="rounded-md border border-ink-300 px-2.5 py-1 text-xs font-medium text-ink-500 transition-colors hover:bg-ink-100"
+        >
+          {showDiacritics ? "Sembunyikan Harakat" : "Tampilkan Harakat"}
+        </button>
+      </div>
+
       {/* Header row: Arabic word + bookmark */}
       <div className="flex items-start justify-between gap-4 rounded-lg border border-ink-200 bg-white p-6 shadow-sm">
         <div className="flex-1">
           <div className="font-arabic-display text-5xl font-bold leading-tight text-accent-700" dir="rtl">
-            {entry.arabic}
+            {arText(entry.arabic)}
           </div>
           <div className="mt-2 text-lg font-semibold text-ink-800">{entry.meaningId}</div>
           {entry.meaningIdAlt && entry.meaningIdAlt.length > 0 && (
@@ -128,10 +147,10 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
 
       {/* Linguistic fields grid */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <FieldCard label="Akar (Root)" value={entry.root} arabic />
-        <FieldCard label="Lemma" value={entry.lemma} arabic />
+        <FieldCard label="Akar (Root)" value={arText(entry.root)} arabic />
+        <FieldCard label="Lemma" value={arText(entry.lemma)} arabic />
         <FieldCard label="Kelas Kata (POS)" value={posLabel(m.posMajor)} />
-        {m.wazan && <FieldCard label="Wazan / Pola" value={m.wazan} arabic />}
+        {m.wazan && <FieldCard label="Wazan / Pola" value={m.wazan} />}
         {m.derivedForm && m.derivedForm !== "unknown" && (
           <FieldCard label="Bentuk Turunan" value={derivedFormLabel(m.derivedForm)} />
         )}
@@ -180,6 +199,12 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
       )}
 
       {/* Tafsir */}
+      {tafsirLoading && (
+        <div className="flex items-center gap-2 rounded-lg border border-ink-200 bg-white p-4 shadow-sm">
+          <div className="h-4 w-4 animate-spin rounded-full border-2 border-ink-300 border-t-accent-600" />
+          <span className="text-sm text-ink-500">Memuat tafsir Jalalayn...</span>
+        </div>
+      )}
       {tafsirText && (
         <div className="rounded-lg border border-ink-200 bg-white p-4 shadow-sm">
           <h4 className="mb-1 text-sm font-bold text-ink-700">تفسير — Tafsir (Jalalayn)</h4>
@@ -223,11 +248,11 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
                 )}
               </div>
               <p className="font-arabic text-2xl leading-loose text-ink-900" dir="rtl">
-                {ex.arabicText}
+                {arText(ex.arabicText)}
               </p>
               {ex.wordForm && (
                 <p className="mt-1 text-xs text-accent-600">
-                  Kata muncul sebagai: <span className="font-arabic text-sm">{ex.wordForm}</span>
+                  Kata muncul sebagai: <span className="font-arabic text-sm">{arText(ex.wordForm)}</span>
                 </p>
               )}
               <p className="mt-2 text-sm leading-relaxed text-ink-600">{ex.translation}</p>
