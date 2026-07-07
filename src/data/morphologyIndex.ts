@@ -142,7 +142,15 @@ const byId = new Map<string, WordEntry>();
 
 for (const w of HIGH_FREQ_WORDS) {
   byArabic.set(w.arabic, w);
-  byArabicNoDiacritics.set(stripDiacritics(w.arabic), w);
+  // Keep the entry with the best (lowest) rank per stripped key,
+  // NOT last-wins. This ensures homograf seperti قُلْ (rank 51)
+  // dan قَلَّ (rank 614) tetap mendapat entry yang benar saat
+  // dicari tanpa harakat.
+  const strippedKey = stripDiacritics(w.arabic);
+  const existing = byArabicNoDiacritics.get(strippedKey);
+  if (!existing || (w.rank ?? w.frequency) < (existing.rank ?? existing.frequency)) {
+    byArabicNoDiacritics.set(strippedKey, w);
+  }
   byId.set(w.id, w);
   const rootList = byRoot.get(w.root) ?? [];
   rootList.push(w);
