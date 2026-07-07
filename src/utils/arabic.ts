@@ -8,6 +8,14 @@ export function stripDiacritics(arabic: string): string {
   return arabic.replace(/[\u064B-\u065F\u0670\u06D6-\u06ED]/g, "");
 }
 
+/**
+ * Normalize Arabic alef variants (أ, إ, آ) to bare alef (ا)
+ * so that voice input tanpa hamza tetap bisa match entry Quranic.
+ */
+export function normalizeAlef(arabic: string): string {
+  return arabic.replace(/[\u0623\u0625\u0622]/g, "\u0627");
+}
+
 /** Check if a string contains Arabic characters. */
 export function isArabicText(text: string): boolean {
   return /[\u0600-\u06FF]/.test(text);

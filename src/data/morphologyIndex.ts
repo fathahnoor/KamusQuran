@@ -22,7 +22,7 @@ import { BATCH_19 } from "./words/batch19";
 import { BATCH_20 } from "./words/batch20";
 import { BATCH_21 } from "./words/batch21";
 import { BATCH_22 } from "./words/batch22";
-import { stripDiacritics } from "../utils/arabic";
+import { stripDiacritics, normalizeAlef } from "../utils/arabic";
 
 // Aggregate all batches and build full WordEntry objects.
 const ALL_COMPACT: CompactWord[] = [
@@ -203,19 +203,17 @@ export function searchWords(query: string, limit = 50): WordEntry[] {
   // 2. Arabic substring (lemma or root contains query).
   const isArabic = /[\u0600-\u06FF]/.test(q);
   if (isArabic) {
-    const qNoDiac = stripDiacritics(q);
+    const qNoDiac = normalizeAlef(stripDiacritics(q));
     for (const w of HIGH_FREQ_WORDS) {
-      if (w.arabic.includes(q) || w.lemma.includes(q) || w.root.includes(q)) {
+      // Arabic substring — normalisasi alef + strip diacritics agar
+      // input tanpa hamza (mis. "احد") tetap match Quranic "أَحَد",
+      // dan tidak kalah oleh entry daily dgn root yg cocok (ahad2).
+      const wNorm = normalizeAlef(stripDiacritics(w.arabic));
+      const wLemmaNorm = normalizeAlef(stripDiacritics(w.lemma));
+      const wRootNorm = normalizeAlef(w.root);
+      if (wNorm.includes(qNoDiac) || wLemmaNorm.includes(qNoDiac) || wRootNorm.includes(qNoDiac)) {
         results.add(w);
         ranked.push({ entry: w, score: w.arabic === q ? 90 : 70 });
-      } else {
-        // Also try matching without diacritics.
-        const wNoDiac = stripDiacritics(w.arabic);
-        const wLemmaNoDiac = stripDiacritics(w.lemma);
-        if (wNoDiac.includes(qNoDiac) || wLemmaNoDiac.includes(qNoDiac)) {
-          results.add(w);
-          ranked.push({ entry: w, score: 65 });
-        }
       }
     }
   } else {
