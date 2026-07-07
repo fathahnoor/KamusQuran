@@ -23,9 +23,10 @@ export function AboutView() {
 
       <Section title="Tujuan" icon="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5">
         <p>
-          Membantu pengguna menguasai ~80–90% kosakatab frekuensi tinggi Al-Qur&apos;an
-          (600 kata: 500 kata berfrekuensi tinggi dari Quranic Arabic Corpus + 100 kata Arab sehari-hari) serta memahami struktur
-          nahwu dan sharf melalui pencarian dan analisis praktis.
+          Membantu pengguna menguasai ~80–90% kosakata berfrekuensi tinggi Al-Qur&apos;an
+          (500 kata inti dari Quranic Arabic Corpus) dan memperluas penguasaan bahasa Arab
+          dengan 502 kata sehari-hari, total 1002 kata. Selain itu, memahami struktur
+          nahwu dan sharf melalui pencarian dan analisis morfologi praktis.
         </p>
       </Section>
 
@@ -93,7 +94,7 @@ export function AboutView() {
         </p>
       </Section>
 
-      <Section title="Keterbatasan v1" icon="M12 9v2m0 4h.01M5.07 19h13.86c1.54 0 2.5-1.67 1.73-3L13.73 4a2 2 0 0 0-3.46 0L3.34 16c-.77 1.33.19 3 1.73 3z">
+      <Section title="Keterbatasan" icon="M12 9v2m0 4h.01M5.07 19h13.86c1.54 0 2.5-1.67 1.73-3L13.73 4a2 2 0 0 0-3.46 0L3.34 16c-.77 1.33.19 3 1.73 3z">
         <ul className="list-inside list-disc space-y-1.5 text-sm text-ink-700">
           <li>
             Database kata berisi 1002 kata: 500 kata berfrekuensi tinggi dari Al-Qur'an
@@ -113,9 +114,10 @@ export function AboutView() {
 
       <Section title="Versi" icon="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6">
         <p>
-          <strong>v1.2</strong>: 1002 kata (500 Quran + 502 sehari-hari), Mode Kata dengan
+          <strong>v2.0</strong>: 1002 kata (500 Quran + 502 sehari-hari), Mode Kata dengan
           browsing &amp; diacritic toggle, Mode Kalimat dengan analisis per kata,
-          bookmark dengan export/import JSON, TTS pengucapan, dan integrasi audio/tafsir AlQuran Cloud.
+          bookmark dengan export/import JSON, TTS pengucapan, integrasi audio/tafsir AlQuran Cloud,
+          dan redesain UI/UX dengan tema modern.
         </p>
       </Section>
 
