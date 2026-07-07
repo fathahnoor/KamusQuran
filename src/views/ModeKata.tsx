@@ -1,7 +1,12 @@
 import { useState, useCallback, useMemo, useEffect } from "react";
 import type { WordEntry } from "../types";
-import { searchWords, wordCount, getWordsByFrequency } from "../data/morphologyIndex";
-import { stripDiacritics } from "../utils/arabic";
+import {
+  searchWords,
+  wordCount,
+  WORDS_BY_FREQ,
+  WORDS_BY_INDO,
+  WORDS_BY_ARABIC,
+} from "../data/morphologyIndex";
 import { useVoiceRecognition } from "../services/voiceRecognition";
 import { detectLanguage } from "../services/sentenceAnalysis";
 import { SearchBar } from "../components/SearchBar";
@@ -57,43 +62,14 @@ export function ModeKata() {
   const [showBrowse, setShowBrowse] = useState(false);
   const [sortBy, setSortBy] = useState<"freq" | "indo" | "arabic">("freq");
 
-  // Frozen base word list — created ONCE, never mutated.
-  // This is the single source of truth that all sorts derive from.
-  const baseWords = useMemo(() => [...getWordsByFrequency()], []);
-
-  // Deterministic sort — does NOT rely on localeCompare (inconsistent on mobile).
-  // Every comparator has a final `id` tiebreaker, producing a TOTAL ORDER:
-  // no two items ever compare equal, so sort output is identical regardless
-  // of browser sort stability or how many times the user clicks.
-  const browseWords = useMemo(() => {
-    const copy = [...baseWords]; // fresh shallow copy from frozen base
-    if (sortBy === "freq") {
-      copy.sort((a, b) => {
-        const d = b.frequency - a.frequency;
-        if (d !== 0) return d;
-        const r = (a.rank ?? 0) - (b.rank ?? 0);
-        if (r !== 0) return r;
-        // Total-order tiebreaker: id is unique, so this never returns 0
-        // for two different items.
-        return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
-      });
-    } else if (sortBy === "indo") {
-      copy.sort((a, b) => {
-        const ai = a.meaningId.toLowerCase();
-        const bi = b.meaningId.toLowerCase();
-        if (ai !== bi) return ai < bi ? -1 : 1;
-        return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
-      });
-    } else {
-      copy.sort((a, b) => {
-        const aa = stripDiacritics(a.arabic);
-        const bb = stripDiacritics(b.arabic);
-        if (aa !== bb) return aa < bb ? -1 : 1;
-        return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
-      });
-    }
-    return copy;
-  }, [sortBy, baseWords]);
+  // Pre-sorted arrays are computed ONCE at module load in morphologyIndex.ts.
+  // No runtime .sort() ever happens here — the component just picks which
+  // frozen array to render. This eliminates all possibility of ordering
+  // degradation regardless of browser sort stability or click count.
+  const browseWords =
+    sortBy === "freq" ? WORDS_BY_FREQ
+    : sortBy === "indo" ? WORDS_BY_INDO
+    : WORDS_BY_ARABIC;
 
   return (
     <div className="space-y-6">

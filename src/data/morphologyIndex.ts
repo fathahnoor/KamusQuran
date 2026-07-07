@@ -49,6 +49,47 @@ export const HIGH_FREQ_WORDS: WordEntry[] = (() => {
   return [...seen.values()].sort((a, b) => (a.rank ?? a.frequency) - (b.rank ?? b.frequency));
 })();
 
+// --- Pre-sorted indices (computed ONCE at module load) ---
+// These eliminate ALL runtime sorting. The browser just swaps which
+// frozen array to render — no .sort() call ever happens in the React
+// component, so there is no possibility of ordering degradation.
+
+/** Total-order id comparator — guarantees no two items compare equal. */
+function idCmp(a: WordEntry, b: WordEntry): number {
+  return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
+}
+
+/** Words sorted by frequency descending, then rank, then id (total order). */
+export const WORDS_BY_FREQ: readonly WordEntry[] = Object.freeze(
+  [...HIGH_FREQ_WORDS].sort((a, b) => {
+    const d = b.frequency - a.frequency;
+    if (d !== 0) return d;
+    const r = (a.rank ?? 0) - (b.rank ?? 0);
+    if (r !== 0) return r;
+    return idCmp(a, b);
+  })
+);
+
+/** Words sorted by Indonesian meaning (case-insensitive), then id. */
+export const WORDS_BY_INDO: readonly WordEntry[] = Object.freeze(
+  [...HIGH_FREQ_WORDS].sort((a, b) => {
+    const ai = a.meaningId.toLowerCase();
+    const bi = b.meaningId.toLowerCase();
+    if (ai !== bi) return ai < bi ? -1 : 1;
+    return idCmp(a, b);
+  })
+);
+
+/** Words sorted by Arabic (diacritics stripped), then id. */
+export const WORDS_BY_ARABIC: readonly WordEntry[] = Object.freeze(
+  [...HIGH_FREQ_WORDS].sort((a, b) => {
+    const aa = stripDiacritics(a.arabic);
+    const bb = stripDiacritics(b.arabic);
+    if (aa !== bb) return aa < bb ? -1 : 1;
+    return idCmp(a, b);
+  })
+);
+
 // --- Search indices (built once at module load) ---
 
 const byArabic = new Map<string, WordEntry>();
@@ -87,11 +128,10 @@ export function wordCount(): number {
 
 /**
  * Get words sorted by frequency rank (or frequency count as fallback).
- * Used for browsing the word list.
+ * Returns a mutable copy so callers can't accidentally mutate the frozen array.
  */
 export function getWordsByFrequency(limit?: number): WordEntry[] {
-  // HIGH_FREQ_WORDS is already sorted by rank in the IIFE above.
-  return limit ? HIGH_FREQ_WORDS.slice(0, limit) : HIGH_FREQ_WORDS;
+  return limit ? WORDS_BY_FREQ.slice(0, limit) : [...WORDS_BY_FREQ];
 }
 
 /**
