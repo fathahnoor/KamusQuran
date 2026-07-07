@@ -5,6 +5,7 @@ import { formatSurahAyah } from "../data/surahMeta";
 import { audioUrl, getAyahBilingual } from "../services/alQuranApi";
 import { isBookmarked, toggleBookmark } from "../services/bookmarks";
 import { stripDiacritics } from "../utils/arabic";
+import { IrobTable } from "./IrobTable";
 
 interface WordResultPanelProps {
   entry: WordEntry;
@@ -337,6 +338,13 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
             <span>Keterangan I&apos;rab</span>
           </h4>
           <p className="text-sm leading-relaxed text-ink-700">{m.irabNote}</p>
+        </div>
+      )}
+
+      {/* v3.0: Structured I'rab table (Al-Munir methodology) */}
+      {m.structuredIrab && (
+        <div className="rounded-2xl border border-emerald-200/60 bg-white/90 p-4 shadow-sm sm:p-5">
+          <IrobTable irab={m.structuredIrab} />
         </div>
       )}
 
