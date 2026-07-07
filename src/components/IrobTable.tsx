@@ -13,7 +13,7 @@ interface IrabRow {
 }
 
 /**
- * IrobTable — structured i'rab table following Al-Munir methodology.
+ * IrobTable — structured i'rab table.
  *
  * Columns: Kata → Jenis → Kedudukan → I'rob → Tanda → 'Amil
  *
@@ -69,11 +69,7 @@ export function IrobTable({ irab }: IrobTableProps) {
       <div className="flex items-center gap-2.5">
         <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-accent-500 to-accent-600 text-xs font-bold text-white shadow-sm shadow-accent-200">
           إ
-        </div>
-        <h4 className="text-sm font-bold text-ink-700">
-          Tabel I&apos;rob{" "}
-          <span className="font-normal text-ink-400">(Metode Al-Munir)</span>
-        </h4>
+        </div>          <h4 className="text-sm font-bold text-ink-700">Tabel I&apos;rob</h4>
       </div>
 
       {/* Desktop table */}

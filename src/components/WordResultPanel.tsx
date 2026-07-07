@@ -341,7 +341,7 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
         </div>
       )}
 
-      {/* v3.0: Structured I'rab table (Al-Munir methodology) */}
+      {/* v3.0: Structured I'rab table */}
       {m.structuredIrab && (
         <div className="rounded-2xl border border-emerald-200/60 bg-white/90 p-4 shadow-sm sm:p-5">
           <IrobTable irab={m.structuredIrab} />

@@ -318,7 +318,7 @@ export function buildWordEntry(cw: CompactWord): WordEntry {
     syntacticRoleLabel: cw.role ? ROLE_LABELS[cw.role] : undefined,
   };
 
-  // v3.0: Generate structured i'rab (Al-Munir tabular format).
+  // v3.0: Generate structured i'rab (tabular format).
   morpho.structuredIrab = generateStructuredIrab({
     arabic: cw.ar,
     pos: cw.pos,

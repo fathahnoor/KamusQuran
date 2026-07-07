@@ -317,7 +317,7 @@ describe("buildPenjelasan — Inductive Conclusion", () => {
   });
 });
 
-// --- Integration: Full Al-Munir 6-column output -------------
+// --- Integration: Full 6-column output -------------
 
 describe("Full StructuredIrab Output", () => {
   it("should produce all 7 fields", () => {

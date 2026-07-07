@@ -168,12 +168,12 @@ export type DependencyEdge =
 
 // --- Composite morphological features -----------------------
 
-// --- Structured I'rab (v3.0: Al-Munir + Nahwu al-Wadhih methodology) ---
+// --- Structured I'rab (v3.0) ---
 
 /**
- * Structured i'rab analysis following Al-Munir's tabular format:
+ * Structured i'rab analysis in tabular format:
  *   Kata → Jenis → Kedudukan → I'rob → Tanda → 'Amil/Sebab
- * Combined with Nahwu al-Wadhih's inductive conclusion.
+ * Combined with inductive conclusion.
  */
 export interface StructuredIrab {
   /** Arabic word with diacritics. */
@@ -218,7 +218,7 @@ export interface MorphoFeatures {
   syntacticRole?: SyntacticRole;
   /** Syntactic role label in Indonesian for display. */
   syntacticRoleLabel?: string;
-  /** v3.0: Structured i'rab analysis (Al-Munir tabular format). */
+  /** v3.0: Structured i'rab analysis (tabular format). */
   structuredIrab?: StructuredIrab;
   /** Dependency relation if part of a QADT-annotated ayah. */
   dependency?: DependencyRelation;
@@ -322,7 +322,7 @@ export interface SentenceToken {
   meaningId?: string;
   posMajor?: PosMajor;
   morpho?: MorphoFeatures;
-  /** v3.0: Structured i'rab analysis for this token (Al-Munir tabular format). */
+  /** v3.0: Structured i'rab analysis for this token (tabular format). */
   structuredIrab?: StructuredIrab;
   /** Nahwu context note for this token within the sentence. */
   nahwuNote?: string;

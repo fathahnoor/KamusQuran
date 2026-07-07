@@ -1,9 +1,9 @@
 // ============================================================
 // v3.0 I'rab Heuristic Engine
 // ============================================================
-// Generates structured i'rab analysis following the Al-Munir
+// Generates structured i'rab analysis in tabular format
 // tabular methodology (Kata → Jenis → Kedudukan → I'rob →
-// Tanda → 'Amil) combined with Nahwu al-Wadhih's inductive
+// Tanda → 'Amil) with inductive conclusion.
 // conclusion format.
 //
 // All rules operate on individual fields to avoid circular
@@ -42,8 +42,8 @@ export interface IrabInput {
 }
 
 /**
- * Generate a structured i'rab analysis following the Al-Munir
- * 6-column tabular format with Nahwu al-Wadhih inductive conclusion.
+ * Generate a structured i'rab analysis in 6-column tabular
+ * format with inductive conclusion.
  */
 export function generateStructuredIrab(input: IrabInput): StructuredIrab {
   const jenis = inferJenis(input);
@@ -146,7 +146,7 @@ function inferJenis(input: IrabInput): string {
 function inferKedudukan(input: IrabInput): string {
   const { role, pos, vf } = input;
 
-  // Map syntactic role to Al-Munir Indonesian labels
+  // Map syntactic role to Indonesian labels
   if (role && role !== "unknown") {
     const roleMap: Record<string, string> = {
       subject: "Fa'il",
@@ -209,7 +209,7 @@ function inferIrabStatus(input: IrabInput): string {
     return "Mabni";
   }
 
-  // Map i'rab case to Al-Munir status
+  // Map i'rab case to status
   switch (irab) {
     case "raf": return "Marfu'";
     case "nasb": return "Manshub";
@@ -333,7 +333,7 @@ function buildPenjelasan(
   tanda: string,
   amil: string
 ): string {
-  // Nahwu al-Wadhih inductive style:
+  // Inductive deduction style:
   // "Setelah diamati, kata X adalah [Jenis] yang berkedudukan sebagai [Kedudukan].
   //  Oleh karena itu, i'rob-nya [I'rob] dengan tanda [Tanda], disebabkan oleh [Amil]."
   return (

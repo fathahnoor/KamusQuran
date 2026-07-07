@@ -24,11 +24,7 @@ export function PerTokenIrobList({ tokens }: PerTokenIrobListProps) {
       <div className="flex items-center gap-2.5">
         <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-accent-500 to-accent-600 text-xs font-bold text-white shadow-sm shadow-accent-200">
           إ
-        </div>
-        <h3 className="text-sm font-bold text-ink-700">
-          Tabel I&apos;rob Per Kata{" "}
-          <span className="font-normal text-ink-400">(Metode Al-Munir — Lengkap)</span>
-        </h3>
+        </div>          <h3 className="text-sm font-bold text-ink-700">Tabel I&apos;rob Per Kata</h3>
       </div>
 
       {/* Cards: one per token */}

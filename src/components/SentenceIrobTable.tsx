@@ -35,7 +35,7 @@ const IRAB_LEGEND: { label: string; color: string; dot: string }[] = [
 ];
 
 /**
- * SentenceIrobTable — full-sentence i'rob breakdown in Al-Munir tabular format.
+ * SentenceIrobTable — full-sentence i'rob breakdown in tabular format.
  *
  * Features:
  * - Color-coded rows by irabStatus (left border): green=Marfu', blue=Manshub,
@@ -59,10 +59,7 @@ export function SentenceIrobTable({ tokens }: SentenceIrobTableProps) {
           <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-accent-500 to-accent-600 text-xs font-bold text-white shadow-sm shadow-accent-200">
             ج
           </div>
-          <h3 className="text-sm font-bold text-ink-700">
-            Tabel I&apos;rob Kalimat{" "}
-            <span className="font-normal text-ink-400">(Metode Al-Munir)</span>
-          </h3>
+          <h3 className="text-sm font-bold text-ink-700">Tabel I&apos;rob Kalimat</h3>
         </div>
 
         {/* Color legend */}
