@@ -57,9 +57,22 @@ export function AboutView() {
           <li>
             <strong>Context-aware di Mode Kalimat</strong>: deteksi otomatis huruf jarr,
             inna/akhwatuha, kaana/akhwatuha, idhafah, dan &apos;athf untuk
-            analisis i&apos;rob per kata dalam konteks kalimat.{" "}
-            <strong>SentenceIrobTable</strong>: satu tabel utuh mem-breakdown seluruh kalimat
-            kata per kata.
+            analisis i&apos;rob per kata dalam konteks kalimat.
+          </li>
+          <li>
+            <strong>SentenceIrobTable</strong>: satu tabel ringkasan mem-breakdown seluruh{" "}
+            kalimat kata per kata (color-coded by irabStatus, legend bar). Klik baris{" "}
+            mana saja untuk melihat detail morfologi + IrobTable lengkap.
+          </li>
+          <li>
+            <strong>PerTokenIrobList</strong>: kartu IrobTable lengkap per kata (6 kolom){" "}
+            yang selalu terlihat — sama seperti di Mode Kata. Tidak perlu klik untuk{" "}
+            melihat i&apos;rob setiap kata dalam kalimat.
+          </li>
+          <li>
+            <strong>Color-coded rows</strong>: hijau (Marfu'), biru (Manshub), kuning{" "}
+            (Majrur), merah (Majzum), abu-abu (Mabni) dengan legend bar untuk{" "}
+            identifikasi cepat status i&apos;rob.
           </li>
           <li>
             <strong>Manual override</strong>: field <code>tnd</code> dan{" "}
@@ -120,10 +133,10 @@ export function AboutView() {
           heuristik untuk kata yang tidak ditemukan.
         </p>
         <p className="mt-2">
-          Mulai v3.0, Mode Kalimat dilengkapi{" "}
-          <strong>SentenceIrobTable</strong> — tabel i&apos;rob lengkap{" "}
-          ala Al-Munir yang mem-breakdown seluruh kalimat kata per kata{" "}
-          (8 kolom: #, Kata, Arti, Jenis, Kedudukan, I&apos;rob, Tanda, &apos;Amil).{" "}
+          Mulai v3.0, Mode Kalimat memiliki tiga level tampilan i&apos;rob:{" "}
+          <strong>SentenceIrobTable</strong> (tabel ringkasan color-coded),{" "}
+          <strong>PerTokenIrobList</strong> (kartu IrobTable lengkap per kata),{" "}
+          dan <strong>Detail Morfologi</strong> (lemma, akar, nahwu/sharf collapsible).{" "}
           Context-aware engine mendeteksi struktur nahwu seperti huruf jarr, inna, kaana,{" "}
           idhafah, dan &apos;athf.
         </p>
@@ -166,8 +179,9 @@ export function AboutView() {
       <Section title="Versi" icon="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6">
         <p>
           <strong>v3.0</strong>: <strong>I&apos;rob Sistematis</strong> — tabel i&apos;rob 6 kolom{" "}
-          ala Metode Al-Munir di Mode Kata + SentenceIrobTable (tabel i&apos;rob utuh per{" "}
-          kalimat) di Mode Kalimat, context-aware sentence i&apos;rob engine (deteksi{" "}
+          ala Metode Al-Munir di Mode Kata + SentenceIrobTable (tabel ringkasan per kalimat){" "}
+          + PerTokenIrobList (kartu lengkap per kata) di Mode Kalimat, color-coded rows{" "}
+          by irabStatus, context-aware sentence i&apos;rob engine (deteksi{" "}
           jarr/inna/kaana/idhafah/&apos;athf), heuristic engine 300+ baris, kesimpulan{" "}
           induktif Nahwu al-Wadhih, 30+ unit tests (Vitest).
         </p>
@@ -184,7 +198,7 @@ export function AboutView() {
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
         </svg>
         Dibangun sebagai alat edukasi nahwu-sharf, bukan pengganti tafsir resmi atau fatwa.
-        I&apos;rob di-generate otomatis oleh heuristic engine — perlu verifikasi manual
+        I&apos;rob di-generate otomatis oleh heuristic engine, perlu verifikasi manual
         untuk ketepatan 100%.
       </p>
     </div>
