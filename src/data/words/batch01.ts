@@ -207,4 +207,9 @@ export const BATCH_01: CompactWord[] = [
   { id: "basar", ar: "بَصَر", root: "بصر", mid: "penglihatan, melihat", men: "sight, vision", pos: "noun", freq: 148, rank: 50, wazan: "fa'al", form: "I", g: "masculine", num: "singular", def: "definite", irab: "jarr", role: "mutaaliq",
     occ: [[2,7,11,7],[2,20,26,1]],
     ex: [[2,7,11,"وَعَلَىٰ أَبْصَارِهِمْ غِشَاوَةٌ","Dan pada penglihatan mereka ada tudung.","أَبْصَارِهِمْ"]] },
+
+  // --- Fi'il Amr: قُلْ (qul) ---
+  { id: "qul", ar: "قُلْ", root: "قول", mid: "katakanlah", men: "Say! (imperative)", pos: "verb", freq: 332, rank: 51, wazan: "fu'l", form: "I", vf: "fiil_amr", irab: "none",
+    occ: [[112,1,6222,1],[114,1,6231,1],[113,1,6226,1]],
+    ex: [[112,1,6222,"قُلْ هُوَ اللَّهُ أَحَدٌ","Katakanlah (Muhammad): 'Dialah Allah, Yang Maha Esa.'","أَحَدٌ"],[114,1,6231,"قُلْ أَعُوذُ بِرَبِّ النَّاسِ","Katakanlah: Aku berlindung kepada Tuhan manusia.","النَّاسِ"],[113,1,6226,"قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ","Katakanlah: Aku berlindung kepada Tuhan yang menguasai waktu subuh.","الْفَلَقِ"]] },
 ];

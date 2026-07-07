@@ -61,8 +61,10 @@ export const HIGH_FREQ_WORDS: WordEntry[] = (() => {
   const all = buildWordEntries(ALL_COMPACT);
   const seen = new Map<string, WordEntry>();
   for (const w of all) {
-    // Deduplicate by stripped Arabic lemma.
-    const key = stripDiacritics(w.arabic);
+    // Deduplicate by full Arabic lemma (dengan harakat) agar homograf
+    // seperti قُلْ (katakanlah) dan قَلَّ (sedikit, berkurang) tidak
+    // saling menimpa saat di-strip diacritics.
+    const key = w.arabic;
     const existing = seen.get(key);
     // Keep the entry with the best (lowest) rank/frequency.
     if (!existing || (w.rank ?? w.frequency) < (existing.rank ?? existing.frequency)) {
