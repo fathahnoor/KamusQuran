@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { SentenceToken } from "../types";
 import { IrobTable } from "./IrobTable";
 import { isArabicText } from "../utils/arabic";
@@ -18,18 +19,49 @@ export function PerTokenIrobList({ tokens }: PerTokenIrobListProps) {
   const irabTokens = tokens.filter((t) => t.structuredIrab);
   if (irabTokens.length === 0) return null;
 
+  const [open, setOpen] = useState(false);
+
   return (
     <div className="space-y-3">
-      {/* Section header */}
-      <div className="flex items-center gap-2.5">
-        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-accent-500 to-accent-600 text-xs font-bold text-white shadow-sm shadow-accent-200">
-          إ
-        </div>          <h3 className="text-sm font-bold text-ink-700">Tabel I&apos;rob Per Kata</h3>
-      </div>
+      {/* Section header (collapsible) */}
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        aria-controls="per-token-irob-body"
+        className="flex w-full items-center justify-between gap-2 rounded-lg py-1 text-left transition-colors hover:bg-accent-50/40 sm:py-1.5"
+      >
+        <div className="flex items-center gap-2.5">
+          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-accent-500 to-accent-600 text-xs font-bold text-white shadow-sm shadow-accent-200">
+            إ
+          </div>
+          <h3 className="text-sm font-bold text-ink-700">
+            Tabel I&apos;rob Per Kata
+            <span className="ml-1.5 rounded-full bg-ink-100 px-2 py-0.5 text-[10px] font-bold text-ink-500">
+              {irabTokens.length}
+            </span>
+          </h3>
+        </div>
+        <svg
+          className={`h-4 w-4 shrink-0 text-ink-400 transition-transform ${open ? "rotate-180" : ""}`}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      </button>
 
       {/* Cards: one per token */}
-      <div className="space-y-4">
-        {irabTokens.map((token, idx) => {
+      {open && (
+        <div
+          id="per-token-irob-body"
+          className="space-y-4 animate-fade-in"
+        >
+          {irabTokens.map((token, idx) => {
           const s = token.structuredIrab!;
           const matched = token.matched;
           const surfaceIsArabic = isArabicText(token.surface);
@@ -121,7 +153,8 @@ export function PerTokenIrobList({ tokens }: PerTokenIrobListProps) {
             </div>
           );
         })}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

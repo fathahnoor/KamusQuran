@@ -18,6 +18,7 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
   const [tafsirText, setTafsirText] = useState<string | null>(null);
   const [tafsirLoading, setTafsirLoading] = useState(false);
   const [tafsirError, setTafsirError] = useState(false);
+  const [tafsirOpen, setTafsirOpen] = useState(false);
   const [audioLoading, setAudioLoading] = useState<number | null>(null);
   const [showDiacritics, setShowDiacritics] = useState(true);
   const [examplesEnriched, setExamplesEnriched] = useState<ExampleAyat[]>(entry.examples);
@@ -89,6 +90,7 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
     setTafsirText(null);
     setTafsirLoading(false);
     setTafsirError(false);
+    setTafsirOpen(false);
     if (ttsSupported) window.speechSynthesis.cancel();
     setIsSpeaking(false);
   }, [entry.id, entry.examples, ttsSupported]);
@@ -380,13 +382,39 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
         </div>
       )}
       {tafsirText && (
-        <div className="rounded-2xl border border-ink-200/60 bg-white/90 p-4 shadow-sm sm:p-5">
-          <h4 className="mb-1.5 flex items-center gap-2 text-sm font-bold text-ink-700">
-            <span className="font-arabic text-base">تفسير</span>
-            <span className="text-ink-300">·</span>
-            <span>Tafsir (Jalalayn)</span>
-          </h4>
-          <p className="text-sm leading-relaxed text-ink-700">{tafsirText}</p>
+        <div className="overflow-hidden rounded-2xl border border-ink-200/60 bg-white/90 shadow-sm">
+          <button
+            type="button"
+            onClick={() => setTafsirOpen((v) => !v)}
+            aria-expanded={tafsirOpen}
+            aria-controls="tafsir-jalalayn-body"
+            className="flex w-full items-center justify-between gap-2 px-4 pt-3.5 pb-2.5 text-left transition-colors hover:bg-accent-50/30 sm:px-5 sm:pt-4 sm:pb-3"
+          >
+            <h4 className="flex items-center gap-2 text-sm font-bold text-ink-700">
+              <span className="font-arabic text-base">تفسير</span>
+              <span className="text-ink-300">·</span>
+              <span>Tafsir (Jalalayn)</span>
+            </h4>
+            <svg
+              className={`h-4 w-4 shrink-0 text-ink-400 transition-transform ${tafsirOpen ? "rotate-180" : ""}`}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </button>
+          {tafsirOpen && (
+            <div
+              id="tafsir-jalalayn-body"
+              className="border-t border-ink-200/60 px-4 pt-2.5 pb-3.5 sm:px-5 sm:pt-3 sm:pb-4"
+            >
+              <p className="text-sm leading-relaxed text-ink-700">{tafsirText}</p>
+            </div>
+          )}
         </div>
       )}
 
