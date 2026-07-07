@@ -5,6 +5,7 @@ import { useVoiceRecognition } from "../services/voiceRecognition";
 import { SearchBar } from "../components/SearchBar";
 import { IrobTable } from "../components/IrobTable";
 import { SentenceIrobTable } from "../components/SentenceIrobTable";
+import { PerTokenIrobList } from "../components/PerTokenIrobList";
 import { isArabicText } from "../utils/arabic";
 
 export function ModeKalimat() {
@@ -78,6 +79,13 @@ export function ModeKalimat() {
           {analysis.inputLang === "ar" && (
           <div className="rounded-2xl border border-accent-200/60 bg-white/90 p-4 shadow-sm backdrop-blur-sm sm:p-5">
             <SentenceIrobTable tokens={analysis.tokens} />
+          </div>
+          )}
+
+          {/* 🆕 v3.0: Per-token full IrobTable cards (like Mode Kata) — Arabic only */}
+          {analysis.inputLang === "ar" && (
+          <div className="rounded-2xl border border-accent-200/60 bg-white/90 p-4 shadow-sm backdrop-blur-sm sm:p-5">
+            <PerTokenIrobList tokens={analysis.tokens} />
           </div>
           )}
 
