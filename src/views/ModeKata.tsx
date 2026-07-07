@@ -54,7 +54,19 @@ export function ModeKata() {
   }, [inputLang]);
 
   const [showBrowse, setShowBrowse] = useState(false);
-  const browseWords = useMemo(() => getWordsByFrequency(), []);
+  const [sortBy, setSortBy] = useState<"freq" | "indo" | "arabic">("freq");
+  const browseWords = useMemo(() => {
+    const all = getWordsByFrequency();
+    if (sortBy === "freq") return all;
+    if (sortBy === "indo")
+      return [...all].sort((a, b) =>
+        a.meaningId.localeCompare(b.meaningId, "id", { sensitivity: "base" })
+      );
+    // arabic: sort by Arabic letter
+    return [...all].sort((a, b) =>
+      a.arabic.localeCompare(b.arabic, "ar", { sensitivity: "base" })
+    );
+  }, [sortBy]);
 
   return (
     <div className="space-y-6">
@@ -92,9 +104,44 @@ export function ModeKata() {
       {/* Word browsing by frequency */}
       {showBrowse && !selected && (
         <div className="rounded-lg border border-ink-200 bg-white p-3 shadow-sm sm:p-4">
-          <h3 className="mb-3 text-sm font-bold text-ink-700">
-            Kata Berdasarkan Frekuensi ({browseWords.length} kata)
-          </h3>
+          <div className="mb-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <h3 className="text-sm font-bold text-ink-700">
+              Jelajahi Kata ({browseWords.length} kata)
+            </h3>
+            <div className="flex items-center gap-1 text-xs">
+              <span className="text-ink-400">Urutkan:</span>
+              <button
+                onClick={() => setSortBy("freq")}
+                className={`rounded-md px-2 py-1 font-medium transition-colors ${
+                  sortBy === "freq"
+                    ? "bg-accent-100 text-accent-700"
+                    : "text-ink-500 hover:bg-ink-100"
+                }`}
+              >
+                Frekuensi
+              </button>
+              <button
+                onClick={() => setSortBy("indo")}
+                className={`rounded-md px-2 py-1 font-medium transition-colors ${
+                  sortBy === "indo"
+                    ? "bg-accent-100 text-accent-700"
+                    : "text-ink-500 hover:bg-ink-100"
+                }`}
+              >
+                A-Z Indo
+              </button>
+              <button
+                onClick={() => setSortBy("arabic")}
+                className={`rounded-md px-2 py-1 font-medium transition-colors ${
+                  sortBy === "arabic"
+                    ? "bg-accent-100 text-accent-700"
+                    : "text-ink-500 hover:bg-ink-100"
+                }`}
+              >
+                ا-ي Arab
+              </button>
+            </div>
+          </div>
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
             {browseWords.map((entry) => (
               <button
@@ -112,7 +159,7 @@ export function ModeKata() {
                   <span className="truncate text-xs text-ink-500">{entry.meaningId}</span>
                 </div>
                 <span className="ml-2 shrink-0 text-xs font-bold text-ink-300">
-                  {entry.rank ?? entry.frequency}×
+                  {entry.frequency}×
                 </span>
               </button>
             ))}
