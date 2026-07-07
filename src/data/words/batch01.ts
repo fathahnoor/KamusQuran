@@ -4,7 +4,7 @@ import type { CompactWord } from "../wordBuilder";
 // Data compiled from Quranic Arabic Corpus lemma frequency data.
 export const BATCH_01: CompactWord[] = [
   // --- Rank 1-10: Ultra-high frequency ---
-  { id: "allah", ar: "اَللَّه", root: "اله", mid: "Allah, Tuhan (nama diri)", men: "Allah, God", pos: "proper_noun", freq: 2699, rank: 1, def: "proper", irab: "none", role: "mubtada", g: "masculine", num: "singular",
+  { id: "allah", ar: "اَللَّه", root: "اله", mid: "Allah, Tuhan (nama diri)", men: "Allah, God", pos: "proper_noun", freq: 2699, rank: 1, def: "proper", irab: "raf", role: "mubtada", g: "masculine", num: "singular", tnd: "Dhammah",
     occ: [[1,1,1,1],[2,7,11,1],[112,1,6222,1]],
     ex: [[1,1,1,"بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ","Dengan nama Allah Yang Maha Pengasih lagi Maha Penyayang.","الله"],[112,1,6222,"قُلْ هُوَ اللَّهُ أَحَدٌ","Katakanlah: Dialah Allah, Yang Maha Esa.","الله"]] },
 
