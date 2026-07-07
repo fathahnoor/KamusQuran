@@ -220,39 +220,8 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
 
   return (
     <div className="space-y-6">
-      {/* Diacritic toggle + Pronunciation */}
-      <div className="flex flex-wrap items-center gap-2 justify-between">
-        {ttsSupported ? (
-          <button
-            onClick={() => (isSpeaking ? stopPronunciation() : pronounceWord(entry.arabic))}
-            className={`flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
-              isSpeaking
-                ? "bg-accent-600 text-ink-50 hover:bg-accent-700"
-                : "border border-accent-300 bg-accent-50 text-accent-700 hover:bg-accent-100"
-            }`}
-            aria-label={isSpeaking ? "Hentikan pengucapan" : "Dengar pengucapan kata"}
-          >
-            {isSpeaking ? (
-              <>
-                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
-                  <rect x="6" y="6" width="12" height="12" rx="2" />
-                </svg>
-                Berhenti
-              </>
-            ) : (
-              <>
-                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
-                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
-                  <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
-                </svg>
-                Dengar Pengucapan
-              </>
-            )}
-          </button>
-        ) : (
-          <div />
-        )}
+      {/* Diacritic toggle */}
+      <div className="flex flex-wrap items-center justify-end gap-2">
         <button
           onClick={() => setShowDiacritics((v) => !v)}
           className="rounded-md border border-ink-300 px-2.5 py-1 text-xs font-medium text-ink-500 transition-colors hover:bg-ink-100"
@@ -264,8 +233,34 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
       {/* Header row: Arabic word + bookmark */}
       <div className="flex items-start justify-between gap-3 rounded-lg border border-ink-200 bg-white p-4 shadow-sm sm:gap-4 sm:p-6">
         <div className="flex-1 min-w-0">
-          <div className="font-arabic-display text-4xl font-bold leading-tight text-accent-700 sm:text-5xl" dir="rtl">
-            {arText(entry.arabic)}
+          <div className="flex items-center gap-2 min-w-0 sm:gap-3">
+            <div className="font-arabic-display text-4xl font-bold leading-tight text-accent-700 sm:text-5xl" dir="rtl">
+              {arText(entry.arabic)}
+            </div>
+            {ttsSupported && (
+              <button
+                onClick={() => (isSpeaking ? stopPronunciation() : pronounceWord(entry.arabic))}
+                className={`flex shrink-0 items-center justify-center rounded-full p-2 transition-all sm:p-2.5 ${
+                  isSpeaking
+                    ? "bg-accent-600 text-ink-50 shadow-md scale-105"
+                    : "bg-accent-50 text-accent-700 border border-accent-200 hover:bg-accent-100"
+                }`}
+                aria-label={isSpeaking ? "Hentikan pengucapan kata" : "Bunyikan kata Arab"}
+                title={isSpeaking ? "Hentikan pengucapan" : "Bunyikan kata Arab"}
+              >
+                {isSpeaking ? (
+                  <svg className="h-5 w-5 sm:h-6 sm:w-6" viewBox="0 0 24 24" fill="currentColor">
+                    <rect x="6" y="6" width="12" height="12" rx="2" />
+                  </svg>
+                ) : (
+                  <svg className="h-5 w-5 sm:h-6 sm:w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+                  </svg>
+                )}
+              </button>
+            )}
           </div>
           <div className="mt-2 text-base font-semibold text-ink-800 sm:text-lg">{entry.meaningId}</div>
           {entry.meaningIdAlt && entry.meaningIdAlt.length > 0 && (
