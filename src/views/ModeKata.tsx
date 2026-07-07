@@ -57,38 +57,43 @@ export function ModeKata() {
   const [showBrowse, setShowBrowse] = useState(false);
   const [sortBy, setSortBy] = useState<"freq" | "indo" | "arabic">("freq");
 
+  // Frozen base word list — created ONCE, never mutated.
+  // This is the single source of truth that all sorts derive from.
+  const baseWords = useMemo(() => [...getWordsByFrequency()], []);
+
   // Deterministic sort — does NOT rely on localeCompare (inconsistent on mobile).
-  // Always creates a fresh copy so the cached HIGH_FREQ_WORDS is never mutated.
+  // Every comparator has a final `id` tiebreaker, producing a TOTAL ORDER:
+  // no two items ever compare equal, so sort output is identical regardless
+  // of browser sort stability or how many times the user clicks.
   const browseWords = useMemo(() => {
-    const all = getWordsByFrequency();
-    const copy = [...all]; // fresh shallow copy
+    const copy = [...baseWords]; // fresh shallow copy from frozen base
     if (sortBy === "freq") {
-      // Sort by frequency descending (highest first). Non-Quran words (freq 0)
-      // naturally sink to the bottom. Ties broken by rank for stability.
-      copy.sort((a, b) => b.frequency - a.frequency || (a.rank ?? 0) - (b.rank ?? 0));
+      copy.sort((a, b) => {
+        const d = b.frequency - a.frequency;
+        if (d !== 0) return d;
+        const r = (a.rank ?? 0) - (b.rank ?? 0);
+        if (r !== 0) return r;
+        // Total-order tiebreaker: id is unique, so this never returns 0
+        // for two different items.
+        return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
+      });
     } else if (sortBy === "indo") {
-      // Sort by Indonesian meaning using simple code-point comparison.
-      // Lowercase first for case-insensitive ordering.
       copy.sort((a, b) => {
         const ai = a.meaningId.toLowerCase();
         const bi = b.meaningId.toLowerCase();
-        if (ai < bi) return -1;
-        if (ai > bi) return 1;
-        return 0;
+        if (ai !== bi) return ai < bi ? -1 : 1;
+        return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
       });
     } else {
-      // arabic: strip diacritics first (harakat cause inconsistent code-point
-      // ordering), then compare by base letters only.
       copy.sort((a, b) => {
         const aa = stripDiacritics(a.arabic);
         const bb = stripDiacritics(b.arabic);
-        if (aa < bb) return -1;
-        if (aa > bb) return 1;
-        return 0;
+        if (aa !== bb) return aa < bb ? -1 : 1;
+        return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
       });
     }
     return copy;
-  }, [sortBy]);
+  }, [sortBy, baseWords]);
 
   return (
     <div className="space-y-6">
