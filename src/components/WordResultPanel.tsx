@@ -349,7 +349,7 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
       {/* Occurrences */}
       <div className="rounded-2xl border border-ink-200/60 bg-white/90 p-4 shadow-sm sm:p-5">
         <h4 className="mb-3 text-sm font-bold text-ink-700">
-          Kemunculan dalam Al-Qur&apos;an ({entry.occurrences.length}{entry.occurrences.length > 10 ? `, ${entry.examples.length} contoh` : ""})
+          Contoh Lokasi Kemunculan ({entry.occurrences.length} dari {entry.frequency})
         </h4>
         <div className="flex flex-wrap gap-2">
           {entry.occurrences.map((occ, i) => (
