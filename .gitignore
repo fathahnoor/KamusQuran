@@ -14,3 +14,6 @@ dist-ssr
 *.tsbuildinfo
 vite.config.d.ts
 vite.config.js
+
+# Nopush folder: private/local files that must never be pushed to GitHub
+Nopush/
