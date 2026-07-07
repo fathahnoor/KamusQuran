@@ -101,10 +101,11 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
       let anySuccess = false;
       let apiAttempts = 0;
       for (const ex of entry.examples) {
-        if (ex.audioUrl || ex.translation) continue;
+        // Skip examples that already have bundled text.
+        if (ex.arabicText && ex.translation) continue;
         apiAttempts++;
         try {
-          const { translation, tafsir } = await getAyahBilingual(ex.globalAyahNumber);
+          const { arabic, translation, tafsir } = await getAyahBilingual(ex.globalAyahNumber);
           if (cancelled) return;
           anySuccess = true;
           setExamplesEnriched((prev) =>
@@ -112,8 +113,9 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
               e.globalAyahNumber === ex.globalAyahNumber
                 ? {
                     ...e,
+                    arabicText: e.arabicText || arabic?.text || e.arabicText,
                     translation: e.translation || translation?.text || e.translation,
-                    audioUrl: e.audioUrl || audioUrl(ex.globalAyahNumber),
+                    audioUrl: audioUrl(ex.globalAyahNumber),
                   }
                 : e
             )
@@ -376,7 +378,7 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
       {/* Occurrences */}
       <div className="rounded-2xl border border-ink-200/60 bg-white/90 p-4 shadow-sm sm:p-5">
         <h4 className="mb-3 text-sm font-bold text-ink-700">
-          Kemunculan dalam Al-Qur&apos;an ({entry.occurrences.length} ditampilkan)
+          Kemunculan dalam Al-Qur&apos;an ({entry.occurrences.length}{entry.occurrences.length > 10 ? `, ${entry.examples.length} contoh` : ""})
         </h4>
         <div className="flex flex-wrap gap-2">
           {entry.occurrences.map((occ, i) => (

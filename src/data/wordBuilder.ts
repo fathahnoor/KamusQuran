@@ -353,19 +353,58 @@ export function buildWordEntry(cw: CompactWord): WordEntry {
     token,
   }));
 
-  // Build example ayat with audio URLs: compute correct globalAyahNumber.
-  const examples: ExampleAyat[] = (cw.ex ?? []).map(([surah, ayah, _globalAyahNumber, arabicText, translation, wordForm]) => {
+  // Build example ayat from ALL occurrences (capped at 10), merging
+  // with bundled ex data where available. Occurrences without ex data
+  // get stubs that will be enriched from the API by WordResultPanel.
+  const MAX_EXAMPLES = 10;
+  const exMap = new Map<string, [number, number, number, string, string, string?]>();
+  for (const ex of (cw.ex ?? [])) {
+    exMap.set(`${ex[0]}:${ex[1]}`, ex);
+  }
+
+  const examples: ExampleAyat[] = (cw.occ ?? []).slice(0, MAX_EXAMPLES).map(([surah, ayah]) => {
     const correctGlobal = toGlobalAyahNumber(surah, ayah);
+    const bundled = exMap.get(`${surah}:${ayah}`);
+    if (bundled) {
+      exMap.delete(`${surah}:${ayah}`); // mark as consumed
+      return {
+        surah,
+        ayah,
+        globalAyahNumber: correctGlobal,
+        arabicText: bundled[3],
+        translation: bundled[4],
+        wordForm: bundled[5],
+        audioUrl: audioUrl(correctGlobal),
+      };
+    }
+    // Stub: API will fetch arabicText + translation on demand.
     return {
       surah,
       ayah,
       globalAyahNumber: correctGlobal,
-      arabicText,
-      translation,
-      wordForm,
+      arabicText: "",
+      translation: "",
+      wordForm: undefined,
       audioUrl: audioUrl(correctGlobal),
     };
   });
+
+  // Append orphaned ex entries not covered by occ (defense against data inconsistencies).
+  for (const ex of (cw.ex ?? [])) {
+    if (examples.length >= MAX_EXAMPLES) break;
+    const key = `${ex[0]}:${ex[1]}`;
+    if (!exMap.has(key)) continue; // already consumed above
+    const correctGlobal = toGlobalAyahNumber(ex[0], ex[1]);
+    examples.push({
+      surah: ex[0],
+      ayah: ex[1],
+      globalAyahNumber: correctGlobal,
+      arabicText: ex[3],
+      translation: ex[4],
+      wordForm: ex[5],
+      audioUrl: audioUrl(correctGlobal),
+    });
+  }
 
   return {
     id: cw.id,
