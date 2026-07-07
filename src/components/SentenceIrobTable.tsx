@@ -1,6 +1,4 @@
-import { useState } from "react";
 import type { SentenceToken } from "../types";
-import { IrobTable } from "./IrobTable";
 
 interface SentenceIrobTableProps {
   tokens: SentenceToken[];
@@ -37,17 +35,16 @@ const IRAB_LEGEND: { label: string; color: string; dot: string }[] = [
 /**
  * SentenceIrobTable: full-sentence i'rob breakdown in tabular format.
  *
- * Features:
- * - Color-coded rows by irabStatus (left border): green=Marfu', blue=Manshub,
- *   amber=Majrur, red=Majzum, gray=Mabni.
- * - Clickable rows: click any row to expand inline token detail (lemma, root,
- *   nahwu/sharf notes, full IrobTable).
+ * Static (non-interactive) table: each row shows the 6-column i'rob data
+ * for one token. Click-to-expand was removed since the same per-word i'rob
+ * info is already provided by the PerTokenIrobList section below.
+ *
+ * Color-coded rows by irabStatus (left border): green=Marfu', blue=Manshub,
+ * amber=Majrur, red=Majzum, gray=Mabni.
  */
 export function SentenceIrobTable({ tokens }: SentenceIrobTableProps) {
   const irabTokens = tokens.filter((t) => t.structuredIrab);
   if (irabTokens.length === 0) return null;
-
-  const [expandedIdx, setExpandedIdx] = useState<number | null>(null);
 
   const columns = ["#", "Kata", "Arti", "Jenis", "Kedudukan", "I'rob", "Tanda", "'Amil"] as const;
 
@@ -94,34 +91,15 @@ export function SentenceIrobTable({ tokens }: SentenceIrobTableProps) {
             {irabTokens.map((token, rowIdx) => {
               const s = token.structuredIrab!;
               const matched = token.matched;
-              const isExpanded = expandedIdx === token.index;
               const borderClass = irabBorderClass(s.irabStatus);
               return (
                 <tr key={token.index}>
                   <td colSpan={columns.length} className="p-0">
-                    <div
-                      className={borderClass}
-                      role="button"
-                      tabIndex={0}
-                      onClick={() =>
-                        setExpandedIdx((prev) =>
-                          prev === token.index ? null : token.index
-                        )
-                      }
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter" || e.key === " ") {
-                          e.preventDefault();
-                          setExpandedIdx((prev) =>
-                            prev === token.index ? null : token.index
-                          );
-                        }
-                      }}
-                    >
-                      {/* Main row (clickable) */}
+                    <div className={borderClass}>
                       <div
-                        className={`flex w-full items-center text-left transition-colors hover:bg-accent-50/20 cursor-pointer ${
+                        className={`flex w-full items-center text-left ${
                           rowIdx % 2 === 0 ? "bg-white" : "bg-ink-50/30"
-                        } ${!matched ? "opacity-70" : ""} ${isExpanded ? "bg-accent-50/40" : ""}`}
+                        } ${!matched ? "opacity-70" : ""}`}
                       >
                         <div className="whitespace-nowrap px-2 py-2.5 first:pl-3">
                           <span className="flex h-5 w-5 items-center justify-center rounded-full bg-ink-100 text-[10px] font-bold text-ink-400">
@@ -159,56 +137,7 @@ export function SentenceIrobTable({ tokens }: SentenceIrobTableProps) {
                         <div className="flex-1 whitespace-nowrap px-2 py-2.5 text-[11px] text-ink-600 last:pr-3">
                           {s.amil}
                         </div>
-                        {/* Expand chevron */}
-                        <div className="shrink-0 px-1.5 text-ink-300">
-                          <svg
-                            className={`h-3 w-3 transition-transform ${isExpanded ? "rotate-180" : ""}`}
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                          >
-                            <polyline points="6 9 12 15 18 9" />
-                          </svg>
-                        </div>
                       </div>
-
-                      {/* Expanded detail panel */}
-                      {isExpanded && (
-                        <div className="border-t border-accent-100 bg-accent-50/20 px-3 py-2.5 sm:px-4 sm:py-3">
-                          <div className="grid gap-3 sm:grid-cols-2">
-                            {/* Left: Quick info + nahwu/sharf */}
-                            <div className="space-y-2">
-                              <div className="grid grid-cols-2 gap-x-3 gap-y-1 text-xs">
-                                {token.lemma && <DetailField label="Lemma" value={token.lemma} arabic />}
-                                {token.root && <DetailField label="Akar" value={token.root} arabic />}
-                                {token.posMajor && <DetailField label="Kelas Kata" value={token.posMajor} />}
-                                {token.morpho?.wazan && <DetailField label="Wazan" value={token.morpho.wazan} />}
-                                {token.morpho?.gender && token.morpho.gender !== "unknown" && (
-                                  <DetailField label="Gender" value={token.morpho.gender} />
-                                )}
-                                {token.morpho?.number && token.morpho.number !== "unknown" && (
-                                  <DetailField label="Jumlah" value={token.morpho.number} />
-                                )}
-                              </div>
-                              {token.nahwuNote && (
-                                <p className="rounded-lg bg-accent-50/50 px-2.5 py-1.5 text-xs leading-relaxed text-ink-600">
-                                  <span className="font-semibold text-accent-600">Nahwu:</span> {token.nahwuNote}
-                                </p>
-                              )}
-                              {token.sharfNote && (
-                                <p className="rounded-lg bg-ink-50/80 px-2.5 py-1.5 text-xs leading-relaxed text-ink-600">
-                                  <span className="font-semibold text-ink-600">Sharf:</span> {token.sharfNote}
-                                </p>
-                              )}
-                            </div>
-                            {/* Right: IrobTable */}
-                            <div className="rounded-lg border border-accent-100 bg-white/70 p-2.5">
-                              <IrobTable irab={token.structuredIrab!} />
-                            </div>
-                          </div>
-                        </div>
-                      )}
                     </div>
                   </td>
                 </tr>
@@ -223,20 +152,15 @@ export function SentenceIrobTable({ tokens }: SentenceIrobTableProps) {
         {irabTokens.map((token, idx) => {
           const s = token.structuredIrab!;
           const matched = token.matched;
-          const isExpanded = expandedIdx === token.index;
           const borderClass = irabBorderClass(s.irabStatus);
           return (
-            <button
+            <div
               key={token.index}
-              type="button"
-              onClick={() =>
-                setExpandedIdx((prev) => (prev === token.index ? null : token.index))
-              }
-              className={`w-full rounded-xl border text-left transition-all ${borderClass} ${
+              className={`rounded-xl border text-left ${borderClass} ${
                 matched
                   ? "border-ink-200/60 bg-white/90"
                   : "border-dashed border-ink-300/60 bg-ink-50/40"
-              } ${isExpanded ? "bg-accent-50/20 shadow-sm" : ""}`}
+              }`}
             >
               <div className="p-3">
                 {/* Token number + Arabic word header */}
@@ -268,38 +192,8 @@ export function SentenceIrobTable({ tokens }: SentenceIrobTableProps) {
                   <MobileField label="Tanda" value={s.tanda} code />
                   <MobileField label="'Amil" value={s.amil} />
                 </div>
-
-                {/* Expand chevron */}
-                <div className="mt-2 flex justify-center">
-                  <svg
-                    className={`h-3.5 w-3.5 text-ink-300 transition-transform ${isExpanded ? "rotate-180" : ""}`}
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <polyline points="6 9 12 15 18 9" />
-                  </svg>
-                </div>
               </div>
-
-              {/* Mobile expanded detail */}
-              {isExpanded && (
-                <div className="border-t border-accent-100 bg-accent-50/20 px-3 py-2.5">
-                  <div className="space-y-2">
-                    <div className="grid grid-cols-2 gap-x-3 gap-y-1 text-xs">
-                      {token.lemma && <DetailField label="Lemma" value={token.lemma} arabic />}
-                      {token.root && <DetailField label="Akar" value={token.root} arabic />}
-                      {token.posMajor && <DetailField label="Kelas Kata" value={token.posMajor} />}
-                      {token.morpho?.wazan && <DetailField label="Wazan" value={token.morpho.wazan} />}
-                    </div>
-                    <div className="rounded-lg border border-accent-100 bg-white/70 p-2.5">
-                      <IrobTable irab={token.structuredIrab!} />
-                    </div>
-                  </div>
-                </div>
-              )}
-            </button>
+            </div>
           );
         })}
       </div>
@@ -336,28 +230,6 @@ export function SentenceIrobTable({ tokens }: SentenceIrobTableProps) {
           </span>
         </p>
       </div>
-    </div>
-  );
-}
-
-function DetailField({
-  label,
-  value,
-  arabic,
-}: {
-  label: string;
-  value: string;
-  arabic?: boolean;
-}) {
-  return (
-    <div className="flex gap-1">
-      <span className="font-semibold text-ink-400">{label}:</span>
-      <span
-        className={arabic ? "font-arabic text-sm text-ink-700" : "text-ink-700"}
-        dir={arabic ? "rtl" : "ltr"}
-      >
-        {value}
-      </span>
     </div>
   );
 }
