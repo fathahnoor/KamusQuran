@@ -1,6 +1,7 @@
 import { useState, useCallback, useMemo, useEffect } from "react";
 import type { WordEntry } from "../types";
 import { searchWords, wordCount, getWordsByFrequency } from "../data/morphologyIndex";
+import { stripDiacritics } from "../utils/arabic";
 import { useVoiceRecognition } from "../services/voiceRecognition";
 import { detectLanguage } from "../services/sentenceAnalysis";
 import { SearchBar } from "../components/SearchBar";
@@ -55,17 +56,38 @@ export function ModeKata() {
 
   const [showBrowse, setShowBrowse] = useState(false);
   const [sortBy, setSortBy] = useState<"freq" | "indo" | "arabic">("freq");
+
+  // Deterministic sort — does NOT rely on localeCompare (inconsistent on mobile).
+  // Always creates a fresh copy so the cached HIGH_FREQ_WORDS is never mutated.
   const browseWords = useMemo(() => {
     const all = getWordsByFrequency();
-    if (sortBy === "freq") return all;
-    if (sortBy === "indo")
-      return [...all].sort((a, b) =>
-        a.meaningId.localeCompare(b.meaningId, "id", { sensitivity: "base" })
-      );
-    // arabic: sort by Arabic letter
-    return [...all].sort((a, b) =>
-      a.arabic.localeCompare(b.arabic, "ar", { sensitivity: "base" })
-    );
+    const copy = [...all]; // fresh shallow copy
+    if (sortBy === "freq") {
+      // Sort by frequency descending (highest first). Non-Quran words (freq 0)
+      // naturally sink to the bottom. Ties broken by rank for stability.
+      copy.sort((a, b) => b.frequency - a.frequency || (a.rank ?? 0) - (b.rank ?? 0));
+    } else if (sortBy === "indo") {
+      // Sort by Indonesian meaning using simple code-point comparison.
+      // Lowercase first for case-insensitive ordering.
+      copy.sort((a, b) => {
+        const ai = a.meaningId.toLowerCase();
+        const bi = b.meaningId.toLowerCase();
+        if (ai < bi) return -1;
+        if (ai > bi) return 1;
+        return 0;
+      });
+    } else {
+      // arabic: strip diacritics first (harakat cause inconsistent code-point
+      // ordering), then compare by base letters only.
+      copy.sort((a, b) => {
+        const aa = stripDiacritics(a.arabic);
+        const bb = stripDiacritics(b.arabic);
+        if (aa < bb) return -1;
+        if (aa > bb) return 1;
+        return 0;
+      });
+    }
+    return copy;
   }, [sortBy]);
 
   return (
@@ -145,7 +167,7 @@ export function ModeKata() {
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
             {browseWords.map((entry) => (
               <button
-                key={entry.id}
+                key={`${sortBy}-${entry.id}`}
                 onClick={() => {
                   setSelected(entry);
                   setShowBrowse(false);
