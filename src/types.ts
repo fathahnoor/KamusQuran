@@ -348,6 +348,8 @@ export interface SentenceAnalysis {
   input: string;
   /** Detected input language. */
   inputLang: "ar" | "id";
+  /** Arabic translation summary (for Indonesian input). */
+  arabicSummary?: string;
   /** Whether this is a Qur'anic ayah match (enables QADT dependency graph). */
   isQuranicAyah: boolean;
   /** Matched ayah location if Quranic. */

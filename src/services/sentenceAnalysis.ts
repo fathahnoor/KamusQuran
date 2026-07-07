@@ -91,18 +91,13 @@ function analyzeIndonesianSentence(input: string): SentenceAnalysis {
   // Build standard sentence observations.
   const observations = buildSentenceObservations(sentenceTokens, input);
 
-  // Prepend translation summary.
+  // Translation summary (for banner at top of results).
   const matched = sentenceTokens.filter((t) => t.matched);
+  let arabicSummary = "";
   if (matched.length > 0) {
     const arabicOut = matched.map((t) => t.lemma ?? t.surface).join(" ");
     const indoIn = indoWords.filter((_, i) => sentenceTokens[i]?.matched).join(" ");
-    observations.unshift({
-      summary: `${indoIn} \u2192 ${arabicOut}`,
-      notes: [
-        `${matched.length} dari ${indoWords.length} kata dipetakan ke kosakata Quran.`,
-        "I'rob dianalisis dari struktur kalimat Arab hasil terjemahan.",
-      ],
-    });
+    arabicSummary = `${indoIn} \u2192 ${arabicOut}`;
   }
 
   const irabSummary = buildIrabSummary(sentenceTokens);
@@ -111,6 +106,7 @@ function analyzeIndonesianSentence(input: string): SentenceAnalysis {
   return {
     input,
     inputLang: "id",
+    arabicSummary: arabicSummary || undefined,
     isQuranicAyah: false,
     tokens: sentenceTokens,
     observations,

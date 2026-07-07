@@ -75,6 +75,24 @@ export function ModeKalimat() {
             </div>
           )}
 
+          {/* Arabic translation banner (Indonesian input) */}
+          {analysis.arabicSummary && (
+            <div className="rounded-2xl border border-accent-300/60 bg-gradient-to-r from-accent-50 to-accent-50/30 p-4 sm:p-5">
+              <p className="flex items-center gap-2 text-sm font-semibold text-accent-700">
+                <svg className="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+                Terjemahan Arab
+              </p>
+              <p className="mt-1.5 text-lg leading-relaxed text-ink-800">
+                {analysis.arabicSummary}
+              </p>
+              <p className="mt-1 text-xs text-ink-500">
+                I&apos;rob dianalisis dari struktur kalimat Arab hasil terjemahan.
+              </p>
+            </div>
+          )}
+
           {/* v3.0: Full-sentence I'rob table */}
           {analysis.tokens.some((t) => t.structuredIrab) && (
           <div className="rounded-2xl border border-accent-200/60 bg-white/90 p-4 shadow-sm backdrop-blur-sm sm:p-5">
