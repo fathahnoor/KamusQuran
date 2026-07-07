@@ -55,35 +55,66 @@ function matchArabicToken(token: string): {
 
 // --- Indonesian sentence handling ---------------------------
 
+/**
+ * Analyze an Indonesian sentence:
+ * 1. Map each word to its Arabic equivalent via the corpus.
+ * 2. Set surface = Arabic lemma so i'rob engine works directly.
+ * 3. Store the original Indonesian word in meaningId for display.
+ * 4. Apply full context-aware i'rob and sentence observations.
+ */
 function analyzeIndonesianSentence(input: string): SentenceAnalysis {
-  const tokens = input.split(/\s+/).filter(Boolean);
-  const sentenceTokens: SentenceToken[] = tokens.map((token, index) => {
-    const matches = searchWords(token, 1);
+  const indoWords = input.split(/\s+/).filter(Boolean);
+
+  const sentenceTokens: SentenceToken[] = indoWords.map((word, index) => {
+    const matches = searchWords(word, 1);
     if (matches.length > 0) {
       const w = matches[0]!;
       return {
-        index, surface: token, wordId: w.id, lemma: w.arabic, root: w.root,
-        meaningId: w.meaningId, posMajor: w.pos, morpho: w.morpho,
-        nahwuNote: w.nahwuNote, sharfNote: w.sharfNote, matched: true,
+        index,
+        surface: w.arabic,  // Arabic word (for i'rob + display)
+        lemma: w.arabic,
+        root: w.root,
+        meaningId: `${word} \u2192 ${w.meaningId}`, // Indonesian origin \u2192 meaning
+        posMajor: w.pos,
+        morpho: w.morpho,
+        nahwuNote: w.nahwuNote,
+        sharfNote: w.sharfNote,
+        matched: true,
       };
     }
-    return { index, surface: token, matched: false };
+    return { index, surface: word, matched: false };
   });
 
-  const matchedCount = sentenceTokens.filter((t) => t.matched).length;
-  const observations: SentenceObservation[] = [];
-  if (matchedCount === 0) {
-    observations.push({
-      summary: "Tidak ada kata yang cocok dengan kosakata Quran.",
-      notes: ["Masukkan kalimat Arab akan memberikan analisis morfologi yang lebih akurat."],
-    });
-  } else {
-    observations.push({
-      summary: `${matchedCount} dari ${tokens.length} kata berhasil dipetakan ke entri kosakata Quran.`,
-      notes: ["Untuk analisis nahwu tingkat kalimat, masukkan kalimat dalam bahasa Arab."],
+  // Apply context-aware i'rob (surface is already Arabic).
+  applyContextAwareIrab(sentenceTokens);
+
+  // Build standard sentence observations.
+  const observations = buildSentenceObservations(sentenceTokens, input);
+
+  // Prepend translation summary.
+  const matched = sentenceTokens.filter((t) => t.matched);
+  if (matched.length > 0) {
+    const arabicOut = matched.map((t) => t.lemma ?? t.surface).join(" ");
+    const indoIn = indoWords.filter((_, i) => sentenceTokens[i]?.matched).join(" ");
+    observations.unshift({
+      summary: `${indoIn} \u2192 ${arabicOut}`,
+      notes: [
+        `${matched.length} dari ${indoWords.length} kata dipetakan ke kosakata Quran.`,
+        "I'rob dianalisis dari struktur kalimat Arab hasil terjemahan.",
+      ],
     });
   }
-  return { input, inputLang: "id", isQuranicAyah: false, tokens: sentenceTokens, observations };
+
+  const irabSummary = buildIrabSummary(sentenceTokens);
+  if (irabSummary) observations.unshift(irabSummary);
+
+  return {
+    input,
+    inputLang: "id",
+    isQuranicAyah: false,
+    tokens: sentenceTokens,
+    observations,
+  };
 }
 
 // --- v3.0 Context-Aware I'rab Engine -------------------------
@@ -147,13 +178,13 @@ function applyContextAwareIrab(tokens: SentenceToken[]): void {
   for (let i = 0; i < tokens.length; i++) {
     const t = tokens[i]!;
 
-    // Huruf Jarr → next token is Majrur
+    // Huruf Jarr -> next token is Majrur
     if (isJarr(t.surface) && i + 1 < tokens.length) {
-      ctx[i] = "jarr"; // this token is the jarr itself
-      ctx[i + 1] = "majrur_by_jarr"; // next token is majrur
+      ctx[i] = "jarr";
+      ctx[i + 1] = "majrur_by_jarr";
     }
 
-    // Inna wa akhwatuha → next token is Isim Inna (Manshub), next+1 is Khabar Inna (Marfu')
+    // Inna wa akhwatuha -> next token is Isim Inna (Manshub), next+1 is Khabar Inna (Marfu')
     if (isInnaAkhwatuha(t.surface) && i + 1 < tokens.length) {
       ctx[i + 1] = "ism_inna";
       if (i + 2 < tokens.length) {
@@ -161,7 +192,7 @@ function applyContextAwareIrab(tokens: SentenceToken[]): void {
       }
     }
 
-    // Kaana wa akhwatuha → next token is Isim Kaana (Marfu'), next+1 is Khabar Kaana (Manshub)
+    // Kaana wa akhwatuha -> next token is Isim Kaana (Marfu'), next+1 is Khabar Kaana (Manshub)
     if (isKaanaAkhwatuha(t.surface) && i + 1 < tokens.length) {
       ctx[i + 1] = "ism_kaana";
       if (i + 2 < tokens.length) {
@@ -190,7 +221,6 @@ function applyContextAwareIrab(tokens: SentenceToken[]): void {
     const hint = ctx[i];
     const input = buildIrabInputFromToken(t);
 
-    // Apply context overrides to the input before generating
     if (hint && hint !== "none") {
       applyContextOverride(input, hint, i, tokens);
     }
@@ -219,7 +249,6 @@ function applyContextOverride(
 ): void {
   switch (hint) {
     case "jarr":
-      // The jarr particle itself is mabni
       input.irab = "none";
       input.role = undefined;
       break;
@@ -227,7 +256,6 @@ function applyContextOverride(
     case "majrur_by_jarr": {
       input.irab = "jarr";
       input.role = "mafhi";
-      // Try to set a contextual amil
       const prev = idx > 0 ? stripDiacritics(tokens[idx - 1]!.surface) : "";
       if (!input.aml) {
         input.aml = prev ? `Huruf Jarr (${prev})` : "Huruf Jarr sebelumnya";
@@ -238,33 +266,25 @@ function applyContextOverride(
     case "ism_inna":
       input.irab = "nasb";
       input.role = "ism_inna";
-      if (!input.aml) {
-        input.aml = "Inna wa akhwatuha";
-      }
+      if (!input.aml) input.aml = "Inna wa akhwatuha";
       break;
 
     case "khabar_inna":
       input.irab = "raf";
       input.role = "khabar_inna";
-      if (!input.aml) {
-        input.aml = "Inna wa akhwatuha";
-      }
+      if (!input.aml) input.aml = "Inna wa akhwatuha";
       break;
 
     case "ism_kaana":
       input.irab = "raf";
       input.role = "ism_kaana";
-      if (!input.aml) {
-        input.aml = "Kaana wa akhwatuha";
-      }
+      if (!input.aml) input.aml = "Kaana wa akhwatuha";
       break;
 
     case "khabar_kaana":
       input.irab = "nasb";
       input.role = "khabar_kaana";
-      if (!input.aml) {
-        input.aml = "Kaana wa akhwatuha";
-      }
+      if (!input.aml) input.aml = "Kaana wa akhwatuha";
       break;
 
     case "mudhaf_ilayh":
@@ -277,7 +297,6 @@ function applyContextOverride(
       break;
 
     case "mathuf":
-      // 'Athf: follows the i'rab of the ma'thuf 'alayh
       if (idx >= 2) {
         const maathufAlayh = tokens[idx - 2]!;
         const prevIrab = maathufAlayh.structuredIrab;
@@ -321,13 +340,10 @@ function analyzeArabicSentence(input: string): SentenceAnalysis {
     return { index, surface: token, posMajor: guessPosByHeuristic(token), matched: false };
   });
 
-  // v3.0: Generate context-aware structured i'rab for each token.
   applyContextAwareIrab(tokens);
-
   const observations = buildSentenceObservations(tokens, input);
   const isQuranic = checkIfQuranicAyah(input, tokens);
 
-  // v3.0: Add i'rab summary observation.
   const irabSummary = buildIrabSummary(tokens);
   if (irabSummary) observations.unshift(irabSummary);
 
@@ -346,23 +362,20 @@ function guessPosByHeuristic(token: string): PosMajor {
 
 // --- I'rab Summary (v3.0) -----------------------------------
 
-/** Build a sentence-level i'rab structural summary. */
 function buildIrabSummary(tokens: SentenceToken[]): SentenceObservation | null {
   const withIrab = tokens.filter((t) => t.structuredIrab);
   if (withIrab.length === 0) return null;
 
   const counts: Record<string, number> = {};
-
   for (const t of withIrab) {
     const s = t.structuredIrab!;
-    // Count by position + status
     const key = `${s.irabStatus} ${s.kedudukan}`;
     counts[key] = (counts[key] ?? 0) + 1;
   }
 
   const summaryParts: string[] = [];
   for (const [key, count] of Object.entries(counts)) {
-    summaryParts.push(`${count}× ${key}`);
+    summaryParts.push(`${count}\u00d7 ${key}`);
   }
 
   return {
@@ -404,7 +417,7 @@ function buildSentenceObservations(tokens: SentenceToken[], _input: string): Sen
         (cur.posMajor === "noun" || cur.posMajor === "proper_noun") &&
         (next.posMajor === "noun" || next.posMajor === "proper_noun")) {
       observations.push({
-        summary: `Terdapat idafah: "${cur.lemma ?? cur.surface}" → "${next.lemma ?? next.surface}".`,
+        summary: `Terdapat idafah: "${cur.lemma ?? cur.surface}" \u2192 "${next.lemma ?? next.surface}".`,
         notes: [`${cur.surface} sebagai mudhaf, ${next.surface} sebagai mudhaf ilayh (majrur).`],
       });
     }
@@ -414,7 +427,7 @@ function buildSentenceObservations(tokens: SentenceToken[], _input: string): Sen
   if (unmatched.length > 0) {
     observations.push({
       summary: `${unmatched.length} kata tidak ditemukan dalam kosakata Quran.`,
-      notes: unmatched.map((t) => `"${t.surface}" → ${t.posMajor ?? "tidak diketahui"}`),
+      notes: unmatched.map((t) => `"${t.surface}" \u2192 ${t.posMajor ?? "tidak diketahui"}`),
     });
   }
 

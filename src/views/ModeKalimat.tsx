@@ -75,15 +75,15 @@ export function ModeKalimat() {
             </div>
           )}
 
-          {/* 🆕 v3.0: Full-sentence I'rob table (Al-Munir style) — Arabic only */}
-          {analysis.inputLang === "ar" && (
+          {/* 🆕 v3.0: Full-sentence I'rob table (Al-Munir style) */}
+          {analysis.tokens.some((t) => t.structuredIrab) && (
           <div className="rounded-2xl border border-accent-200/60 bg-white/90 p-4 shadow-sm backdrop-blur-sm sm:p-5">
             <SentenceIrobTable tokens={analysis.tokens} />
           </div>
           )}
 
-          {/* 🆕 v3.0: Per-token full IrobTable cards (like Mode Kata) — Arabic only */}
-          {analysis.inputLang === "ar" && (
+          {/* 🆕 v3.0: Per-token full IrobTable cards (like Mode Kata) */}
+          {analysis.tokens.some((t) => t.structuredIrab) && (
           <div className="rounded-2xl border border-accent-200/60 bg-white/90 p-4 shadow-sm backdrop-blur-sm sm:p-5">
             <PerTokenIrobList tokens={analysis.tokens} />
           </div>
