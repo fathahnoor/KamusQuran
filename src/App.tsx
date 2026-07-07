@@ -48,8 +48,12 @@ export default function App() {
       </main>
       <footer className="border-t border-ink-200/60 bg-white/50 py-6 pb-20 text-center text-xs text-ink-500 backdrop-blur-sm sm:pb-6 sm:text-sm">
         <p>
-          Kamus Quran, alat belajar bahasa Arab Al-Qur&apos;an · Data: Quranic Arabic
-          Corpus, Tanzil, AlQuran Cloud
+          <strong>Kamus Quran v3.0</strong> — I&apos;rob Sistematis{" "}
+          (Metode Al-Munir + Nahwu al-Wadhih)
+        </p>
+        <p className="mt-1">
+          Data: Quranic Arabic Corpus, Tanzil, AlQuran Cloud · Referensi:{" "}
+          An-Nahwu al-Wadhih, Metode Al-Munir
         </p>
       </footer>
     </div>

@@ -25,8 +25,16 @@ export function AboutView() {
         <p>
           Membantu pengguna menguasai ~80–90% kosakata berfrekuensi tinggi Al-Qur&apos;an
           (500 kata inti dari Quranic Arabic Corpus) dan memperluas penguasaan bahasa Arab
-          dengan 502 kata sehari-hari, total 1002 kata. Selain itu, memahami struktur
-          nahwu dan sharf melalui pencarian dan analisis morfologi praktis.
+          dengan 502 kata sehari-hari, total 1002 kata. Setiap kata dilengkapi{" "}
+          <strong>tabel i&apos;rob Al-Munir</strong> (6 kolom: Jenis, Kedudukan,{" "}
+          I&apos;rob, Tanda, &apos;Amil) dan <strong>kesimpulan induktif{" "}
+          Nahwu al-Wadhih</strong>.
+        </p>
+        <p className="mt-2">
+          Di Mode Kalimat, tersedia{" "}
+          <strong>tabel i&apos;rob seluruh kalimat</strong>{" "}
+          dengan context-aware engine yang mendeteksi huruf jarr, inna/akhwatuha,{" "}
+          kaana/akhwatuha, idhafah, dan &apos;athf secara otomatis.
         </p>
       </Section>
 
@@ -49,11 +57,17 @@ export function AboutView() {
           <li>
             <strong>Context-aware di Mode Kalimat</strong>: deteksi otomatis huruf jarr,
             inna/akhwatuha, kaana/akhwatuha, idhafah, dan &apos;athf untuk
-            analisis i&apos;rob per kata dalam konteks kalimat.
+            analisis i&apos;rob per kata dalam konteks kalimat.{" "}
+            <strong>SentenceIrobTable</strong>: satu tabel utuh mem-breakdown seluruh kalimat
+            kata per kata.
           </li>
           <li>
             <strong>Manual override</strong>: field <code>tnd</code> dan{" "}
             <code>aml</code> di data batch untuk koreksi manual pada kasus khusus.
+          </li>
+          <li>
+            <strong>Unit tests</strong>: 30+ test cases (Vitest) memvalidasi kebenaran{" "}
+            aturan nahwu-sharf pada heuristic engine.
           </li>
         </ul>
       </Section>
@@ -106,9 +120,12 @@ export function AboutView() {
           heuristik untuk kata yang tidak ditemukan.
         </p>
         <p className="mt-2">
-          Pendekatan ini memastikan akurasi tinggi untuk ayat Quran, tetapi
-          memiliki keterbatasan untuk kalimat arbitrary yang tidak terdapat dalam
-          korpus, sehingga fungsi sintaktis antar kata mungkin tidak lengkap.
+          Mulai v3.0, Mode Kalimat dilengkapi{" "}
+          <strong>SentenceIrobTable</strong> — tabel i&apos;rob lengkap{" "}
+          ala Al-Munir yang mem-breakdown seluruh kalimat kata per kata{" "}
+          (8 kolom: #, Kata, Arti, Jenis, Kedudukan, I&apos;rob, Tanda, &apos;Amil).{" "}
+          Context-aware engine mendeteksi struktur nahwu seperti huruf jarr, inna, kaana,{" "}
+          idhafah, dan &apos;athf.
         </p>
       </Section>
 
@@ -149,10 +166,10 @@ export function AboutView() {
       <Section title="Versi" icon="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6">
         <p>
           <strong>v3.0</strong>: <strong>I&apos;rob Sistematis</strong> — tabel i&apos;rob 6 kolom{" "}
-          ala Metode Al-Munir di Mode Kata + Mode Kalimat, context-aware sentence i&apos;rob{" "}
-          engine (deteksi jarr/inna/kaana/idhafah/&apos;athf), heuristic engine 300+ baris, and{" "}
-          expandable IrobTable di setiap token, unit tests (Vitest), inductive conclusion{" "}
-          ala Nahwu al-Wadhih.
+          ala Metode Al-Munir di Mode Kata + SentenceIrobTable (tabel i&apos;rob utuh per{" "}
+          kalimat) di Mode Kalimat, context-aware sentence i&apos;rob engine (deteksi{" "}
+          jarr/inna/kaana/idhafah/&apos;athf), heuristic engine 300+ baris, kesimpulan{" "}
+          induktif Nahwu al-Wadhih, 30+ unit tests (Vitest).
         </p>
         <p className="mt-2">
           <strong>v2.0</strong>: 1002 kata (500 Quran + 502 sehari-hari), Mode Kata dengan
@@ -166,7 +183,9 @@ export function AboutView() {
         <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
         </svg>
-        Dibangun sebagai alat edukasi, bukan pengganti tafsir resmi atau fatwa.
+        Dibangun sebagai alat edukasi nahwu-sharf, bukan pengganti tafsir resmi atau fatwa.
+        I&apos;rob di-generate otomatis oleh heuristic engine — perlu verifikasi manual
+        untuk ketepatan 100%.
       </p>
     </div>
   );
