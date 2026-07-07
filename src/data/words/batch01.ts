@@ -210,6 +210,6 @@ export const BATCH_01: CompactWord[] = [
 
   // --- Fi'il Amr: قُلْ (qul) ---
   { id: "qul", ar: "قُلْ", root: "قول", mid: "katakanlah", men: "Say! (imperative)", pos: "verb", freq: 332, rank: 51, wazan: "fu'l", form: "I", vf: "fiil_amr", irab: "none",
-    occ: [[112,1,6222,1],[114,1,6231,1],[113,1,6226,1]],
-    ex: [[112,1,6222,"قُلْ هُوَ اللَّهُ أَحَدٌ","Katakanlah (Muhammad): 'Dialah Allah, Yang Maha Esa.'","أَحَدٌ"],[114,1,6231,"قُلْ أَعُوذُ بِرَبِّ النَّاسِ","Katakanlah: Aku berlindung kepada Tuhan manusia.","النَّاسِ"],[113,1,6226,"قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ","Katakanlah: Aku berlindung kepada Tuhan yang menguasai waktu subuh.","الْفَلَقِ"]] },
+    occ: [[112,1,6222,1],[114,1,6231,1],[113,1,6226,1],[109,1,6219,1],[72,1,5781,1],[2,97,101,1],[3,64,407,1],[2,139,142,1],[17,85,2220,1],[34,26,4263,1],[2,135,139,1],[2,80,84,1],[2,189,195,1],[13,16,1959,1]],
+    ex: [[112,1,6222,"قُلْ هُوَ اللَّهُ أَحَدٌ","Katakanlah (Muhammad): 'Dialah Allah, Yang Maha Esa.'"],[114,1,6231,"قُلْ أَعُوذُ بِرَبِّ النَّاسِ","Katakanlah: Aku berlindung kepada Tuhan manusia."],[113,1,6226,"قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ","Katakanlah: Aku berlindung kepada Tuhan yang menguasai waktu subuh."],[72,1,5781,"قُلْ أُوحِيَ إِلَيَّ أَنَّهُ اسْتَمَعَ نَفَرٌ مِّنَ الْجِنِّ","Katakanlah (Muhammad): 'Telah diwahyukan kepadaku bahwa sekumpulan jin telah mendengarkan (bacaan).'"],[17,85,2220,"وَيَسْأَلُونَكَ عَنِ الرُّوحِ ۖ قُلِ الرُّوحُ مِنْ أَمْرِ رَبِّي","Dan mereka bertanya kepadamu (Muhammad) tentang roh. Katakanlah: 'Roh itu termasuk urusan Tuhanku.'"],[3,64,407,"قُلْ يَا أَهْلَ الْكِتَابِ تَعَالَوْا إِلَىٰ كَلِمَةٍ سَوَاءٍ بَيْنَنَا وَبَيْنَكُمْ","Katakanlah: 'Wahai Ahli Kitab, marilah menuju ke suatu kalimat yang sama antara kami dan kamu.'"]] },
 ];
