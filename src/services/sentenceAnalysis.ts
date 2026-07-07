@@ -174,18 +174,18 @@ function buildSentenceObservations(tokens: SentenceToken[], _input: string): Sen
   if (verbCount > 0 && tokens[0]?.posMajor === "verb") {
     observations.push({
       sentenceType: "jumlah fi'liyyah (kalimat verbal)",
-      summary: "Kalimat dimulai dengan fi'il (kata kerja) — jumlah fi'liyyah.",
+      summary: "Kalimat dimulai dengan fi'il (kata kerja), yaitu jumlah fi'liyyah.",
       notes: ["Unsur: fi'il + fa'il (pelaku) + maf'ul (objek) bila ada."],
     });
   } else if (nounCount > 0 && tokens[0]?.posMajor !== "verb") {
     observations.push({
       sentenceType: "jumlah ismiyyah (kalimat nominal)",
-      summary: "Kalimat dimulai dengan isim — jumlah ismiyyah.",
+      summary: "Kalimat dimulai dengan isim, yaitu jumlah ismiyyah.",
       notes: ["Unsur: mubtada' (subjek) + khabar (predikat)."],
     });
   }
 
-  // Detect idafah (construct state) — two consecutive nouns where first is mudhaf.
+  // Detect idafah (construct state): two consecutive nouns where first is mudhaf.
   for (let i = 0; i < tokens.length - 1; i++) {
     const cur = tokens[i];
     const next = tokens[i + 1];
@@ -201,7 +201,7 @@ function buildSentenceObservations(tokens: SentenceToken[], _input: string): Sen
   const unmatched = tokens.filter((t) => !t.matched);
   if (unmatched.length > 0) {
     observations.push({
-      summary: `${unmatched.length} kata tidak ditemukan dalam kosakata Quran — ditampilkan dengan tebakan POS berdasarkan heuristik.`,
+      summary: `${unmatched.length} kata tidak ditemukan dalam kosakata Quran, ditampilkan dengan tebakan POS berdasarkan heuristik.`,
       notes: unmatched.map((t) => `"${t.surface}" → diperkirakan: ${t.posMajor ?? "tidak diketahui"}`),
     });
   }

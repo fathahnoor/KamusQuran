@@ -18,7 +18,7 @@ export const BATCH_01: CompactWord[] = [
 
   { id: "amana", ar: "آمَن", root: "امن", mid: "beriman, percaya, merasa aman", men: "to believe, to have faith", pos: "verb", freq: 538, rank: 4, wazan: "af'ala", form: "IV", vf: "fiil_madhi", irab: "none",
     occ: [[2,3,5,1],[2,62,65,1]],
-    ex: [[2,62,65,"إِنَّ الَّذِينَ آمَنُوا وَالَّذِينَ هَادُوا وَالنَّصَارَىٰ وَالصَّابِئِينَ مَنْ آمَنَ بِاللَّهِ وَالْيَوْمِ الْآخِرِ","Sesungguhnya orang-orang beriman, orang-orang Yahudi, Nasrani, dan Shabiin — barangsiapa beriman kepada Allah dan hari akhir...","آمَنَ"]] },
+    ex: [[2,62,65,"إِنَّ الَّذِينَ آمَنُوا وَالَّذِينَ هَادُوا وَالنَّصَارَىٰ وَالصَّابِئِينَ مَنْ آمَنَ بِاللَّهِ وَالْيَوْمِ الْآخِرِ","Sesungguhnya orang-orang beriman, orang-orang Yahudi, Nasrani, dan Shabiin: barangsiapa beriman kepada Allah dan hari akhir...","آمَنَ"]] },
 
   { id: "rabb", ar: "رَبّ", root: "رب", mid: "Tuhan, pengurus, pemelihara, pencipta", men: "Lord, sustainer", pos: "noun", freq: 980, rank: 5, wazan: "fa'l", form: "I", g: "masculine", num: "singular", def: "construct", irab: "raf", role: "mudhaf_ilayh",
     occ: [[1,2,2,2],[2,1,8,1]],

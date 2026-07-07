@@ -18,7 +18,7 @@ function writeStore(items: Bookmark[]): void {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
   } catch (e) {
-    // Quota exceeded or storage disabled — surface to caller.
+    // Quota exceeded or storage disabled: surface to caller.
     throw new Error("Gagal menyimpan bookmark: penyimpanan browser penuh atau dinonaktifkan.");
   }
 }

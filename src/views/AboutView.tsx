@@ -20,21 +20,21 @@ export function AboutView() {
       <Section title="Sumber Data">
         <ul className="list-inside list-disc space-y-1 text-sm text-ink-700">
           <li>
-            <strong>Quranic Arabic Corpus (corpus.quran.com)</strong> — data morfologi:
+            <strong>Quranic Arabic Corpus (corpus.quran.com)</strong>, data morfologi:
             akar (root), lemma, kelas kata (POS), wazan, i&apos;rab, fitur morfologi,
             dan dependency treebank (QADT). Lisensi: GNU GPL.
           </li>
           <li>
-            <strong>Tanzil (tanzil.net)</strong> — teks Al-Qur&apos;an Uthmani dan
+            <strong>Tanzil (tanzil.net)</strong>: teks Al-Qur&apos;an Uthmani dan
             terjemahan Bahasa Indonesia (Kemenag).
           </li>
           <li>
-            <strong>AlQuran Cloud API (alquran.cloud)</strong> — audio tilawah
+            <strong>AlQuran Cloud API (alquran.cloud)</strong>: audio tilawah
             (Mishary Alafasy), tafsir Jalalayn (Bahasa Indonesia), dan endpoint search.
             Gratis, tanpa API key, CORS-enabled.
           </li>
           <li>
-            <strong>Web Speech API</strong> — pengenalan suara browser-native untuk
+            <strong>Web Speech API</strong>: pengenalan suara browser-native untuk
             input Arab (ar-SA) dan Indonesia (id-ID).
           </li>
         </ul>
@@ -50,7 +50,7 @@ export function AboutView() {
         </p>
       </Section>
 
-      <Section title="Mode Kalimat — Pendekatan Hybrid">
+      <Section title="Mode Kalimat: Pendekatan Hybrid">
         <p>
           Untuk kalimat dari Al-Qur&apos;an, aplikasi menggunakan data dependency
           graph dari QADT (annotasi scholar). Untuk input kalimat bebas, aplikasi
@@ -61,7 +61,7 @@ export function AboutView() {
         <p className="mt-2">
           Pendekatan ini memastikan akurasi tinggi untuk ayat Quran, tetapi
           memiliki keterbatasan untuk kalimat arbitrary yang tidak terdapat dalam
-          korpus — fungsi sintaktis antar kata mungkin tidak lengkap.
+          korpus, sehingga fungsi sintaktis antar kata mungkin tidak lengkap.
         </p>
       </Section>
 
@@ -90,7 +90,7 @@ export function AboutView() {
           </li>
           <li>
             Pengenalan suara hanya berfungsi di Chrome, Edge, dan Safari (online).
-            Firefox tidak didukung — fallback ke input teks selalu tersedia.
+            Firefox tidak didukung, fallback ke input teks selalu tersedia.
           </li>
           <li>
             Analisis dependency graph untuk kalimat bebas (non-Quran) tidak tersedia
@@ -101,14 +101,14 @@ export function AboutView() {
 
       <Section title="Versi">
         <p>
-          <strong>v1.2</strong> — 600 kata (500 Quran + 100 sehari-hari), Mode Kata dengan
+          <strong>v1.2</strong>: 600 kata (500 Quran + 100 sehari-hari), Mode Kata dengan
           browsing &amp; diacritic toggle, Mode Kalimat dengan analisis per kata,
           bookmark dengan export/import JSON, TTS pengucapan, dan integrasi audio/tafsir AlQuran Cloud.
         </p>
       </Section>
 
       <p className="text-center text-xs text-ink-400">
-        Dibangun sebagai alat edukasi — bukan pengganti tafsir resmi atau fatwa.
+        Dibangun sebagai alat edukasi, bukan pengganti tafsir resmi atau fatwa.
       </p>
     </div>
   );

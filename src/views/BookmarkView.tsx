@@ -68,7 +68,7 @@ export function BookmarkView({ onNavigateToKata }: BookmarkViewProps) {
           <div>
             <h1 className="text-xl font-bold text-ink-900 sm:text-2xl">Bookmark</h1>
             <p className="mt-1 text-sm text-ink-500">
-              Kumpulan kata tersimpan. Data disimpan lokal di browser — tidak ada login.
+              Kumpulan kata tersimpan. Data disimpan lokal di browser, tidak ada login.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2">

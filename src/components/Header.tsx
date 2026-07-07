@@ -15,7 +15,7 @@ const NAV_ITEMS: { id: AppView; label: string; icon: string }[] = [
 export function Header({ current, onNavigate }: HeaderProps) {
   return (
     <>
-      {/* Top bar — compact on mobile, full on desktop */}
+      {/* Top bar: compact on mobile, full on desktop */}
       <header className="sticky top-0 z-50 border-b border-ink-200 bg-ink-50/95 backdrop-blur-sm">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-3 py-2.5 sm:px-6 sm:py-3 lg:px-8">
           <button
@@ -31,7 +31,7 @@ export function Header({ current, onNavigate }: HeaderProps) {
             </span>
           </button>
 
-          {/* Desktop nav — hidden on mobile */}
+          {/* Desktop nav: hidden on mobile */}
           <nav className="hidden items-center gap-1 sm:flex">
             {NAV_ITEMS.map((item) => (
               <button
@@ -51,7 +51,7 @@ export function Header({ current, onNavigate }: HeaderProps) {
         </div>
       </header>
 
-      {/* Mobile bottom navigation bar — fixed at bottom */}
+      {/* Mobile bottom navigation bar: fixed at bottom */}
       <nav
         className="fixed bottom-0 left-0 right-0 z-50 border-t border-ink-200 bg-ink-50/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-sm sm:hidden"
         aria-label="Navigasi utama"

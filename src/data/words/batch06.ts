@@ -1,6 +1,6 @@
 import type { CompactWord } from "../wordBuilder";
 
-// Batch 6: High-frequency Quranic lemmas (ranks 251-300) — final batch
+// Batch 6: High-frequency Quranic lemmas (ranks 251-300): final batch
 export const BATCH_06: CompactWord[] = [
   { id: "jabbar", ar: "جَبَّار", root: "جبر", mid: "Maha Perkasa (atribut Allah)", men: "The Compeller", pos: "adjective", freq: 9, rank: 251, wazan: "fa''aal", form: "I", g: "masculine", num: "singular", def: "definite", irab: "raf",
     occ: [[59,23,5420,1]], ex: [[59,23,5420,"هُوَ اللَّهُ الَّذِي لَا إِلَٰهَ إِلَّا هُوَ الْمَلِكُ الْقُدُّوسُ السَّلَامُ الْمُؤْمِنُ الْمُهَيْمِنُ الْعَزِيزُ الْجَبَّارُ الْمُتَكَبِّرُ","Dialah Allah yang tidak ada Tuhan selain Dia, Raja, Yang Mahasuci, Yang Sejahtera, Yang Menjaga Keamanan, Yang Maha Memelihara, Yang Maha Perkasa, Yang Maha Kuasa, Yang Maha Besar...","الْجَبَّارُ"]] },

@@ -68,12 +68,12 @@ export const HIGH_FREQ_WORDS: WordEntry[] = (() => {
   for (const w of seen.values()) {
     const existing = byId.get(w.id);
     if (existing) {
-      // Duplicate ID detected — keep the best rank, warn about the drop.
+      // Duplicate ID detected: keep the best rank, warn about the drop.
       if ((w.rank ?? w.frequency) < (existing.rank ?? existing.frequency)) {
-        console.warn(`Duplicate word id "${w.id}" — keeping rank ${w.rank ?? w.frequency}, dropping rank ${existing.rank ?? existing.frequency}`);
+        console.warn(`Duplicate word id "${w.id}": keeping rank ${w.rank ?? w.frequency}, dropping rank ${existing.rank ?? existing.frequency}`);
         byId.set(w.id, w);
       } else {
-        console.warn(`Duplicate word id "${w.id}" — keeping rank ${existing.rank ?? existing.frequency}, dropping rank ${w.rank ?? w.frequency}`);
+        console.warn(`Duplicate word id "${w.id}": keeping rank ${existing.rank ?? existing.frequency}, dropping rank ${w.rank ?? w.frequency}`);
       }
     } else {
       byId.set(w.id, w);
@@ -84,10 +84,10 @@ export const HIGH_FREQ_WORDS: WordEntry[] = (() => {
 
 // --- Pre-sorted indices (computed ONCE at module load) ---
 // These eliminate ALL runtime sorting. The browser just swaps which
-// frozen array to render — no .sort() call ever happens in the React
+// frozen array to render: no .sort() call ever happens in the React
 // component, so there is no possibility of ordering degradation.
 
-/** Total-order id comparator — guarantees no two items compare equal. */
+/** Total-order id comparator: guarantees no two items compare equal. */
 function idCmp(a: WordEntry, b: WordEntry): number {
   return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
 }
@@ -201,7 +201,7 @@ export function searchWords(query: string, limit = 50): WordEntry[] {
       }
     }
   } else {
-    // 3. Indonesian meaning matching — word-level to avoid false positives.
+    // 3. Indonesian meaning matching: word-level to avoid false positives.
     // Split meaning into individual words and match against query words.
     // '/' is included as a delimiter so 'ghayah/ibtida' splits into separate words.
     const SPLIT_RE = /[\s,;·()/]+/;
@@ -242,7 +242,7 @@ export function searchWords(query: string, limit = 50): WordEntry[] {
               bestAltScore = Math.max(bestAltScore, 55);
             }
           }
-          // Within-word substring fallback removed — it caused false positives
+          // Within-word substring fallback removed: it caused false positives
           // like 'ayah' matching 'ghayah'. startsWith handles most inflected forms.
         }
       }

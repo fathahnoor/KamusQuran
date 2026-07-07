@@ -66,7 +66,7 @@ export interface UseVoiceRecognitionReturn extends VoiceRecognitionState {
 /**
  * Browser-native voice recognition via the Web Speech API.
  * Supports ar-SA and id-ID. Degrades gracefully on Firefox (unsupported).
- * No API key, no backend — audio sent to browser-vendor STT servers online.
+ * No API key, no backend: audio sent to browser-vendor STT servers online.
  */
 export function useVoiceRecognition(onFinalResult: (transcript: string) => void): UseVoiceRecognitionReturn {
   const ctorRef = useRef<SpeechRecognitionCtor | null>(null);

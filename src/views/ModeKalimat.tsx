@@ -60,7 +60,7 @@ export function ModeKalimat() {
             <div className="rounded-lg border border-accent-500 bg-accent-50/40 p-3 sm:p-4">
               <p className="text-sm font-semibold text-accent-700">
                 ✓ Kalimat ini cocok dengan ayat Al-Qur&apos;an
-                {analysis.matchedAyah && ` — ${analysis.matchedAyah}`}
+                {analysis.matchedAyah && ` yaitu ${analysis.matchedAyah}`}
               </p>
               <p className="mt-1 text-xs text-accent-600">
                 Analisis dependency graph (QADT) tersedia untuk ayat ini.

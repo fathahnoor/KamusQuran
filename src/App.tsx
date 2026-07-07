@@ -49,7 +49,7 @@ export default function App() {
       </main>
       <footer className="border-t border-ink-200 bg-ink-100/60 py-6 pb-20 text-center text-xs text-ink-500 sm:pb-6 sm:text-sm">
         <p>
-          Kamus Quran — alat belajar bahasa Arab Al-Qur&apos;an · Data: Quranic Arabic
+          Kamus Quran, alat belajar bahasa Arab Al-Qur&apos;an · Data: Quranic Arabic
           Corpus, Tanzil, AlQuran Cloud
         </p>
       </footer>

@@ -61,7 +61,7 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
         }
         noDiacPos++;
       } else {
-        // This is a diacritic character — attach to current segment.
+        // This is a diacritic character: attach to current segment.
         if (noDiacPos <= idx) {
           before += origChar;
         } else if (noDiacPos <= matchEnd) {
@@ -136,7 +136,7 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
             setTafsirText(tafsir.text);
           }
         } catch {
-          // Network failure — fall back to bundled data.
+          // Network failure: fall back to bundled data.
         }
       }
       if (!cancelled) {
@@ -318,7 +318,7 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
       {/* Nahwu note */}
       {entry.nahwuNote && (
         <div className="rounded-lg border-l-4 border-accent-500 bg-accent-50/40 p-3 sm:p-4">
-          <h4 className="mb-1 text-sm font-bold text-accent-700">نحو — Catatan Nahwu</h4>
+          <h4 className="mb-1 text-sm font-bold text-accent-700">نحو: Catatan Nahwu</h4>
           <p className="text-sm leading-relaxed text-ink-700">{entry.nahwuNote}</p>
         </div>
       )}
@@ -326,7 +326,7 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
       {/* Sharf note */}
       {entry.sharfNote && (
         <div className="rounded-lg border-l-4 border-ink-500 bg-ink-100/60 p-3 sm:p-4">
-          <h4 className="mb-1 text-sm font-bold text-ink-700">صرف — Catatan Sharf</h4>
+          <h4 className="mb-1 text-sm font-bold text-ink-700">صرف: Catatan Sharf</h4>
           <p className="text-sm leading-relaxed text-ink-700">{entry.sharfNote}</p>
         </div>
       )}
@@ -334,7 +334,7 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
       {/* I'rab note */}
       {m.irabNote && (
         <div className="rounded-lg border-l-4 border-ink-400 bg-ink-50 p-3 sm:p-4">
-          <h4 className="mb-1 text-sm font-bold text-ink-600">إعراب — Keterangan I&apos;rab</h4>
+          <h4 className="mb-1 text-sm font-bold text-ink-600">إعراب: Keterangan I&apos;rab</h4>
           <p className="text-sm leading-relaxed text-ink-700">{m.irabNote}</p>
         </div>
       )}
@@ -355,7 +355,7 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
       )}
       {tafsirText && (
         <div className="rounded-lg border border-ink-200 bg-white p-3 shadow-sm sm:p-4">
-          <h4 className="mb-1 text-sm font-bold text-ink-700">تفسير — Tafsir (Jalalayn)</h4>
+          <h4 className="mb-1 text-sm font-bold text-ink-700">تفسير: Tafsir (Jalalayn)</h4>
           <p className="text-sm leading-relaxed text-ink-700">{tafsirText}</p>
         </div>
       )}

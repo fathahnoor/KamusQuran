@@ -30,7 +30,7 @@ html {
   text-size-adjust: 100%;
 }
 
-/* Responsive root font — scales down on small screens */
+/* Responsive root font: scales down on small screens */
 @media (max-width: 640px) {
   html {
     font-size: 15px;

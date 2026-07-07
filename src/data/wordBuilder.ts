@@ -32,13 +32,13 @@ export function toGlobalAyahNumber(surah: number, ayah: number): number {
 }
 
 // ============================================================
-// Compact word format — minimizes per-word data size.
+// Compact word format: minimizes per-word data size.
 // The builder expands these into full WordEntry objects with
 // auto-generated nahwu/sharf notes.
 // ============================================================
 
 export interface CompactWord {
-  /** Stable id — lowercase transliteration. */
+  /** Stable id: lowercase transliteration. */
   id: string;
   /** Arabic headword/lemma (with diacritics where helpful). */
   ar: string;
@@ -203,29 +203,29 @@ function generateNahwuNote(cw: CompactWord): string {
     if (cw.vf === "fiil_madhi") {
       parts.push("Fi'il madhi (kata kerja lampau), mabni 'ala fathah (tetap pada fathah).");
     } else if (cw.vf === "fiil_mudhari") {
-      parts.push("Fi'il mudhari' (kata kerja sekarang/akan datang), mu'rab — berubah i'rab-nya tergantung 'amil (rafa'/nashab/jazm).");
+      parts.push("Fi'il mudhari' (kata kerja sekarang/akan datang), mu'rab, berubah i'rab-nya tergantung 'amil (rafa'/nashab/jazm).");
     } else if (cw.vf === "fiil_amr") {
       parts.push("Fi'il amr (kata perintah), mabni 'ala sukun (tetap pada sukun).");
     } else if (cw.vf === "masdar") {
-      parts.push("Masdar (infinitif) — sebagai isim, i'rab-nya berubah-ubah tergantung posisi sintaktis.");
+      parts.push("Masdar (infinitif), sebagai isim, i'rab-nya berubah-ubah tergantung posisi sintaktis.");
     } else {
-      parts.push("Fi'il — i'rab mengikuti jenis dan posisi sintaktis.");
+      parts.push("Fi'il, i'rab mengikuti jenis dan posisi sintaktis.");
     }
   } else if (pos === "noun" || pos === "adjective" || pos === "proper_noun") {
-    parts.push("Isim — mu'rab (berubah i'rab-nya).");
+    parts.push("Isim, mu'rab (berubah i'rab-nya).");
     if (cw.def === "construct") {
       parts.push("Sering muncul dalam idafah (konstruksi sandang) sebagai mudhaf.");
     } else if (cw.def === "proper") {
-      parts.push("Nama diri — mabni (tetap), tetapi i'rab mengikuti posisi dalam kalimat.");
+      parts.push("Nama diri, mabni (tetap), tetapi i'rab mengikuti posisi dalam kalimat.");
     } else if (cw.def === "definite") {
-      parts.push("Ma'rifah (definit) — dengan alif lam atau idafah.");
+      parts.push("Ma'rifah (definit), dengan alif lam atau idafah.");
     } else if (cw.def === "indefinite") {
       parts.push("Nakirah (indefinit).");
     }
   } else if (pos === "particle") {
-    parts.push("Huruf (partikel) — mabni (tetap), tidak ber-i'rab.");
+    parts.push("Huruf (partikel), mabni (tetap), tidak ber-i'rab.");
   } else if (pos === "pronoun") {
-    parts.push("Dhamir (kata ganti) — mabni, i'rab mengikuti fungsi sintaktis.");
+    parts.push("Dhamir (kata ganti), mabni, i'rab mengikuti fungsi sintaktis.");
   }
 
   // I'rab detail
@@ -262,7 +262,7 @@ function generateSharfNote(cw: CompactWord): string {
   if (cw.form && cw.form !== "unknown" && cw.form !== "I") {
     parts.push(`Bentuk ${DERIVED_FORM_LABELS[cw.form]}.`);
   } else if (cw.form === "I") {
-    parts.push("Bentuk I (tsulatsi mujarrad — bentuk dasar).");
+    parts.push("Bentuk I (tsulatsi mujarrad, bentuk dasar).");
   }
 
   if (cw.pos === "verb") {
@@ -285,9 +285,9 @@ function generateSharfNote(cw: CompactWord): string {
       parts.push("Pola isim dengan akhiran ta' marbuta.");
     }
   } else if (cw.pos === "particle") {
-    parts.push("Huruf — tidak mengalami tasrif (perubahan morfologis).");
+    parts.push("Huruf, tidak mengalami tasrif (perubahan morfologis).");
   } else if (cw.pos === "pronoun") {
-    parts.push("Dhamir — bentuk tetap, tidak mengalami tasrif.");
+    parts.push("Dhamir, bentuk tetap, tidak mengalami tasrif.");
   }
 
   return parts.join(" ").trim() || "Informasi sharf belum tersedia untuk kata ini.";
@@ -317,13 +317,13 @@ export function buildWordEntry(cw: CompactWord): WordEntry {
   if (morpho.irab && morpho.irab !== "unknown") {
     const base = IRAB_LABELS[morpho.irab];
     if (morpho.irab === "none") {
-      morpho.irabNote = `${base} — kata ini tetap akhirnya, tidak berubah i'rab.`;
+      morpho.irabNote = `${base}. Kata ini tetap akhirnya, tidak berubah i'rab.`;
     } else {
       morpho.irabNote = `${base}. I'rab dapat berubah tergantung 'amil dan posisi dalam kalimat.`;
     }
   }
 
-  // Build occurrences — compute correct globalAyahNumber from surah+ayah.
+  // Build occurrences: compute correct globalAyahNumber from surah+ayah.
   // (Hardcoded values in batch data were unreliable; computing ensures correctness.)
   const occurrences: OccurrenceRef[] = (cw.occ ?? []).map(([surah, ayah, _globalAyahNumber, token]) => ({
     surah,
@@ -332,7 +332,7 @@ export function buildWordEntry(cw: CompactWord): WordEntry {
     token,
   }));
 
-  // Build example ayat with audio URLs — compute correct globalAyahNumber.
+  // Build example ayat with audio URLs: compute correct globalAyahNumber.
   const examples: ExampleAyat[] = (cw.ex ?? []).map(([surah, ayah, _globalAyahNumber, arabicText, translation, wordForm]) => {
     const correctGlobal = toGlobalAyahNumber(surah, ayah);
     return {

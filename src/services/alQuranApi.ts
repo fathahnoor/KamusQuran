@@ -5,15 +5,15 @@ const AUDIO_CDN = "https://cdn.islamic.network/quran/audio/128";
 
 // Curated edition identifiers (verified via /edition endpoints).
 export const EDITIONS = {
-  /** Indonesian translation — Kemenag / Bahasa Indonesia. */
+  /** Indonesian translation: Kemenag / Bahasa Indonesia. */
   idTranslation: "id.indonesian",
-  /** Indonesian tafsir — Tafsir Jalalayn (Bahasa Indonesia). */
+  /** Indonesian tafsir: Tafsir Jalalayn (Bahasa Indonesia). */
   idTafsir: "id.jalalayn",
-  /** Indonesian translation — Quraish Shihab (Tafsir Al-Misbah summary). */
+  /** Indonesian translation: Quraish Shihab (Tafsir Al-Misbah summary). */
   idMuntakhab: "id.muntakhab",
   /** Arabic Uthmani text. */
   arUthmani: "quran-uthmani",
-  /** Audio recitation — Mishary Alafasy (128kbps). */
+  /** Audio recitation: Mishary Alafasy (128kbps). */
   arAudioAlafasy: "ar.alafasy",
 } as const;
 

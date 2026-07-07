@@ -26,7 +26,7 @@ export function ModeKata() {
 
   const voice = useVoiceRecognition(handleVoiceResult);
 
-  // Debounced live search — avoids lag on every keystroke.
+  // Debounced live search: avoids lag on every keystroke.
   const [debouncedQuery, setDebouncedQuery] = useState("");
   useEffect(() => {
     const t = setTimeout(() => setDebouncedQuery(query), 300);
@@ -63,7 +63,7 @@ export function ModeKata() {
   const [sortBy, setSortBy] = useState<"freq" | "indo" | "arabic">("freq");
 
   // Pre-sorted arrays are computed ONCE at module load in morphologyIndex.ts.
-  // No runtime .sort() ever happens here — the component just picks which
+  // No runtime .sort() ever happens here: the component just picks which
   // frozen array to render. This eliminates all possibility of ordering
   // degradation regardless of browser sort stability or click count.
   const browseWords =

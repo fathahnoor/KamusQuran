@@ -43,7 +43,7 @@ export const BATCH_09: CompactWord[] = [
     occ: [[2,119,123,1]], ex: [[2,119,123,"إِنَّا أَرْسَلْنَاكَ بِالْحَقِّ بَشِيرًا وَنَذِيرًا","Sungguh, Kami mengutusmu (Muhammad) dengan (membawa) kebenaran, sebagai pembawa kabar gembira dan pemberi peringatan.","مُنْذِرٌ"]] },
 
   { id: "nasrani", ar: "نَصْرَانِيّ", root: "نصر", mid: "Nasrani, Kristen", men: "Christian, Nazarene", pos: "proper_noun", freq: 15, rank: 414, def: "proper", irab: "nasb",
-    occ: [[2,62,65,3]], ex: [[2,62,65,"إِنَّ الَّذِينَ آمَنُوا وَالَّذِينَ هَادُوا وَالنَّصَارَىٰ وَالصَّابِئِينَ مَنْ آمَنَ بِاللَّهِ وَالْيَوْمِ الْآخِرِ","Sesungguhnya orang-orang beriman, orang-orang Yahudi, Nasrani, dan Shabiin — barangsiapa beriman kepada Allah dan hari akhir...","النَّصَارَىٰ"]] },
+    occ: [[2,62,65,3]], ex: [[2,62,65,"إِنَّ الَّذِينَ آمَنُوا وَالَّذِينَ هَادُوا وَالنَّصَارَىٰ وَالصَّابِئِينَ مَنْ آمَنَ بِاللَّهِ وَالْيَوْمِ الْآخِرِ","Sesungguhnya orang-orang beriman, orang-orang Yahudi, Nasrani, dan Shabiin: barangsiapa beriman kepada Allah dan hari akhir...","النَّصَارَىٰ"]] },
 
   { id: "ibtigha", ar: "ابْتِغَاء", root: "بغى", mid: "mencari, menginginkan, menuntut", men: "seeking, desiring, pursuing", pos: "noun", freq: 14, rank: 415, wazan: "ifti'aa'", form: "VIII", g: "masculine", num: "singular", def: "indefinite", irab: "nasb",
     occ: [[2,127,131,1]], ex: [[2,127,131,"وَإِذْ يَرْفَعُ إِبْرَاهِيمُ الْقَوَاعِدَ مِنَ الْبَيْتِ وَإِسْمَاعِيلُ","Dan (ingatlah) ketika Ibrahim meninggikan fondasi Baitullah bersama Ismail...","ابْتِغَاءَ"]] },

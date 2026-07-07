@@ -1,5 +1,5 @@
 // ============================================================
-// Shared Arabic text utilities — used by both data layer and
+// Shared Arabic text utilities: used by both data layer and
 // sentence analysis service to avoid circular imports.
 // ============================================================
 

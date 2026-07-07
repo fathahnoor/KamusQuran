@@ -93,7 +93,7 @@ export const BATCH_10: CompactWord[] = [
   { id: "wizr", ar: "وِزْر", root: "وزر", mid: "beban, dosa, tanggung jawab", men: "burden, sin, load", pos: "noun", freq: 12, rank: 480, wazan: "fi'r", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb",
     occ: [[2,286,293,2]], ex: [[2,286,293,"رَبَّنَا وَلَا تُحَمِّلْنَا مَا لَا طَاقَةَ لَنَا بِهِ ۖ وَاعْفُ عَنَّا وَاغْفِرْ لَنَا وَارْحَمْنَا","Ya Tuhan kami, janganlah Engkau bebankan kepada kami beban yang berat seperti yang Engkau bebankan kepada orang-orang sebelum kami. Ya Tuhan kami, janganlah Engkau pikulkan kepada kami apa yang kami tidak sanggup memikulnya...","وِزْرٌ"]] },
 
-  // Ranks 481-500 — additional high-frequency Quranic lemmas
+  // Ranks 481-500: additional high-frequency Quranic lemmas
   { id: "tawba2", ar: "تَوْبَة", root: "توب", mid: "tobat, penyesalan, kembali kepada Allah", men: "repentance, return to God", pos: "noun", freq: 12, rank: 481, wazan: "fu'la", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "nasb",
     occ: [[2,37,43,8]], ex: [[2,37,43,"فَتَلَقَّىٰ آدَمُ مِن رَّبِّهِ كَلِمَاتٍ فَتَابَ عَلَيْهِ ۚ إِنَّهُ هُوَ التَّوَّابُ الرَّحِيمُ","Maka Adam menerima beberapa kalimat dari Tuhannya, lalu Dia menerima tobatnya. Sungguh, Allah Maha Penerima Tobat, Maha Penyayang.","تَوْبَةٌ"]] },
 

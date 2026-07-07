@@ -1,5 +1,5 @@
 // ============================================================
-// Kamus Quran — Core Domain Types
+// Kamus Quran: Core Domain Types
 // ============================================================
 // These types model the linguistic data for the app per design.md §4 (depth level 3)
 // and §5 (Mode Kata / Mode Kalimat). All downstream modules depend on these.
@@ -40,7 +40,7 @@ export type PosMajor =
   | "resumption"
   | "unknown";
 
-/** Verb tense/form categories (fi'il) — sharf layer. */
+/** Verb tense/form categories (fi'il): sharf layer. */
 export type VerbForm =
   | "fiil_madhi"
   | "fiil_mudhari"
@@ -84,7 +84,7 @@ export type Definiteness =
   | "proper"
   | "unknown";
 
-/** Grammatical case (i'rab) — nahwu layer. */
+/** Grammatical case (i'rab): nahwu layer. */
 export type IrabCase =
   | "raf"
   | "nasb"
@@ -94,7 +94,7 @@ export type IrabCase =
   | "none"
   | "unknown";
 
-/** Syntactic function/role — nahwu layer (depth level 3, design.md §4). */
+/** Syntactic function/role: nahwu layer (depth level 3, design.md §4). */
 export type SyntacticRole =
   | "subject" // fa'il
   | "object" // maf'ul bih
@@ -214,7 +214,7 @@ export interface OccurrenceRef {
   token?: TokenIndex;
 }
 
-/** Example ayat for a word entry — a curated short list. */
+/** Example ayat for a word entry: a curated short list. */
 export interface ExampleAyat {
   surah: SurahNumber;
   ayah: AyahInSurah;
@@ -240,11 +240,11 @@ export interface WordTafsir {
 }
 
 /**
- * A high-frequency Qur'anic word entry — the primary object in Mode Kata.
+ * A high-frequency Qur'anic word entry: the primary object in Mode Kata.
  * Models design.md §5.1 requirements.
  */
 export interface WordEntry {
-  /** Stable internal id — typically the lemma in transliteration. */
+  /** Stable internal id: typically the lemma in transliteration. */
   id: string;
   /** Arabic lemma / headword. */
   arabic: string;

@@ -98,7 +98,7 @@ export function SearchBar({
         </div>
       </div>
 
-      {/* Voice language toggle + status — wraps on mobile */}
+      {/* Voice language toggle + status: wraps on mobile */}
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs sm:text-sm">
         <span className="text-ink-500">Bahasa suara:</span>
         <div className="flex rounded-md border border-ink-300 bg-white">
@@ -121,7 +121,7 @@ export function SearchBar({
         </div>
         {!voice.supported && (
           <span className="text-xs text-ink-400">
-            (Suara tidak didukung — gunakan Chrome/Edge/Safari)
+            (Suara tidak didukung: gunakan Chrome/Edge/Safari)
           </span>
         )}
         {voice.error && (
