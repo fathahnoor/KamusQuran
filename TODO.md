@@ -1,7 +1,193 @@
-# TODO — Kamus Quran (Iterasi Berikutnya)
+# TODO — Kamus Quran
 
-> Status: v1 sebagian besar tercapai. Deploy live di https://fathahnoor.github.io/KamusQuran/
-> Commit terakhir: iterasi UI polish + performance + dokumentasi
+> **v2.0**: 1002 kata, Mode Kata lengkap, Mode Kalimat, bookmark, voice, audio/tafsir
+> Deploy live di https://fathahnoor.github.io/KamusQuran/
+> 
+> 🚧 **v3.0 IN PROGRESS**: Implementasi i'rob sistematis mengikuti metodologi An-Nahwu al-Wadhih & Metode Al-Munir
+
+---
+
+# 🔥 v3.0 — I'rob Sistematis (Metode Al-Munir + Nahwu al-Wadhih)
+
+## Referensi Kitab (folder `Nopush/`):
+- `An-Nahwu al-Wadhih Jilid 1_Nahwu.pdf` — klasifikasi kata → mu'rab/mabni → kedudukan → i'rob → tanda (inductive)
+- `An-Nahwu al-Wadhih Jilid 1_Sharf.pdf` — wazan, pola morfologi, tasrif
+- `Metode Al-Munir-Jilid 1-Nahwu.pdf` — i'rob dasar dengan tabel terstruktur (question-driven: "Apa kata ini? Apa kedudukannya? Apa i'robnya? Apa tandanya?")
+- `Metode Al-Munir-Jilid 2-Sharf.pdf` — pola sharf sistematis dengan tabel
+- `Metode Al-Munir-Jilid 3-Nahwu.pdf` — i'rob lanjutan, isim-isim khusus, fi'il mudhari', amil jazm, pola kalimat kompleks
+- `Kunci Jawaban-Al-Munir-Jilid 1-Nahwu.pdf` — contoh jawaban i'rob per kata & per kalimat
+
+## Pola I'rob yang Diterapkan:
+Al-Munir Tabular Format: **Kata → Jenis → Kedudukan → I'rob → Tanda → 'Amil/Sebab**
+Nahwu al-Wadhih Inductive: **Amati → Klasifikasi → Simpulkan** (observation → classification → deduction)
+
+---
+
+## 📋 v3.0 — Phase 1: Data Layer (Types & Heuristic Engine)
+
+### 1.1 Definisikan tipe `StructuredIrab` di `src/types.ts`
+- [ ] Buat interface `StructuredIrab`:
+  ```ts
+  interface StructuredIrab {
+    kata: string;      // Kata Arab dengan harakat
+    jenis: string;     // Hasil inferensi: "Isim Mufrad", "Fi'il Madhi", "Huruf Jarr", dll.
+    kedudukan: string; // SyntacticRole dalam bahasa Indonesia: "Mubtada'", "Fa'il", "Maf'ul Bih", dll.
+    irabStatus: string;// "Marfu'", "Manshub", "Majrur", "Majzum", "Mabni"
+    tanda: string;     // "Dhammah", "Fathah", "Kasrah", "Wawu", "Alif", "Ya'", "Tetap/Mabni"
+    amil: string;      // Governor/sebab: "Ibtida'", "Fi'il sebelumnya", "Huruf Jarr (في)", dll.
+    penjelasan?: string; // Ringkasan deduksi (Nahwu al-Wadhih inductive conclusion)
+  }
+  ```
+- [ ] Tambahkan `structuredIrab?: StructuredIrab` ke `MorphoFeatures`
+- [ ] Tambahkan `structuredIrab?: StructuredIrab` ke `SentenceToken`
+- [ ] Tambahkan field opsional `tnd?: string` (tanda i'rob spesifik) dan `aml?: string` ('amil spesifik) ke `CompactWord`
+
+### 1.2 Buat heuristic engine `src/data/irabHeuristics.ts`
+- [ ] Buat fungsi `generateStructuredIrab(cw: CompactWord, arabicWord: string): StructuredIrab`
+- [ ] Rules engine **Jenis** — inferensi dari `pos + num + vf`:
+  - `pos=noun + num=singular` → "Isim Mufrad"
+  - `pos=noun + num=dual` → "Isim Mutsanna"
+  - `pos=noun + num=plural` → "Jamak Taksir"
+  - `pos=verb + vf=fiil_madhi` → "Fi'il Madhi"
+  - `pos=verb + vf=fiil_mudhari` → "Fi'il Mudhari'"
+  - `pos=verb + vf=fiil_amr` → "Fi'il Amr"
+  - `pos=particle` → "Huruf" (+ subkategori: "Huruf Jarr", "Huruf 'Athf", "Huruf Nida'", dll.)
+  - `pos=pronoun` → "Dhamir" (+ subkategori: "Dhamir Munfasil", "Dhamir Muttasil")
+- [ ] Rules engine **Kedudukan** — mapping dari `syntacticRole`:
+  - `subject` → "Fa'il"
+  - `object` → "Maf'ul Bih"
+  - `mubtada` → "Mubtada'"
+  - `khabar` → "Khabar"
+  - `mudhaf_ilayh` → "Mudhaf Ilayh"
+  - `naat` → "Na'at (Sifat)"
+  - `hal` → "Hal (Keadaan)"
+  - `tamyiz` → "Tamyiz"
+  - `badal` → "Badal"
+  - `atf` → "Ma'thuf"
+  - `khabar_inna` → "Khabar Inna"
+  - `ism_inna` → "Isim Inna"
+  - ... (lengkapi semua role di `types.ts`)
+- [ ] Rules engine **I'rob Status** — dari `irab case`:
+  - `raf` → "Marfu'"
+  - `nasb` → "Manshub"
+  - `jarr` → "Majrur"
+  - `jazm` → "Majzum"
+  - `none` → "Mabni" (kata tetap, tidak berubah)
+- [ ] Rules engine **Tanda I'rob** — kombinasi jenis + i'rob case:
+  - Isim Mufrad + Marfu' → "Dhammah"
+  - Isim Mufrad + Manshub → "Fathah"
+  - Isim Mufrad + Majrur → "Kasrah"
+  - Isim Mutsanna + Marfu' → "Alif"
+  - Jamak Mudzakkar Salim + Marfu' → "Wawu"
+  - Jamak Muannats Salim + Manshub/Majrur → "Kasrah"
+  - Fi'il Mudhari' + Marfu' → "Dhammah"
+  - Fi'il Mudhari' + Manshub → "Fathah"
+  - Fi'il Mudhari' + Majzum → "Sukun"
+  - Mabni → "Tetap (Mabni)"
+  - Isim Maqsur/Manqus → "Taqdiri (dikira-kirakan)"
+- [ ] Rules engine **'Amil** — heuristik berdasarkan kedudukan:
+  - Mubtada' → "Ibtida' (permulaan kalimat)"
+  - Khabar → "Mubtada' sebelumnya"
+  - Fa'il → "Fi'il sebelumnya"
+  - Maf'ul Bih → "Fi'il + Fa'il sebelumnya"
+  - Majrur → "Huruf Jarr / Idhafah"
+  - Majzum → "Amil Jazm sebelumnya"
+  - Manshub (fi'il) → "Amil Nashab sebelumnya"
+- [ ] Rules engine **Penjelasan** — deduksi induktif ala Nahwu al-Wadhih:
+  - Gabungkan semua kolom dalam 1-2 kalimat: "Kata X adalah [Jenis], berkedudukan sebagai [Kedudukan], ber-i'rob [I'rob] dengan tanda [Tanda] karena [Amil]."
+
+### 1.3 Integrasikan heuristic engine ke `wordBuilder.ts`
+- [ ] Import dan panggil `generateStructuredIrab()` di `buildWordEntry()`
+- [ ] Update `generateNahwuNote()` untuk menyertakan ringkasan dari `StructuredIrab.penjelasan`
+- [ ] Field `tnd` dan `aml` dari CompactWord akan override hasil heuristic jika diisi manual
+
+---
+
+## 📋 v3.0 — Phase 2: UI Mode Kata (WordResultPanel)
+
+### 2.1 Tambahkan Tabel I'rob Al-Munir di WordResultPanel
+- [ ] Buat komponen baru `<IrobTable entry={entry} />` di `src/components/IrobTable.tsx`
+- [ ] Render tabel dengan kolom: **Kata | Jenis | Kedudukan | I'rob | Tanda | 'Amil**
+- [ ] Header kolom interaktif: klik/hover menampilkan tooltip pertanyaan ala Al-Munir:
+  - "Apa kata ini?" (Kata)
+  - "Apa jenisnya?" (Jenis)
+  - "Apa kedudukannya?" (Kedudukan)
+  - "Apa i'robnya?" (I'rob)
+  - "Apa tandanya?" (Tanda)
+  - "Apa 'amil/sebabnya?" ('Amil)
+- [ ] Desain tabel: warna latar bergantian (zebra stripe), font Arab untuk kata, border minimal
+- [ ] Tabel responsive: di mobile bisa jadi card-based layout (bukan tabel horizontal)
+- [ ] Integrasikan `<IrobTable>` ke `WordResultPanel` di bawah section Nahwu/Sharf notes
+
+### 2.2 Tambahkan Deduksi Induktif (Nahwu al-Wadhih style)
+- [ ] Di bawah tabel, tampilkan **kesimpulan induktif** 1-2 kalimat
+- [ ] Format: "Berdasarkan pengamatan: [kata] adalah [jenis] yang berkedudukan sebagai [kedudukan]. Oleh karena itu, i'robnya [irab] dengan tanda [tanda]. Sebabnya: [amil]."
+- [ ] Style: card dengan background accent, italic untuk kesan akademik
+
+### 2.3 Retain existing nahwuNote/sharfNote
+- [ ] Jangan hapus nahwuNote/sharfNote yang sudah ada — jadikan sebagai complementary info
+- [ ] Tabel I'rob = ringkasan terstruktur; nahwuNote = penjelasan naratif
+
+---
+
+## 📋 v3.0 — Phase 3: Mode Kalimat (Full Sentence I'rob)
+
+### 3.1 Upgrade `sentenceAnalysis.ts` dengan Context-Aware I'rob
+- [ ] Tambah fungsi `analyzeSentenceWithIrab(input: string): SentenceAnalysis`
+- [ ] Context-aware detection:
+  - Deteksi huruf jarr (في, على, من, إلى, عن, ب, ل, ك) → token berikutnya: Status="Majrur", Amil="Huruf Jarr (X)"
+  - Deteksi inna wa akhwatuha (إن, أن, كأن, لكن, ليت, لعل) → token berikutnya: Kedudukan="Isim Inna" (Manshub)
+  - Deteksi kaana wa akhwatuha (كان, أصبح, أمسى, ليس, dll.) → token berikutnya: Kedudukan="Isim Kaana" (Marfu'), token setelahnya: "Khabar Kaana" (Manshub)
+  - Deteksi idhafah: dua isim berturut-turut → pertama Mudhaf, kedua Mudhaf Ilayh (Majrur)
+  - Deteksi na'at-man'ut: isim + isim dengan kesamaan gender/number/definiteness
+  - Deteksi 'athf: huruf 'athf (و, ف, ثم, أو) → token setelahnya mengikuti i'rob token sebelumnya
+- [ ] Untuk setiap token, panggil `generateStructuredIrab()` dengan context token sebelum/sesudah
+- [ ] Tambahkan `structuredIrab` ke setiap `SentenceToken`
+
+### 3.2 Upgrade UI `ModeKalimat.tsx` — Tabel I'rob Penuh
+- [ ] Ganti tampilan daftar `TokenCard` menjadi **satu tabel besar I'rob**
+- [ ] Kolom: **# | Kata | Jenis | Kedudukan | I'rob | Tanda | 'Amil**
+- [ ] Baris header menggunakan pertanyaan Al-Munir
+- [ ] Token yang matched dengan corpus: background hijau muda; unmatched: background abu-abu
+- [ ] Di bawah tabel, tetap tampilkan `SentenceObservation` (jenis kalimat, catatan)
+- [ ] Jika ayat Quran terdeteksi: tampilkan banner + full dependency graph
+
+### 3.3 Tambahkan I'rob Summary di Bawah Tabel
+- [ ] Ringkasan struktur i'rob kalimat: jumlah + jenis setiap komponen
+- [ ] Contoh: "Kalimat ini terdiri dari: 2 Isim Marfu' (Mubtada' + Khabar), 1 Fi'il Madhi Mabni Fathah, 1 Huruf Jarr + Majrur"
+
+---
+
+## 📋 v3.0 — Phase 4: Data Enrichment (Manual Touch untuk Akurasi Tinggi)
+
+### 4.1 Field override di CompactWord
+- [ ] Gunakan field `tnd` (tanda) dan `aml` ('amil) di CompactWord untuk kasus khusus
+- [ ] Prioritaskan nilai manual dari data batch di atas heuristic
+- [ ] Dokumentasikan rule priority: `CompactWord override > heuristic inference > default fallback`
+
+### 4.2 Data audit untuk field i'rob spesifik
+- [ ] Audit batch01-03 (150+ kata paling frequent): pastikan `irab`, `role`, `g`, `num`, `def` terisi
+- [ ] Tambahkan `tnd` dan `aml` manual untuk kata-kata yang heuristic-nya tidak akurat
+- [ ] Verifikasi tanda i'rob khusus: isim maqsur, isim manqus, jamak mudzakkar salim, asma'ul khomsah
+
+---
+
+## 📋 v3.0 — Phase 5: Polishing & Testing
+
+### 5.1 Testing
+- [ ] Unit tests untuk `irabHeuristics.ts` — semua rules Jenis, Kedudukan, I'rob, Tanda, Amil
+- [ ] Unit tests untuk context-aware i'rob di `sentenceAnalysis.ts`
+- [ ] Snapshot tests untuk `IrobTable.tsx` component
+
+### 5.2 I'rob-aware search
+- [ ] Di Mode Kata, tambahkan filter/search berdasarkan kedudukan i'rob (opsional, nice-to-have)
+- [ ] Contoh: user bisa cari "semua kata yang bisa jadi Mubtada'"
+
+### 5.3 Update About & Dokumentasi
+- [ ] Update AboutView dengan penjelasan metodologi i'rob Al-Munir + Nahwu al-Wadhih
+- [ ] Tambahkan credit ke kitab sumber di Nopush/
+- [ ] Update README dengan fitur v3.0
+- [ ] Update version ke v3.0 di About
 
 ---
 
@@ -111,8 +297,16 @@
 
 ## 🔧 Catatan Teknis
 
-- **Build:** `npx vite build` → 380KB JS / 110KB gzip (code splitting aktif, secondary views di lazy chunks)
+- **Build:** `npx vite build` → 673 KB JS / 180 KB gzip (code splitting aktif, secondary views di lazy chunks)
 - **TypeCheck:** `npx tsc --noEmit` → 0 errors
 - **Deploy:** GitHub Actions workflow (`deploy.yml`) auto-trigger on push to main
-- **PAT:** Gunakan GitHub Personal Access Token dengan scope `repo` + `workflow`. **Ganti jika expired.**
 - **Live URL:** https://fathahnoor.github.io/KamusQuran/
+- **v3.0 Architecture Plan:**
+  - `src/types.ts` — tambah `StructuredIrab` interface + update `MorphoFeatures` & `SentenceToken`
+  - `src/data/irabHeuristics.ts` — **file baru**: rule engine i'rob ala Al-Munir
+  - `src/data/wordBuilder.ts` — integrasi `generateStructuredIrab()` ke `buildWordEntry()`
+  - `src/components/IrobTable.tsx` — **file baru**: komponen tabel i'rob question-driven
+  - `src/components/WordResultPanel.tsx` — integrasi `<IrobTable>`
+  - `src/services/sentenceAnalysis.ts` — upgrade context-aware i'rob
+  - `src/views/ModeKalimat.tsx` — tabel i'rob penuh per kalimat
+- **Referensi Kitab (Nopush/):** An-Nahwu al-Wadhih Jilid 1 (Nahwu + Sharf), Metode Al-Munir Jilid 1-3, Kunci Jawaban Al-Munir
