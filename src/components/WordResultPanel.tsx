@@ -349,10 +349,10 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
       {/* Occurrences */}
       <div className="rounded-2xl border border-ink-200/60 bg-white/90 p-4 shadow-sm sm:p-5">
         <h4 className="mb-3 text-sm font-bold text-ink-700">
-          Contoh Lokasi Kemunculan ({entry.occurrences.length} dari {entry.frequency})
+          Contoh Lokasi Kemunculan ({Math.min(entry.occurrences.length, 10)} dari {entry.frequency})
         </h4>
         <div className="flex flex-wrap gap-2">
-          {entry.occurrences.map((occ, i) => (
+          {entry.occurrences.slice(0, 10).map((occ, i) => (
             <span
               key={`${occ.surah}:${occ.ayah}:${i}`}
               className="rounded-full bg-ink-100 px-3 py-1 text-xs font-medium text-ink-600 transition-colors hover:bg-accent-100 hover:text-accent-700"
