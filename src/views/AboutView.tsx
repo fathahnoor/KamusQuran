@@ -14,8 +14,8 @@ export function AboutView() {
           <div>
             <h1 className="text-xl font-bold text-ink-900 sm:text-2xl">Tentang &amp; Metodologi</h1>
             <p className="mt-0.5 text-sm text-ink-500">
-              Kamus Quran adalah alat belajar bahasa Arab Al-Qur&apos;an dengan fokus pada
-              kosakata, nahwu, sharf, dan analisis morfologi.
+              Kamus Quran v3.0 — alat belajar bahasa Arab Al-Qur&apos;an dengan fokus pada
+              kosakata, nahwu, sharf, i&apos;rob sistematis, dan analisis morfologi.
             </p>
           </div>
         </div>
@@ -28,6 +28,34 @@ export function AboutView() {
           dengan 502 kata sehari-hari, total 1002 kata. Selain itu, memahami struktur
           nahwu dan sharf melalui pencarian dan analisis morfologi praktis.
         </p>
+      </Section>
+
+      <Section title="I&apos;rob Sistematis v3.0 (Metode Al-Munir + Nahwu al-Wadhih)" icon="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z">
+        <p>
+          Mulai v3.0, setiap kata dilengkapi <strong>tabel i&apos;rob 6 kolom</strong>{" "}
+          mengikuti metodologi <em>Metode Al-Munir</em>:{" "}
+          <span className="font-semibold text-accent-700">
+            Kata → Jenis → Kedudukan → I&apos;rob → Tanda → &apos;Amil
+          </span>
+          . Ditambah <strong>kesimpulan induktif</strong> ala <em>An-Nahwu al-Wadhih</em>{" "}
+          yang menjelaskan penalaran gramatikal setiap kata.
+        </p>
+        <ul className="list-inside list-disc space-y-1 text-sm text-ink-700">
+          <li>
+            <strong>Heuristic engine</strong>: 300+ baris aturan nahwu-sharf yang
+            meng-generate i&apos;rob secara otomatis dari field POS, gender, number,
+            i&apos;rab case, dan syntactic role.
+          </li>
+          <li>
+            <strong>Context-aware di Mode Kalimat</strong>: deteksi otomatis huruf jarr,
+            inna/akhwatuha, kaana/akhwatuha, idhafah, dan &apos;athf untuk
+            analisis i&apos;rob per kata dalam konteks kalimat.
+          </li>
+          <li>
+            <strong>Manual override</strong>: field <code>tnd</code> dan{" "}
+            <code>aml</code> di data batch untuk koreksi manual pada kasus khusus.
+          </li>
+        </ul>
       </Section>
 
       <Section title="Sumber Data" icon="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
@@ -49,6 +77,12 @@ export function AboutView() {
           <li>
             <strong>Web Speech API</strong>: pengenalan suara browser-native untuk
             input Arab (ar-SA) dan Indonesia (id-ID).
+          </li>
+          <li>
+            <strong>Kitab Nahwu-Sharf (Nopush/)</strong>:{" "}
+            <em>An-Nahwu al-Wadhih</em> (Jilid 1 Nahwu &amp; Sharf),{" "}
+            <em>Metode Al-Munir</em> (Jilid 1-3 Nahwu &amp; Sharf),{" "}
+            <em>Kunci Jawaban Al-Munir</em> — sebagai referensi metodologi i&apos;rob.
           </li>
         </ul>
       </Section>
@@ -114,6 +148,13 @@ export function AboutView() {
 
       <Section title="Versi" icon="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6">
         <p>
+          <strong>v3.0</strong>: <strong>I&apos;rob Sistematis</strong> — tabel i&apos;rob 6 kolom{" "}
+          ala Metode Al-Munir di Mode Kata + Mode Kalimat, context-aware sentence i&apos;rob{" "}
+          engine (deteksi jarr/inna/kaana/idhafah/&apos;athf), heuristic engine 300+ baris, and{" "}
+          expandable IrobTable di setiap token, unit tests (Vitest), inductive conclusion{" "}
+          ala Nahwu al-Wadhih.
+        </p>
+        <p className="mt-2">
           <strong>v2.0</strong>: 1002 kata (500 Quran + 502 sehari-hari), Mode Kata dengan
           browsing &amp; diacritic toggle, Mode Kalimat dengan analisis per kata,
           bookmark dengan export/import JSON, TTS pengucapan, integrasi audio/tafsir AlQuran Cloud,

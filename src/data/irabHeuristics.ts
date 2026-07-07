@@ -20,6 +20,7 @@ import type {
   IrabCase,
   SyntacticRole,
 } from "../types";
+import { stripDiacritics } from "../utils/arabic";
 
 // --- Public API ---------------------------------------------
 
@@ -104,17 +105,18 @@ function inferJenis(input: IrabInput): string {
       if (w.includes("syarat") || w.includes("sharat")) return "Huruf Syarat";
       if (w.includes("inna") || w.includes("naskh")) return "Huruf Naskh";
     }
-    // Fallback: direct Arabic string comparison for common particles
-    if (["في", "على", "إلى", "من", "عن", "ب", "ل", "ك", "حتى", "منذ"].includes(input.arabic)) {
+    // Fallback: direct Arabic string comparison for common particles (stripped of diacritics).
+    const bare = stripDiacritics(input.arabic);
+    if (["في", "على", "إلى", "من", "عن", "ب", "ل", "ك", "حتى", "منذ"].includes(bare)) {
       return "Huruf Jarr";
     }
-    if (["و", "ف", "ثم", "أو", "أم", "بل", "لكن"].includes(input.arabic)) {
+    if (["و", "ف", "ثم", "أو", "أم", "بل", "لكن"].includes(bare)) {
       return "Huruf 'Athf";
     }
-    if (["إن", "أن", "كأن", "لكن", "ليت", "لعل"].includes(input.arabic)) {
+    if (["إن", "أن", "كأن", "لكن", "ليت", "لعل"].includes(bare)) {
       return "Huruf Naskh (Inna wa Akhwatuha)";
     }
-    if (["لا", "ما", "لم", "لن", "ليس"].includes(input.arabic)) {
+    if (["لا", "ما", "لم", "لن", "ليس"].includes(bare)) {
       return "Huruf Nafi";
     }
     return "Huruf";
