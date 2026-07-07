@@ -54,7 +54,7 @@ export const BATCH_08: CompactWord[] = [
   { id: "sajid", ar: "سَاجِد", root: "سجد", mid: "yang bersujud, orang yang sujud", men: "prostrating, one who prostrates", pos: "noun", freq: 18, rank: 367, wazan: "faa'il", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf",
     occ: [[2,125,128,2]], ex: [[2,125,128,"وَاتَّخِذُوا مِن مَّقَامِ إِبْرَاهِيمَ مُصَلًّى ۖ وَعَهِدْنَا إِلَىٰ إِبْرَاهِيمَ وَإِسْمَاعِيلَ أَن طَهُرَا بَيْتِيَ","Dan jadikanlah sebagian maqam Ibrahim tempat salat. Dan Kami telah memerintahkan kepada Ibrahim dan Ismail, 'Bersihkanlah rumah-Ku untuk orang-orang yang tawaf, i'tikaf, rukuk, dan sujud.'","سَاجِدٌ"]] },
 
-  { id: "alim2", ar: "عَالِم", root: "علم", mid: "yang mengetahui, orang berilmu", men: "knowing, learned, scholar", pos: "noun", freq: 18, rank: 368, wazan: "faa'il", form: "I", g: "masculine", num: "singular", def: "definite", irab: "raf",
+  { id: "alim3", ar: "عَالِم", root: "علم", mid: "yang mengetahui, orang berilmu", men: "knowing, learned, scholar", pos: "noun", freq: 18, rank: 368, wazan: "faa'il", form: "I", g: "masculine", num: "singular", def: "definite", irab: "raf",
     occ: [[2,32,38,1]], ex: [[2,32,38,"قَالُوا سُبْحَانَكَ لَا عِلْمَ لَنَا إِلَّا مَا عَلَّمْتَنَا ۚ إِنَّكَ أَنتَ الْعَلِيمُ الْحَكِيمُ","Mereka (malaikat) menjawab, 'Maha Suci Engkau, tidak ada yang kami ketahui selain dari apa yang telah Engkau ajarkan kepada kami. Sungguh, Engkaulah Yang Maha Mengetahui, Maha Bijaksana.'","الْعَلِيمُ"]] },
 
   { id: "munkar", ar: "مُنْكَر", root: "نكر", mid: "yang mungkar, kemungkaran, perbuatan buruk", men: "wrong, evil, reprehensible", pos: "noun", freq: 18, rank: 369, wazan: "munfa'il", form: "IV", g: "masculine", num: "singular", def: "indefinite", irab: "nasb",
@@ -126,7 +126,7 @@ export const BATCH_08: CompactWord[] = [
   { id: "hayth", ar: "حَيْث", root: "حيث", mid: "di mana, tempat, ketika", men: "where, wherever, while", pos: "noun", freq: 16, rank: 391, wazan: "fayl", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb",
     occ: [[2,35,41,3]], ex: [[2,35,41,"وَكُلَا مِنْهَا رَغَدًا حَيْثُ شِئْتُمَا","...dan makanlah dengan nikmat dari makanan-makanan yang ada di sana sepuasnya, di mana saja kamu berdua suka.","حَيْثُ"]] },
 
-  { id: "dawud", ar: "دَاوُد", root: "دود", mid: "Daud (nama nabi, raja Bani Israil)", men: "David (prophet, king)", pos: "proper_noun", freq: 16, rank: 392, def: "proper", irab: "raf",
+  { id: "dawud2", ar: "دَاوُد", root: "دود", mid: "Daud (nama nabi, raja Bani Israil)", men: "David (prophet, king)", pos: "proper_noun", freq: 16, rank: 392, def: "proper", irab: "raf",
     occ: [[2,251,257,1]], ex: [[2,251,257,"فَهَزَمُوهُم بِإِذْنِ اللَّهِ وَقَتَلَ دَاوُدُ جَالُوتَ","Maka mereka (Tālūt dan bala tentaranya) mengalahkan mereka (Jālūt dan bala tentaranya) dengan izin Allah. Daud membunuh Jālūt...","دَاوُدَ"]] },
 
   { id: "sair", ar: "سَعِير", root: "سعر", mid: "api yang menyala, neraka Sa'ir", men: "blazing fire, hellfire", pos: "noun", freq: 16, rank: 393, wazan: "fa'iil", form: "I", g: "feminine", num: "singular", def: "definite", irab: "nasb",

@@ -39,6 +39,7 @@ export const HIGH_FREQ_WORDS: WordEntry[] = (() => {
   const all = buildWordEntries(ALL_COMPACT);
   const seen = new Map<string, WordEntry>();
   for (const w of all) {
+    // Deduplicate by stripped Arabic lemma.
     const key = stripDiacritics(w.arabic);
     const existing = seen.get(key);
     // Keep the entry with the best (lowest) rank/frequency.
@@ -46,7 +47,25 @@ export const HIGH_FREQ_WORDS: WordEntry[] = (() => {
       seen.set(key, w);
     }
   }
-  return [...seen.values()].sort((a, b) => (a.rank ?? a.frequency) - (b.rank ?? b.frequency));
+  // Safety net: also ensure no duplicate IDs remain (which would cause
+  // React key collisions). If two entries share an ID, keep the one with
+  // the better rank and skip the other.
+  const byId = new Map<string, WordEntry>();
+  for (const w of seen.values()) {
+    const existing = byId.get(w.id);
+    if (existing) {
+      // Duplicate ID detected — keep the best rank, warn about the drop.
+      if ((w.rank ?? w.frequency) < (existing.rank ?? existing.frequency)) {
+        console.warn(`Duplicate word id "${w.id}" — keeping rank ${w.rank ?? w.frequency}, dropping rank ${existing.rank ?? existing.frequency}`);
+        byId.set(w.id, w);
+      } else {
+        console.warn(`Duplicate word id "${w.id}" — keeping rank ${existing.rank ?? existing.frequency}, dropping rank ${w.rank ?? w.frequency}`);
+      }
+    } else {
+      byId.set(w.id, w);
+    }
+  }
+  return [...byId.values()].sort((a, b) => (a.rank ?? a.frequency) - (b.rank ?? b.frequency));
 })();
 
 // --- Pre-sorted indices (computed ONCE at module load) ---

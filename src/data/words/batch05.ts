@@ -68,7 +68,7 @@ export const BATCH_05: CompactWord[] = [
   { id: "thaamud", ar: "ثَمُود", root: "ثمد", mid: "Tsamud (kaum)", men: "Thamud (ancient people)", pos: "proper_noun", freq: 24, rank: 222, def: "proper", irab: "nasb",
     occ: [[7,73,1283,2],[11,61,1954,2]], ex: [[7,73,1283,"وَإِلَىٰ ثَمُودَ أَخَاهُمْ صَالِحًا","Dan kepada kaum Tsamud (Kami utus) saudara mereka, Salih...","ثَمُودَ"]] },
 
-  { id: "aad", ar: "عَاد", root: "عدد", mid: "'Aad (kaum kuno)", men: "'Ad (ancient people)", pos: "proper_noun", freq: 24, rank: 223, wazan: "fa'al", form: "I", def: "proper", irab: "nasb",
+  { id: "aad", ar: "عَاد", root: "عدد", mid: "Aad (kaum kuno)", men: "'Ad (ancient people)", pos: "proper_noun", freq: 24, rank: 223, wazan: "fa'al", form: "I", def: "proper", irab: "nasb",
     occ: [[7,65,1276,2],[11,50,1956,2]], ex: [[7,65,1276,"وَإِلَىٰ عَادٍ أَخَاهُمْ هُودًا","Dan kepada kaum 'Ade (Kami utus) saudara mereka, Hud...","عَادٍ"]] },
 
   { id: "iblise", ar: "إِبْلِيس", root: "بلس", mid: "Iblis (setan)", men: "Iblis (Satan)", pos: "proper_noun", freq: 11, rank: 224, wazan: "if'iil", form: "I", def: "proper", irab: "raf",

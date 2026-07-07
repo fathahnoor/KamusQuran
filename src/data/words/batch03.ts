@@ -128,7 +128,7 @@ export const BATCH_03: CompactWord[] = [
   { id: "nafs", ar: "نَفْس", root: "نفس", mid: "diri, jiwa, pribadi", men: "soul, self, person", pos: "noun", freq: 281, rank: 142, wazan: "fa'l", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "nasb",
     occ: [[2,48,52,1],[2,54,57,1]], ex: [[2,48,52,"وَاتَّقُوا يَوْمًا لَا تَجْزِي نَفْسٌ عَنْ نَفْسٍ شَيْئًا","Dan takutilah hari (kiamat) ketika seseorang tidak dapat mengganti orang lain sedikit pun...","نَفْسٌ"]] },
 
-  { id: "qalama2", ar: "قَلَم", root: "قلم", mid: " pena, pena tulis", men: "pen, writing instrument", pos: "noun", freq: 4, rank: 143, wazan: "fa'al", form: "I", g: "masculine", num: "singular", def: "definite", irab: "nasb",
+  { id: "qalama2", ar: "قَلَم", root: "قلم", mid: "pena, pena tulis", men: "pen, writing instrument", pos: "noun", freq: 4, rank: 143, wazan: "fa'al", form: "I", g: "masculine", num: "singular", def: "definite", irab: "nasb",
     occ: [[68,1,5498,1]], ex: [[68,1,5498,"ن وَالْقَلَمِ وَمَا يَسْطُرُونَ","Nun. Demi pena dan apa yang mereka tuliskan...","الْقَلَمِ"]] },
 
   { id: "kitaba", ar: "كَتَب", root: "كتب", mid: "menulis, menetapkan, mewajibkan", men: "to write, to prescribe", pos: "verb", freq: 108, rank: 144, wazan: "fa'ala", form: "I", vf: "fiil_madhi", irab: "none",

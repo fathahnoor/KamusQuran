@@ -149,6 +149,6 @@ export const BATCH_06: CompactWord[] = [
   { id: "shukr3", ar: "اُشْكُر", root: "شكر", mid: "bersyukur (amr)", men: "Be grateful! (imperative)", pos: "verb", freq: 26, rank: 299, wazan: "uf'ul", form: "I", vf: "fiil_amr", irab: "none",
     occ: [[2,152,156,4]], ex: [[2,152,156,"فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي وَلَا تَكْفُرُونِ","Maka ingatlah kepada-Ku, Aku akan ingat kepadamu. Bersyukurlah kepada-Ku dan janganlah kamu ingkar kepada-Ku.","وَاشْكُرُوا"]] },
 
-  { id: "muslim", ar: "مُسْلِم", root: "سلم", mid: " muslim, orang yang berserah diri", men: "Muslim, one who submits", pos: "noun", freq: 41, rank: 300, wazan: "muf'il", form: "IV", g: "masculine", num: "singular", def: "definite", irab: "raf",
+  { id: "muslim", ar: "مُسْلِم", root: "سلم", mid: "muslim, orang yang berserah diri", men: "Muslim, one who submits", pos: "noun", freq: 41, rank: 300, wazan: "muf'il", form: "IV", g: "masculine", num: "singular", def: "definite", irab: "raf",
     occ: [[2,128,132,6],[2,131,135,1]], ex: [[2,131,135,"إِذْ قَالَ لَهُ رَبُّهُ أَسْلِمْ قَالَ أَسْلَمْتُ لِرَبِّ الْعَالَمِينَ","(Ingatlah) ketika Tuhan berfirman kepadanya (Ibrahim): 'Berserah dirilah (kepada-Ku).' Dia menjawab: 'Aku berserah diri kepada Tuhan seluruh alam.'","أَسْلَمْتُ"]] },
 ];

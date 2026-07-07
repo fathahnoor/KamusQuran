@@ -53,7 +53,7 @@ export const BATCH_11: CompactWord[] = [
   { id: "amm", ar: "عَمّ", root: "عمم", mid: "paman (ayah)", men: "uncle (paternal)", pos: "noun", freq: 0, rank: 547, wazan: "fann", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
   { id: "amma", ar: "عَمَّة", root: "عمم", mid: "bibi (ayah)", men: "aunt (paternal)", pos: "noun", freq: 0, rank: 548, wazan: "fa'la", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "nasb" },
   { id: "khal", ar: "خَال", root: "خول", mid: "paman (ibu)", men: "uncle (maternal)", pos: "noun", freq: 0, rank: 549, wazan: "fa'al", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
-  { id: "khala", ar: "خَالَة", root: "خول", mid: "bibi (ibu)", men: "aunt (maternal)", pos: "noun", freq: 0, rank: 550, wazan: "fa'ala", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "khala2", ar: "خَالَة", root: "خول", mid: "bibi (ibu)", men: "aunt (maternal)", pos: "noun", freq: 0, rank: 550, wazan: "fa'ala", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "nasb" },
   { id: "sadeeq", ar: "صَدِيق", root: "صدق", mid: "teman, sahabat", men: "friend", pos: "noun", freq: 0, rank: 551, wazan: "fa'iil", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
   { id: "yaar", ar: "جَار", root: "جور", mid: "tetangga", men: "neighbor", pos: "noun", freq: 0, rank: 552, wazan: "faaal", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
   { id: "mudarris", ar: "مُدَرِّس", root: "درس", mid: "guru, pengajar", men: "teacher", pos: "noun", freq: 0, rank: 553, wazan: "mufa''il", form: "II", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },
