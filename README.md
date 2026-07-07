@@ -2,7 +2,7 @@
 
 > Kamus bahasa Arab Al-Qur'an berbasis web dengan analisis morfologi mendalam, i'rob sistematis ala Al-Munir, pencarian suara, dan analisis kalimat. Gratis, tanpa login, bisa diakses langsung dari browser.
 >
-> **v3.0** — I'rob Sistematis dengan heuristic engine + context-aware sentence analysis.
+> **v3.0**: I'rob Sistematis dengan heuristic engine + context-aware sentence analysis.
 
 **[Buka Aplikasi](https://fathahnoor.github.io/KamusQuran/)** &nbsp;|&nbsp; **[Laporkan Bug](https://github.com/fathahnoor/KamusQuran/issues)**
 
@@ -46,8 +46,8 @@ Setiap kata memiliki **tabel i'rob 6 kolom** (Kata → Jenis → Kedudukan → I
 ### Mode Kalimat
 - Masukkan kalimat Arab atau ayat Al-Qur'an bebas
 - Tokenisasi otomatis: kalimat dipecah kata per kata
-- **🆕 v3.0: SentenceIrobTable** — tabel i'rob Al-Munir utuh per kalimat (8 kolom: #, Kata, Arti, Jenis, Kedudukan, I'rob, Tanda, 'Amil)
-- **🆕 v3.0: Context-Aware I&apos;rob Engine** — deteksi otomatis huruf jarr, inna/akhwatuha, kaana/akhwatuha, idhafah, &apos;athf
+- **🆕 v3.0: SentenceIrobTable**: tabel i'rob Al-Munir utuh per kalimat (8 kolom: #, Kata, Arti, Jenis, Kedudukan, I'rob, Tanda, 'Amil)
+- **🆕 v3.0: Context-Aware I&apos;rob Engine**: deteksi otomatis huruf jarr, inna/akhwatuha, kaana/akhwatuha, idhafah, &apos;athf
 - **🆕 v3.0: Expandable IrobTable** per token dengan detail morfologi
 - Ringkasan i'rob kalimat + observasi struktural (jumlah fi'liyyah/ismiyyah)
 - Analisis struktur kalimat secara keseluruhan
@@ -122,8 +122,8 @@ npm test
 - [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API) - pengenalan suara browser-native
 
 ### Referensi Kitab
-- **An-Nahwu al-Wadhih** (Jilid 1 Nahwu & Sharf) — metodologi deduksi induktif
-- **Metode Al-Munir** (Jilid 1-3 Nahwu & Sharf) — format tabel i'rob question-driven
+- **An-Nahwu al-Wadhih** (Jilid 1 Nahwu & Sharf), metodologi deduksi induktif
+- **Metode Al-Munir** (Jilid 1-3 Nahwu & Sharf), format tabel i'rob question-driven
 
 
 ---
