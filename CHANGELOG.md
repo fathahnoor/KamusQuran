@@ -4,11 +4,11 @@ All notable changes to Kamus Quran will be documented in this file.
 
 ---
 
-## [v3.1] ,  Ekspansi 1.234 Kata (2026-07)
+## [v3.1] ,  Ekspansi 1.250+ Kata (2026-07)
 
 ### 📚 Dataset Expansion
 
-- **1.234 kata**: 500 Quran frekuensi tinggi + 734 kata Arab sehari-hari
+- **1.250+ kata**: 500+ Quran frekuensi tinggi + 750+ kata Arab sehari-hari
 - **batch19**: 8 kata ganti Arab (saya, kami, kamu, dia, mereka, kalian)
 - **batch20-21**: ~186 kosakata sehari-hari (bilangan, warna, keluarga, tubuh, makanan, hewan, alam, waktu, tempat, kata kerja/sifat/tugas)
 - **batch22**: ~177 kata (profesi, hari, arah, material, alat, elektronik, kata benda abstrak)

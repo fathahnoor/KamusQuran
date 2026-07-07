@@ -25,7 +25,7 @@ export function AboutView() {
         <p>
           Membantu pengguna menguasai ~80–90% kosakata berfrekuensi tinggi Al-Qur&apos;an
           (500 kata inti dari Quranic Arabic Corpus) dan memperluas penguasaan bahasa Arab
-          dengan 734 kata sehari-hari, total 1.234 kata. Setiap kata dilengkapi{" "}
+          dengan 750+ kata sehari-hari, total 1.250+ kata. Setiap kata dilengkapi{" "}
           <strong>tabel i&apos;rob Al-Munir</strong> (6 kolom: Jenis, Kedudukan,{" "}
           I&apos;rob, Tanda, &apos;Amil) dan <strong>kesimpulan induktif{" "}
           Nahwu al-Wadhih</strong>.
@@ -160,8 +160,8 @@ export function AboutView() {
       <Section title="Keterbatasan" icon="M12 9v2m0 4h.01M5.07 19h13.86c1.54 0 2.5-1.67 1.73-3L13.73 4a2 2 0 0 0-3.46 0L3.34 16c-.77 1.33.19 3 1.73 3z">
         <ul className="list-inside list-disc space-y-1.5 text-sm text-ink-700">
           <li>
-            Database kata berisi 1.234 kata: 500 kata berfrekuensi tinggi dari Al-Qur'an
-            (mencakup ~80–90% kosakata) ditambah 734 kata Arab sehari-hari untuk
+            Database kata berisi 1.250+ kata: 500+ kata berfrekuensi tinggi dari Al-Qur'an
+            (mencakup ~80–90% kosakata) ditambah 750+ kata Arab sehari-hari untuk
             penggunaan praktis. Data dapat diperluas tanpa perubahan kode.
           </li>
           <li>
@@ -177,7 +177,7 @@ export function AboutView() {
 
       <Section title="Versi" icon="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6">
         <p>
-          <strong>v3.1</strong>: ekspansi ke 1.234 kata (500 Quran + 734 sehari-hari) dengan batch20-22.<br />
+          <strong>v3.1</strong>: ekspansi ke 1.250+ kata (500+ Quran + 750+ sehari-hari) dengan batch20-22.<br />
           <strong>v3.0</strong>: <strong>I&apos;rob Sistematis</strong>, tabel i&apos;rob 6 kolom{" "}
           ala Metode Al-Munir di Mode Kata + SentenceIrobTable (tabel ringkasan per kalimat){" "}
           + PerTokenIrobList (kartu lengkap per kata) di Mode Kalimat, color-coded rows{" "}
