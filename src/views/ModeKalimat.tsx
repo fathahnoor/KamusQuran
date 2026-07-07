@@ -3,6 +3,7 @@ import type { SentenceAnalysis, SentenceToken } from "../types";
 import { analyzeSentence, detectLanguage } from "../services/sentenceAnalysis";
 import { useVoiceRecognition } from "../services/voiceRecognition";
 import { SearchBar } from "../components/SearchBar";
+import { IrobTable } from "../components/IrobTable";
 import { isArabicText } from "../utils/arabic";
 
 export function ModeKalimat() {
@@ -92,38 +93,38 @@ export function ModeKalimat() {
             </div>
           </div>
 
-          {/* Sentence-level observations */}
-          {analysis.observations.length > 0 && (
-            <div className="rounded-2xl border border-accent-200/60 bg-gradient-to-b from-accent-50/40 to-white/80 p-4 sm:p-5">
-              <h3 className="mb-3 flex items-center gap-2 text-sm font-bold text-accent-700">
-                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="10" />
-                  <line x1="12" y1="8" x2="12" y2="12" />
-                  <line x1="12" y1="16" x2="12.01" y2="16" />
-                </svg>
-                Observasi Tingkat Kalimat
-              </h3>
-              <div className="space-y-3">
-                {analysis.observations.map((obs, i) => (
-                  <div key={i} className="rounded-xl bg-white/60 p-3">
-                    {obs.sentenceType && (
-                      <div className="mb-1 inline-block rounded-full bg-accent-100 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-accent-700">
-                        {obs.sentenceType}
-                      </div>
-                    )}
-                    <p className="text-sm leading-relaxed text-ink-700">{obs.summary}</p>
-                    {obs.notes.length > 0 && (
-                      <ul className="mt-1.5 list-inside list-disc text-xs text-ink-500">
-                        {obs.notes.map((note, j) => (
-                          <li key={j}>{note}</li>
-                        ))}
-                      </ul>
-                    )}
+      {/* v3.0: I'rab Summary */}
+      {analysis.observations.length > 0 && (
+        <div className="rounded-2xl border border-accent-200/60 bg-gradient-to-b from-accent-50/40 to-white/80 p-4 sm:p-5">
+          <h3 className="mb-3 flex items-center gap-2 text-sm font-bold text-accent-700">
+            <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="12" />
+              <line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>
+            Observasi Tingkat Kalimat
+          </h3>
+          <div className="space-y-3">
+            {analysis.observations.map((obs, i) => (
+              <div key={i} className="rounded-xl bg-white/60 p-3">
+                {obs.sentenceType && (
+                  <div className="mb-1 inline-block rounded-full bg-accent-100 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-accent-700">
+                    {obs.sentenceType}
                   </div>
-                ))}
+                )}
+                <p className="text-sm leading-relaxed text-ink-700">{obs.summary}</p>
+                {obs.notes.length > 0 && (
+                  <ul className="mt-1.5 list-inside list-disc text-xs text-ink-500">
+                    {obs.notes.map((note, j) => (
+                      <li key={j}>{note}</li>
+                    ))}
+                  </ul>
+                )}
               </div>
-            </div>
-          )}
+            ))}
+          </div>
+        </div>
+      )}
         </div>
       )}
 
@@ -154,15 +155,18 @@ export function ModeKalimat() {
 
 function TokenCard({ token }: { token: SentenceToken }) {
   const surfaceIsArabic = isArabicText(token.surface);
+  const hasIrab = !!token.structuredIrab;
+  const [irabExpanded, setIrabExpanded] = useState(false);
   return (
     <div
-      className={`rounded-xl border p-3 transition-all sm:p-3.5 ${
+      className={`rounded-xl border transition-all sm:rounded-2xl ${
         token.matched
           ? "border-ink-200/60 bg-white/80"
           : "border-dashed border-ink-300/60 bg-ink-50/40"
       }`}
     >
-      <div className="flex items-baseline justify-between gap-2 sm:gap-3">
+      {/* Token header */}
+      <div className="flex items-baseline justify-between gap-2 p-3 sm:gap-3 sm:p-3.5">
         <div className="flex min-w-0 items-baseline gap-2 sm:gap-3">
           <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-ink-100 text-[10px] font-bold text-ink-400">
             {token.index + 1}
@@ -177,17 +181,33 @@ function TokenCard({ token }: { token: SentenceToken }) {
             </span>
           )}
         </div>
-        {token.matched ? (
-          <span className="shrink-0 rounded-full bg-accent-100 px-2.5 py-0.5 text-[10px] font-bold text-accent-700">
-            ✓ Cocok
-          </span>
-        ) : (
-          <span className="shrink-0 rounded-full bg-ink-100 px-2.5 py-0.5 text-[10px] font-bold text-ink-500">
-            Tebakan
-          </span>
-        )}
+        <div className="flex shrink-0 items-center gap-1.5">
+          {hasIrab && (
+            <button
+              onClick={() => setIrabExpanded((v) => !v)}
+              className={`rounded-full px-2 py-0.5 text-[10px] font-bold transition-all ${
+                irabExpanded
+                  ? "bg-accent-500 text-white"
+                  : "bg-accent-50 text-accent-700 hover:bg-accent-100"
+              }`}
+            >
+              إ I&apos;rob
+            </button>
+          )}
+          {token.matched ? (
+            <span className="shrink-0 rounded-full bg-accent-100 px-2.5 py-0.5 text-[10px] font-bold text-accent-700">
+              ✓ Cocok
+            </span>
+          ) : (
+            <span className="shrink-0 rounded-full bg-ink-100 px-2.5 py-0.5 text-[10px] font-bold text-ink-500">
+              Tebakan
+            </span>
+          )}
+        </div>
       </div>
-      <div className="mt-2.5 grid grid-cols-1 gap-x-4 gap-y-1 text-xs sm:grid-cols-2 sm:gap-x-4 lg:grid-cols-3">
+
+      {/* Quick info grid */}
+      <div className="grid grid-cols-1 gap-x-4 gap-y-1 border-t border-ink-100 px-3 pb-2 pt-2 text-xs sm:grid-cols-2 sm:gap-x-4 sm:px-3.5 lg:grid-cols-3">
         {token.lemma && <Info label="Lemma" value={token.lemma} arabic />}
         {token.root && <Info label="Akar" value={token.root} arabic />}
         {token.meaningId && <Info label="Arti" value={token.meaningId} />}
@@ -199,13 +219,22 @@ function TokenCard({ token }: { token: SentenceToken }) {
           <Info label="Fungsi Sintaktis" value={token.morpho.syntacticRoleLabel} />
         )}
       </div>
+
+      {/* v3.0: Structured I'rab (expandable) */}
+      {hasIrab && irabExpanded && (
+        <div className="border-t border-accent-100 bg-accent-50/20 px-3 pb-3 pt-2.5 sm:px-3.5">
+          <IrobTable irab={token.structuredIrab!} />
+        </div>
+      )}
+
+      {/* Nahwu / Sharf notes */}
       {surfaceIsArabic && token.nahwuNote && (
-        <p className="mt-2.5 rounded-lg bg-accent-50/50 px-2.5 py-1.5 text-xs leading-relaxed text-ink-600">
+        <p className="mx-3 mb-2 rounded-lg bg-accent-50/50 px-2.5 py-1.5 text-xs leading-relaxed text-ink-600 sm:mx-3.5">
           <span className="font-semibold text-accent-600">Nahwu:</span> {token.nahwuNote}
         </p>
       )}
       {surfaceIsArabic && token.sharfNote && (
-        <p className="mt-1.5 rounded-lg bg-ink-50/80 px-2.5 py-1.5 text-xs leading-relaxed text-ink-600">
+        <p className="mx-3 mb-2 rounded-lg bg-ink-50/80 px-2.5 py-1.5 text-xs leading-relaxed text-ink-600 sm:mx-3.5">
           <span className="font-semibold text-ink-600">Sharf:</span> {token.sharfNote}
         </p>
       )}
