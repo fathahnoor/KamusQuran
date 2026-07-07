@@ -229,14 +229,15 @@ export function searchWords(query: string, limit = 50): WordEntry[] {
           continue;
         }
         // Word starts-with match (for inflected forms like "beriman" → "iman").
-        // Only for query words >= 4 chars to reduce false positives.
+        // Requires the longer word to be at least 3 chars longer than the
+        // shorter one, e.g. "ajar"→"mengajar" (diff=5) OK, "saya"→"sayang" (diff=2) blocked.
         for (const mw of meaningWords) {
-          if (mw.startsWith(qw) && qw.length >= 4) {
+          if (mw.startsWith(qw) && qw.length >= 4 && mw.length - qw.length >= 3) {
             if (bestAltScore < 55) {
               results.add(w);
               bestAltScore = Math.max(bestAltScore, 55);
             }
-          } else if (qw.startsWith(mw) && mw.length >= 4) {
+          } else if (qw.startsWith(mw) && mw.length >= 4 && qw.length - mw.length >= 3) {
             if (bestAltScore < 55) {
               results.add(w);
               bestAltScore = Math.max(bestAltScore, 55);

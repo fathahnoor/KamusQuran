@@ -92,11 +92,15 @@ function analyzeIndonesianSentence(input: string): SentenceAnalysis {
   const observations = buildSentenceObservations(sentenceTokens, input);
 
   // Translation summary (for banner at top of results).
-  const matched = sentenceTokens.filter((t) => t.matched);
+  // Include ALL words: matched → Arabic lemma, unmatched → original word.
   let arabicSummary = "";
-  if (matched.length > 0) {
-    const arabicOut = matched.map((t) => t.lemma ?? t.surface).join(" ");
-    const indoIn = indoWords.filter((_, i) => sentenceTokens[i]?.matched).join(" ");
+  if (sentenceTokens.some((t) => t.matched)) {
+    const arabicParts = sentenceTokens.map((t, i) => {
+      if (t.matched) return t.lemma ?? t.surface;
+      return indoWords[i] ?? t.surface;
+    });
+    const indoIn = indoWords.join(" ");
+    const arabicOut = arabicParts.join(" ");
     arabicSummary = `${indoIn} \u2192 ${arabicOut}`;
   }
 
@@ -211,9 +215,11 @@ function applyContextAwareIrab(tokens: SentenceToken[]): void {
     }
   }
 
-  // Second pass: generate structured i'rab for each token with context
+  // Second pass: generate structured i'rab for each token with context.
+  // Skip unmatched tokens (Latin surface text) — i'rob is meaningless for them.
   for (let i = 0; i < tokens.length; i++) {
     const t = tokens[i]!;
+    if (!t.matched) continue;
     const hint = ctx[i];
     const input = buildIrabInputFromToken(t);
 
