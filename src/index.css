@@ -5,32 +5,37 @@
   --font-arabic: "Noto Naskh Arabic", "Amiri", serif;
   --font-arabic-display: "Amiri", "Noto Naskh Arabic", serif;
 
-  /* Academic palette: warm parchment ink on paper */
-  --color-ink-50: #f7f5f0;
-  --color-ink-100: #ece8de;
-  --color-ink-200: #d9d2c2;
-  --color-ink-300: #b8ad96;
-  --color-ink-400: #938775;
-  --color-ink-500: #756a59;
-  --color-ink-600: #5f5648;
-  --color-ink-700: #4d463a;
-  --color-ink-800: #3f3a30;
-  --color-ink-900: #2b2820;
-  --color-ink-950: #1c1a14;
+  /* Modern palette: cool slate + emerald accent */
+  --color-ink-50: #f8fafc;
+  --color-ink-100: #f1f5f9;
+  --color-ink-200: #e2e8f0;
+  --color-ink-300: #cbd5e1;
+  --color-ink-400: #94a3b8;
+  --color-ink-500: #64748b;
+  --color-ink-600: #475569;
+  --color-ink-700: #334155;
+  --color-ink-800: #1e293b;
+  --color-ink-900: #0f172a;
+  --color-ink-950: #020617;
 
-  --color-accent-500: #2d5a3d;
-  --color-accent-600: #244832;
-  --color-accent-700: #1c3826;
+  --color-accent-50: #ecfdf5;
+  --color-accent-100: #d1fae5;
+  --color-accent-200: #a7f3d0;
+  --color-accent-300: #6ee7b7;
+  --color-accent-400: #34d399;
+  --color-accent-500: #10b981;
+  --color-accent-600: #059669;
+  --color-accent-700: #047857;
+  --color-accent-800: #065f46;
+  --color-accent-900: #064e3b;
 }
 
 html {
   scroll-behavior: smooth;
-  /* Prevent iOS text auto-zoom on focus */
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
 }
 
-/* Responsive root font: scales down on small screens */
 @media (max-width: 640px) {
   html {
     font-size: 15px;
@@ -43,7 +48,6 @@ html {
   }
 }
 
-/* Ensure touch targets are at least 44px on mobile */
 @media (max-width: 640px) {
   button,
   a[role="button"],
@@ -70,7 +74,6 @@ body {
   font-family: var(--font-arabic-display);
 }
 
-/* Better Arabic rendering: enable ligatures & context-aware shaping */
 .font-arabic,
 .font-arabic-display {
   font-feature-settings: "ccmp", "liga", "calt";
@@ -79,18 +82,56 @@ body {
   unicode-bidi: bidi-override;
 }
 
-/* Scrollbar styling for academic feel */
+/* Scrollbar styling */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
   background: var(--color-ink-100);
 }
 ::-webkit-scrollbar-thumb {
   background: var(--color-ink-300);
-  border-radius: 5px;
+  border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-ink-400);
+}
+
+/* Smooth fade-in animation for view transitions */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+/* Shimmer for loading states */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, var(--color-ink-100) 25%, var(--color-ink-200) 50%, var(--color-ink-100) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Subtle pulse glow for active states */
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.3); }
+  50% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2s ease-in-out infinite;
 }

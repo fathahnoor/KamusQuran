@@ -12,7 +12,7 @@ const AboutView = lazy(() => import("./views/AboutView").then((m) => ({ default:
 function ViewFallback() {
   return (
     <div className="flex items-center justify-center py-20">
-      <div className="h-6 w-6 animate-spin rounded-full border-2 border-ink-300 border-t-accent-600" />
+      <div className="h-8 w-8 animate-spin rounded-full border-2 border-ink-200 border-t-accent-500" />
     </div>
   );
 }
@@ -22,14 +22,13 @@ export default function App() {
 
   const navigate = useCallback((next: AppView) => {
     setView(next);
-    // Scroll to top on view change for a clean academic reading flow.
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
   return (
-    <div className="min-h-screen bg-ink-50 text-ink-900">
+    <div className="min-h-screen bg-gradient-to-b from-ink-50 to-ink-100/30 text-ink-900">
       <Header current={view} onNavigate={navigate} />
-      <main className="mx-auto max-w-5xl px-3 py-5 pb-24 sm:px-6 sm:py-8 sm:pb-8 lg:px-8">
+      <main className="mx-auto max-w-5xl px-4 py-6 pb-24 sm:px-6 sm:py-8 sm:pb-8 lg:px-8">
         {view === "kata" && <ModeKata />}
         {view === "kalimat" && (
           <Suspense fallback={<ViewFallback />}>
@@ -47,7 +46,7 @@ export default function App() {
           </Suspense>
         )}
       </main>
-      <footer className="border-t border-ink-200 bg-ink-100/60 py-6 pb-20 text-center text-xs text-ink-500 sm:pb-6 sm:text-sm">
+      <footer className="border-t border-ink-200/60 bg-white/50 py-6 pb-20 text-center text-xs text-ink-500 backdrop-blur-sm sm:pb-6 sm:text-sm">
         <p>
           Kamus Quran, alat belajar bahasa Arab Al-Qur&apos;an · Data: Quranic Arabic
           Corpus, Tanzil, AlQuran Cloud

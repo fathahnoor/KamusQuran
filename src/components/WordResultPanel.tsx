@@ -23,29 +23,19 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const ttsSupported = typeof window !== "undefined" && "speechSynthesis" in window;
 
-  // Helper to optionally strip diacritics from Arabic text.
   const arText = (text: string) => (showDiacritics ? text : stripDiacritics(text));
 
-  // Render Arabic ayat text with the target word highlighted.
-  // Matches the wordForm (or headword) within the full ayat text,
-  // comparing without diacritics for robust matching.
   const renderHighlightedAyat = (arabicText: string, wordForm: string | undefined): ReactNode => {
     const target = wordForm ?? entry.arabic;
     if (!target) return arText(arabicText);
-    // Compare without diacritics for matching, but render original text.
     const textNoDiac = stripDiacritics(arabicText);
     const targetNoDiac = stripDiacritics(target);
-    // Search for the target in the ayat text (without diacritics).
     const idx = textNoDiac.indexOf(targetNoDiac);
     if (idx === -1) return arText(arabicText);
-    // Split original text at the matching positions (accounting for diacritics length diff).
-    // Since stripping diacritics removes characters, we need to map indices.
-    // Simpler approach: walk through original text and find the matching span.
     let before = "";
     let match = "";
     let after = "";
     let origIdx = 0;
-    // Build a mapping from no-diac indices to original indices.
     const origText = arabicText;
     let noDiacPos = 0;
     const matchEnd = idx + targetNoDiac.length;
@@ -61,7 +51,6 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
         }
         noDiacPos++;
       } else {
-        // This is a diacritic character: attach to current segment.
         if (noDiacPos <= idx) {
           before += origChar;
         } else if (noDiacPos <= matchEnd) {
@@ -72,8 +61,6 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
       }
       origIdx++;
     }
-    // Append remaining original text (trailing diacritics).
-    // If we haven't passed the match end yet, they belong to match.
     while (origIdx < origText.length) {
       if (noDiacPos <= matchEnd) {
         match += origText[origIdx] ?? "";
@@ -87,7 +74,7 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
     return (
       <>
         {arText(before)}
-        <mark className="bg-accent-100 text-accent-800 rounded px-0.5 font-semibold">
+        <mark className="bg-accent-100 text-accent-800 rounded px-1 font-semibold">
           {arText(match)}
         </mark>
         {arText(after)}
@@ -101,12 +88,10 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
     setTafsirText(null);
     setTafsirLoading(false);
     setTafsirError(false);
-    // Stop any ongoing TTS when switching words.
     if (ttsSupported) window.speechSynthesis.cancel();
     setIsSpeaking(false);
   }, [entry.id, entry.examples, ttsSupported]);
 
-  // Lazily fetch Indonesian translation + tafsir + audio URL for example ayat.
   useEffect(() => {
     let cancelled = false;
     setTafsirLoading(true);
@@ -141,19 +126,16 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
       }
       if (!cancelled) {
         setTafsirLoading(false);
-        // Only show error if API was actually called and all attempts failed.
         if (apiAttempts > 0 && !anySuccess) setTafsirError(true);
       }
     }
     enrich();
     return () => {
       cancelled = true;
-      // Cleanup any playing audio on unmount.
       if (audioRef.current) {
         audioRef.current.pause();
         audioRef.current = null;
       }
-      // Stop any ongoing TTS on unmount.
       if (ttsSupported) window.speechSynthesis.cancel();
     };
   }, [entry.id, entry.examples]);
@@ -163,21 +145,18 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
     setBookmarked(newState);
   };
 
-  // Pronounce the Arabic headword using browser TTS (SpeechSynthesis API).
   const pronounceWord = (arabicText: string) => {
     if (!ttsSupported) return;
-    // Cancel any ongoing speech.
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(arabicText);
     utterance.lang = "ar-SA";
-    utterance.rate = 0.8; // Slightly slower for clarity.
+    utterance.rate = 0.8;
     utterance.onstart = () => setIsSpeaking(true);
     utterance.onend = () => setIsSpeaking(false);
     utterance.onerror = () => setIsSpeaking(false);
     window.speechSynthesis.speak(utterance);
   };
 
-  // Stop pronunciation.
   const stopPronunciation = () => {
     if (!ttsSupported) return;
     window.speechSynthesis.cancel();
@@ -185,7 +164,6 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
   };
 
   const playAudio = (globalAyahNumber: number) => {
-    // Stop any currently playing audio before starting a new one.
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.src = "";
@@ -219,75 +197,86 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
   const m = entry.morpho;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5 animate-fade-in">
       {/* Diacritic toggle */}
       <div className="flex flex-wrap items-center justify-end gap-2">
         <button
           onClick={() => setShowDiacritics((v) => !v)}
-          className="rounded-md border border-ink-300 px-2.5 py-1 text-xs font-medium text-ink-500 transition-colors hover:bg-ink-100"
+          className="flex items-center gap-1.5 rounded-full border border-ink-200 bg-white/80 px-3 py-1.5 text-xs font-medium text-ink-500 transition-all hover:bg-ink-50 hover:shadow-sm"
         >
+          <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
           {showDiacritics ? "Sembunyikan Harakat" : "Tampilkan Harakat"}
         </button>
       </div>
 
-      {/* Header row: Arabic word + bookmark */}
-      <div className="flex items-start justify-between gap-3 rounded-lg border border-ink-200 bg-white p-4 shadow-sm sm:gap-4 sm:p-6">
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 min-w-0 sm:gap-3">
-            <div className="font-arabic-display text-4xl font-bold leading-tight text-accent-700 sm:text-5xl" dir="rtl">
-              {arText(entry.arabic)}
+      {/* Header card: Arabic word + bookmark */}
+      <div className="overflow-hidden rounded-2xl border border-ink-200/60 bg-gradient-to-br from-white via-white to-accent-50/20 p-5 shadow-sm sm:p-7">
+        <div className="flex items-start justify-between gap-3 sm:gap-4">
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-3 min-w-0 sm:gap-4">
+              <div className="font-arabic-display text-4xl font-bold leading-tight bg-gradient-to-br from-accent-700 to-accent-500 bg-clip-text text-transparent sm:text-5xl" dir="rtl">
+                {arText(entry.arabic)}
+              </div>
+              <button
+                onClick={() => (isSpeaking ? stopPronunciation() : pronounceWord(entry.arabic))}
+                className={`flex shrink-0 items-center justify-center rounded-full p-2.5 transition-all sm:p-3 ${
+                  isSpeaking
+                    ? "bg-gradient-to-br from-accent-600 to-accent-500 text-white shadow-md scale-105 animate-pulse-glow"
+                    : "bg-accent-50 text-accent-700 border border-accent-200 hover:bg-accent-100"
+                }`}
+                aria-label={isSpeaking ? "Hentikan pengucapan kata" : "Bunyikan kata Arab"}
+                title={isSpeaking ? "Hentikan pengucapan" : "Bunyikan kata Arab"}
+              >
+                {isSpeaking ? (
+                  <svg className="h-5 w-5 sm:h-6 sm:w-6" viewBox="0 0 24 24" fill="currentColor">
+                    <rect x="6" y="6" width="12" height="12" rx="2" />
+                  </svg>
+                ) : (
+                  <svg className="h-5 w-5 sm:h-6 sm:w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+                  </svg>
+                )}
+              </button>
             </div>
-            <button
-              onClick={() => (isSpeaking ? stopPronunciation() : pronounceWord(entry.arabic))}
-              className={`flex shrink-0 items-center justify-center rounded-full p-2 transition-all sm:p-2.5 ${
-                isSpeaking
-                  ? "bg-accent-600 text-ink-50 shadow-md scale-105"
-                  : "bg-accent-50 text-accent-700 border border-accent-200 hover:bg-accent-100"
-              }`}
-              aria-label={isSpeaking ? "Hentikan pengucapan kata" : "Bunyikan kata Arab"}
-              title={isSpeaking ? "Hentikan pengucapan" : "Bunyikan kata Arab"}
-            >
-              {isSpeaking ? (
-                <svg className="h-5 w-5 sm:h-6 sm:w-6" viewBox="0 0 24 24" fill="currentColor">
-                  <rect x="6" y="6" width="12" height="12" rx="2" />
-                </svg>
-              ) : (
-                <svg className="h-5 w-5 sm:h-6 sm:w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
-                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
-                  <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
-                </svg>
-              )}
-            </button>
+            <div className="mt-3 text-base font-semibold text-ink-800 sm:text-lg">{entry.meaningId}</div>
+            {entry.meaningIdAlt && entry.meaningIdAlt.length > 0 && (
+              <div className="text-sm text-ink-500">{entry.meaningIdAlt.join(" · ")}</div>
+            )}
+            {entry.rank && (
+              <div className="mt-2 flex items-center gap-2">
+                <span className="inline-flex items-center gap-1 rounded-full bg-accent-100 px-2.5 py-0.5 text-xs font-bold text-accent-700">
+                  #{entry.rank}
+                </span>
+                <span className="text-xs text-ink-400">
+                  {entry.frequency}× dalam Al-Qur&apos;an
+                </span>
+              </div>
+            )}
           </div>
-          <div className="mt-2 text-base font-semibold text-ink-800 sm:text-lg">{entry.meaningId}</div>
-          {entry.meaningIdAlt && entry.meaningIdAlt.length > 0 && (
-            <div className="text-sm text-ink-500">{entry.meaningIdAlt.join(" · ")}</div>
-          )}
-          {entry.rank && (
-            <div className="mt-1 text-xs text-ink-400">
-              Peringkat #{entry.rank} · {entry.frequency}× dalam Al-Qur&apos;an
-            </div>
-          )}
+          <button
+            onClick={handleBookmark}
+            className={`flex shrink-0 items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-medium transition-all sm:px-4 sm:text-sm ${
+              bookmarked
+                ? "bg-gradient-to-r from-accent-600 to-accent-500 text-white shadow-sm shadow-accent-500/30 hover:shadow-md"
+                : "border border-ink-200 bg-white text-ink-600 hover:bg-ink-50"
+            }`}
+            aria-label={bookmarked ? "Hapus bookmark" : "Tambah bookmark"}
+          >
+            <svg className="h-4 w-4" viewBox="0 0 24 24" fill={bookmarked ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+            </svg>
+            {bookmarked ? "Tersimpan" : "Simpan"}
+          </button>
         </div>
-        <button
-          onClick={handleBookmark}
-          className={`flex shrink-0 items-center gap-1.5 rounded-md px-2.5 py-2 text-xs font-medium transition-colors sm:px-3 sm:text-sm ${
-            bookmarked
-              ? "bg-accent-600 text-ink-50 hover:bg-accent-700"
-              : "border border-ink-300 text-ink-600 hover:bg-ink-100"
-          }`}
-          aria-label={bookmarked ? "Hapus bookmark" : "Tambah bookmark"}
-        >
-          <svg className="h-4 w-4" viewBox="0 0 24 24" fill={bookmarked ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2">
-            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
-          </svg>
-          {bookmarked ? "Tersimpan" : "Simpan"}
-        </button>
       </div>
 
       {/* Linguistic fields grid */}
-      <div className="grid grid-cols-2 gap-2 sm:grid-cols-2 sm:gap-4">
+      <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3">
         <FieldCard label="Akar (Root)" value={arText(entry.root)} arabic />
         <FieldCard label="Lemma" value={arText(entry.lemma)} arabic />
         <FieldCard label="Kelas Kata (POS)" value={posLabel(m.posMajor)} />
@@ -317,50 +306,67 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
 
       {/* Nahwu note */}
       {entry.nahwuNote && (
-        <div className="rounded-lg border-l-4 border-accent-500 bg-accent-50/40 p-3 sm:p-4">
-          <h4 className="mb-1 text-sm font-bold text-accent-700">نحو: Catatan Nahwu</h4>
+        <div className="rounded-2xl border-l-4 border-accent-500 bg-gradient-to-r from-accent-50/60 to-white/80 p-4 sm:p-5">
+          <h4 className="mb-1.5 flex items-center gap-2 text-sm font-bold text-accent-700">
+            <span className="font-arabic text-base">نحو</span>
+            <span className="text-ink-300">·</span>
+            <span>Catatan Nahwu</span>
+          </h4>
           <p className="text-sm leading-relaxed text-ink-700">{entry.nahwuNote}</p>
         </div>
       )}
 
       {/* Sharf note */}
       {entry.sharfNote && (
-        <div className="rounded-lg border-l-4 border-ink-500 bg-ink-100/60 p-3 sm:p-4">
-          <h4 className="mb-1 text-sm font-bold text-ink-700">صرف: Catatan Sharf</h4>
+        <div className="rounded-2xl border-l-4 border-ink-500 bg-gradient-to-r from-ink-100/60 to-white/80 p-4 sm:p-5">
+          <h4 className="mb-1.5 flex items-center gap-2 text-sm font-bold text-ink-700">
+            <span className="font-arabic text-base">صرف</span>
+            <span className="text-ink-300">·</span>
+            <span>Catatan Sharf</span>
+          </h4>
           <p className="text-sm leading-relaxed text-ink-700">{entry.sharfNote}</p>
         </div>
       )}
 
       {/* I'rab note */}
       {m.irabNote && (
-        <div className="rounded-lg border-l-4 border-ink-400 bg-ink-50 p-3 sm:p-4">
-          <h4 className="mb-1 text-sm font-bold text-ink-600">إعراب: Keterangan I&apos;rab</h4>
+        <div className="rounded-2xl border-l-4 border-ink-400 bg-gradient-to-r from-ink-50 to-white/80 p-4 sm:p-5">
+          <h4 className="mb-1.5 flex items-center gap-2 text-sm font-bold text-ink-600">
+            <span className="font-arabic text-base">إعراب</span>
+            <span className="text-ink-300">·</span>
+            <span>Keterangan I&apos;rab</span>
+          </h4>
           <p className="text-sm leading-relaxed text-ink-700">{m.irabNote}</p>
         </div>
       )}
 
-      {/* Tafsir */}
+      {/* Tafsir loading */}
       {tafsirLoading && (
-        <div className="flex items-center gap-2 rounded-lg border border-ink-200 bg-white p-3 shadow-sm sm:p-4" role="status" aria-live="polite">
-          <div className="h-4 w-4 animate-spin rounded-full border-2 border-ink-300 border-t-accent-600" />
+        <div className="flex items-center gap-3 rounded-2xl border border-ink-200/60 bg-white/80 p-4 shadow-sm sm:p-5" role="status" aria-live="polite">
+          <div className="h-5 w-5 animate-spin rounded-full border-2 border-ink-200 border-t-accent-500" />
           <span className="text-sm text-ink-500">Memuat tafsir Jalalayn...</span>
         </div>
       )}
       {tafsirError && !tafsirText && (
-        <div className="rounded-lg border border-ink-200 bg-ink-50 p-3 sm:p-4" role="alert">
+        <div className="rounded-2xl border border-ink-200/60 bg-ink-50/60 p-4 sm:p-5" role="alert">
           <p className="text-sm text-ink-500">
             Tafsir tidak dapat dimuat (kemungkinan masalah jaringan). Data morfologi masih tersedia dari basis data lokal.
           </p>
         </div>
       )}
       {tafsirText && (
-        <div className="rounded-lg border border-ink-200 bg-white p-3 shadow-sm sm:p-4">
-          <h4 className="mb-1 text-sm font-bold text-ink-700">تفسير: Tafsir (Jalalayn)</h4>
+        <div className="rounded-2xl border border-ink-200/60 bg-white/90 p-4 shadow-sm sm:p-5">
+          <h4 className="mb-1.5 flex items-center gap-2 text-sm font-bold text-ink-700">
+            <span className="font-arabic text-base">تفسير</span>
+            <span className="text-ink-300">·</span>
+            <span>Tafsir (Jalalayn)</span>
+          </h4>
           <p className="text-sm leading-relaxed text-ink-700">{tafsirText}</p>
         </div>
       )}
+
       {/* Occurrences */}
-      <div className="rounded-lg border border-ink-200 bg-white p-3 shadow-sm sm:p-4">
+      <div className="rounded-2xl border border-ink-200/60 bg-white/90 p-4 shadow-sm sm:p-5">
         <h4 className="mb-3 text-sm font-bold text-ink-700">
           Kemunculan dalam Al-Qur&apos;an ({entry.occurrences.length} ditampilkan)
         </h4>
@@ -368,7 +374,7 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
           {entry.occurrences.map((occ, i) => (
             <span
               key={`${occ.surah}:${occ.ayah}:${i}`}
-              className="rounded-md bg-ink-100 px-2.5 py-1 text-xs font-medium text-ink-600"
+              className="rounded-full bg-ink-100 px-3 py-1 text-xs font-medium text-ink-600 transition-colors hover:bg-accent-100 hover:text-accent-700"
             >
               {formatSurahAyah(occ.surah, occ.ayah)}
             </span>
@@ -381,27 +387,38 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
         <div className="space-y-3">
           <h4 className="text-sm font-bold text-ink-700">Contoh Ayat</h4>
           {examplesEnriched.map((ex) => (
-            <div key={ex.globalAyahNumber} className="rounded-lg border border-ink-200 bg-white p-3 shadow-sm sm:p-4">
-              <div className="mb-2 flex items-center justify-between">
-                <span className="text-xs font-semibold text-ink-500">
+            <div key={ex.globalAyahNumber} className="rounded-2xl border border-ink-200/60 bg-white/90 p-4 shadow-sm transition-shadow hover:shadow-md sm:p-5">
+              <div className="mb-3 flex items-center justify-between">
+                <span className="rounded-full bg-accent-50 px-3 py-1 text-xs font-bold text-accent-700">
                   {formatSurahAyah(ex.surah, ex.ayah)}
                 </span>
                   {ex.audioUrl && (
                     <button
                       onClick={() => playAudio(ex.globalAyahNumber)}
                       disabled={audioLoading === ex.globalAyahNumber}
-                      className="flex items-center gap-1 rounded-md bg-accent-50 px-2 py-1 text-xs font-medium text-accent-700 hover:bg-accent-100 disabled:opacity-50"
+                      className="flex items-center gap-1.5 rounded-full bg-accent-50 px-3 py-1.5 text-xs font-semibold text-accent-700 transition-all hover:bg-accent-100 disabled:opacity-50"
                       aria-label={`Putar audio ${formatSurahAyah(ex.surah, ex.ayah)}`}
                     >
                       {audioLoading === ex.globalAyahNumber ? (
-                        <span className="flex items-center gap-1">
-                          <span className="h-3 w-3 animate-spin rounded-full border border-accent-400 border-t-accent-700" />
+                        <>
+                          <span className="h-3 w-3 animate-spin rounded-full border border-accent-300 border-t-accent-700" />
                           Memuat...
-                        </span>
+                        </>
                       ) : activeAudio === ex.globalAyahNumber ? (
-                        "⏸ Berhenti"
+                        <>
+                          <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor">
+                            <rect x="6" y="4" width="4" height="16" rx="1" />
+                            <rect x="14" y="4" width="4" height="16" rx="1" />
+                          </svg>
+                          Berhenti
+                        </>
                       ) : (
-                        "▶ Putar Audio"
+                        <>
+                          <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor">
+                            <polygon points="5 3 19 12 5 21 5 3" />
+                          </svg>
+                          Putar Audio
+                        </>
                       )}
                     </button>
                   )}
@@ -410,23 +427,24 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
                 {renderHighlightedAyat(ex.arabicText, ex.wordForm)}
               </p>
               {ex.wordForm && (
-                <p className="mt-1 text-xs text-accent-600">
-                  Kata muncul sebagai: <span className="font-arabic text-sm">{arText(ex.wordForm)}</span>
+                <p className="mt-2 flex items-center gap-1.5 text-xs text-accent-600">
+                  <span>Kata muncul sebagai:</span>
+                  <span className="font-arabic rounded bg-accent-50 px-1.5 py-0.5 text-sm">{arText(ex.wordForm)}</span>
                 </p>
               )}
-              <p className="mt-2 text-sm leading-relaxed text-ink-600">{ex.translation}</p>
+              <p className="mt-3 rounded-xl bg-ink-50/60 px-3 py-2 text-sm leading-relaxed text-ink-600">{ex.translation}</p>
             </div>
           ))}
         </div>
       )}
 
-      {/* Raw morphological features for traceability */}
+      {/* Raw morphological features */}
       {m.rawFeatures && (
-        <details className="rounded-lg border border-ink-200 bg-white p-3 text-xs sm:p-4">
-          <summary className="cursor-pointer font-semibold text-ink-500">
+        <details className="rounded-2xl border border-ink-200/60 bg-white/90 p-4 text-xs sm:p-5">
+          <summary className="cursor-pointer font-semibold text-ink-500 transition-colors hover:text-ink-700">
             Data morfologi mentah (QAC)
           </summary>
-          <pre className="mt-2 overflow-x-auto text-ink-600">{m.rawFeatures}</pre>
+          <pre className="mt-3 overflow-x-auto rounded-xl bg-ink-900 p-3 text-ink-200">{m.rawFeatures}</pre>
         </details>
       )}
     </div>
@@ -437,10 +455,10 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
 
 function FieldCard({ label, value, arabic }: { label: string; value: string; arabic?: boolean }) {
   return (
-    <div className="rounded-lg border border-ink-200 bg-white p-2.5 shadow-sm sm:p-3">
-      <div className="text-[10px] font-semibold uppercase tracking-wide text-ink-400 sm:text-xs">{label}</div>
+    <div className="group rounded-xl border border-ink-200/60 bg-white/90 p-3 shadow-sm transition-all hover:border-accent-300 hover:shadow-md sm:p-3.5">
+      <div className="text-[10px] font-bold uppercase tracking-wide text-ink-400 transition-colors group-hover:text-accent-500 sm:text-xs">{label}</div>
       <div
-        className={`mt-1 text-sm font-medium text-ink-800 ${arabic ? "font-arabic text-base sm:text-lg" : ""}`}
+        className={`mt-1.5 text-sm font-medium text-ink-800 ${arabic ? "font-arabic text-base sm:text-lg" : ""}`}
         dir={arabic ? "rtl" : "ltr"}
       >
         {value}
