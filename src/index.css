@@ -114,6 +114,13 @@ body {
   animation: fadeInUp 0.3s ease-out;
 }
 
+/* Staggered fade-in: cards animate in sequence.
+   Use with inline style="animation-delay: {{idx * 50}}ms" */
+.animate-stagger {
+  opacity: 0;
+  animation: fadeInUp 0.4s ease-out forwards;
+}
+
 /* Shimmer for loading states */
 @keyframes shimmer {
   0% { background-position: -200% 0; }

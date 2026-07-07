@@ -41,11 +41,12 @@ export function PerTokenIrobList({ tokens }: PerTokenIrobListProps) {
           return (
             <div
               key={token.index}
-              className={`overflow-hidden rounded-2xl border shadow-sm transition-all hover:shadow-md ${
+              className={`animate-stagger overflow-hidden rounded-2xl border shadow-sm transition-all hover:shadow-md ${
                 matched
                   ? "border-ink-200/60 bg-white/90"
                   : "border-dashed border-ink-300/60 bg-ink-50/50"
               }`}
+              style={{ animationDelay: `${idx * 60}ms` }}
             >
               {/* Card header: word + meaning + match badge */}
               <div className="flex items-start justify-between gap-3 border-b border-ink-100 bg-gradient-to-r from-ink-50/50 to-white px-4 py-3 sm:px-5 sm:py-3.5">
