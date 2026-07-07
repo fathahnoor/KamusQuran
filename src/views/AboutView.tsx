@@ -5,7 +5,7 @@ export function AboutView() {
         <h1 className="text-xl font-bold text-ink-900 sm:text-2xl">Tentang &amp; Metodologi</h1>
         <p className="mt-1 text-sm text-ink-500">
           Kamus Quran adalah alat belajar bahasa Arab Al-Qur&apos;an dengan fokus pada
-          kosakatab, nahwu, sharf, dan analisis morfologi.
+          kosakata, nahwu, sharf, dan analisis morfologi.
         </p>
       </div>
 
