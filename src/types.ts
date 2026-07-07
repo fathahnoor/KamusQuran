@@ -168,6 +168,32 @@ export type DependencyEdge =
 
 // --- Composite morphological features -----------------------
 
+// --- Structured I'rab (v3.0: Al-Munir + Nahwu al-Wadhih methodology) ---
+
+/**
+ * Structured i'rab analysis following Al-Munir's tabular format:
+ *   Kata → Jenis → Kedudukan → I'rob → Tanda → 'Amil/Sebab
+ * Combined with Nahwu al-Wadhih's inductive conclusion.
+ */
+export interface StructuredIrab {
+  /** Arabic word with diacritics. */
+  kata: string;
+  /** Word type classification: "Isim Mufrad", "Fi'il Madhi", "Huruf Jarr", etc. */
+  jenis: string;
+  /** Syntactic position: "Mubtada'", "Fa'il", "Maf'ul Bih", etc. */
+  kedudukan: string;
+  /** Grammatical status: "Marfu'", "Manshub", "Majrur", "Majzum", "Mabni". */
+  irabStatus: string;
+  /** The explicit sign/marker: "Dhammah", "Fathah", "Kasrah", "Wawu", "Alif", etc. */
+  tanda: string;
+  /** Governor/cause of the i'rab: "Ibtida'", "Fi'il sebelumnya", "Huruf Jarr (في)", etc. */
+  amil: string;
+  /** Inductive conclusion (Nahwu al-Wadhih style): 1-2 sentence deduction. */
+  penjelasan?: string;
+}
+
+// --- Composite morphological features -----------------------
+
 /** Full morphological feature set for a single token (sharf + nahwu). */
 export interface MorphoFeatures {
   posMajor: PosMajor;
@@ -192,6 +218,8 @@ export interface MorphoFeatures {
   syntacticRole?: SyntacticRole;
   /** Syntactic role label in Indonesian for display. */
   syntacticRoleLabel?: string;
+  /** v3.0: Structured i'rab analysis (Al-Munir tabular format). */
+  structuredIrab?: StructuredIrab;
   /** Dependency relation if part of a QADT-annotated ayah. */
   dependency?: DependencyRelation;
   /** Prefix morphemes (e.g. "وَ", "بِ", "الْ"). */
@@ -294,6 +322,8 @@ export interface SentenceToken {
   meaningId?: string;
   posMajor?: PosMajor;
   morpho?: MorphoFeatures;
+  /** v3.0: Structured i'rab analysis for this token (Al-Munir tabular format). */
+  structuredIrab?: StructuredIrab;
   /** Nahwu context note for this token within the sentence. */
   nahwuNote?: string;
   /** Sharf context note for this token. */

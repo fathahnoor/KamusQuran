@@ -14,6 +14,7 @@ import type {
 } from "../types";
 import { audioUrl } from "../services/alQuranApi";
 import { SURAHS } from "./surahMeta";
+import { generateStructuredIrab } from "./irabHeuristics";
 
 // Precompute cumulative ayah counts for fast surah:ayah → globalAyahNumber lookup.
 const AYAH_OFFSETS: number[] = (() => {
@@ -74,6 +75,10 @@ export interface CompactWord {
   irab?: IrabCase;
   /** Morphological: syntactic role. */
   role?: SyntacticRole;
+  /** v3.0: Manual override for tanda i'rab (overrides heuristic). */
+  tnd?: string;
+  /** v3.0: Manual override for 'amil (overrides heuristic). */
+  aml?: string;
   /** Occurrence refs: [surah, ayah, globalAyahNum, token?]. */
   occ?: [number, number, number, number?][];
   /** Example ayat: [surah, ayah, globalAyahNum, arabicText, translation, wordForm?]. */
@@ -312,6 +317,22 @@ export function buildWordEntry(cw: CompactWord): WordEntry {
     syntacticRole: cw.role,
     syntacticRoleLabel: cw.role ? ROLE_LABELS[cw.role] : undefined,
   };
+
+  // v3.0: Generate structured i'rab (Al-Munir tabular format).
+  morpho.structuredIrab = generateStructuredIrab({
+    arabic: cw.ar,
+    pos: cw.pos,
+    vf: cw.vf,
+    num: cw.num,
+    g: cw.g,
+    def: cw.def,
+    irab: morpho.irab,
+    role: cw.role,
+    wazan: cw.wazan,
+    root: cw.root,
+    tnd: cw.tnd,
+    aml: cw.aml,
+  });
 
   // Generate i'rab note
   if (morpho.irab && morpho.irab !== "unknown") {
