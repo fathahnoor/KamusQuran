@@ -4,6 +4,25 @@ All notable changes to Kamus Quran will be documented in this file.
 
 ---
 
+## [v3.1] ,  Ekspansi 1.234 Kata (2026-07)
+
+### 📚 Dataset Expansion
+
+- **1.234 kata**: 500 Quran frekuensi tinggi + 734 kata Arab sehari-hari
+- **batch19**: 8 kata ganti Arab (saya, kami, kamu, dia, mereka, kalian)
+- **batch20-21**: ~186 kosakata sehari-hari (bilangan, warna, keluarga, tubuh, makanan, hewan, alam, waktu, tempat, kata kerja/sifat/tugas)
+- **batch22**: ~177 kata (profesi, hari, arah, material, alat, elektronik, kata benda abstrak)
+
+### 🐛 Fixes
+
+- Mode Kalimat input Indonesia: false match "saya"→"rahmat" (threshold startsWith diperketat)
+- Latin text tidak lagi dapat i'rob palsu (skip unmatched tokens di applyContextAwareIrab)
+- Terjemahan Arab ringkasan tampil di atas tabel i'rob (bukan di bawah Observasi)
+- Format build timestamp: `YYYY/MM/DD-HH:MM:SS` (GMT+7/WIB)
+- Hapus semua em dash (—) dari codebase, ganti dengan tanda baca Indonesia
+
+---
+
 ## [v3.0] ,  I'rob Sistematis (2026-07)
 
 ### ✨ I'rob Sistematis ,  Metode Al-Munir + Nahwu al-Wadhih

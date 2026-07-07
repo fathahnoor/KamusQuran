@@ -12,7 +12,7 @@
 
 Kamus Quran adalah aplikasi web untuk mempelajari bahasa Arab Al-Qur'an secara mendalam. Tidak sekadar menampilkan terjemahan, aplikasi ini memberikan **analisis linguistik level 3** dan **i'rob sistematis**: mulai dari akar triliteral, lemma, kelas kata (nahwu), pola morfologi (sharf), hingga tabel i'rob 6 kolom ala **Metode Al-Munir** dan kesimpulan induktif ala **An-Nahwu al-Wadhih**.
 
-Basis data mencakup **1.002 kata** (500 kosakata frekuensi tinggi Al-Qur'an + 502 kosakata Arab sehari-hari), sehingga dengan menguasai koleksi ini pengguna dapat memahami sekitar **80-90% kosakata** yang muncul dalam Al-Qur'an.
+Basis data mencakup **1.234 kata** (500 kosakata frekuensi tinggi Al-Qur'an + 734 kosakata Arab sehari-hari), sehingga dengan menguasai koleksi ini pengguna dapat memahami sekitar **80-90% kosakata** yang muncul dalam Al-Qur'an.
 
 ### I'rob Sistematis
 
@@ -73,8 +73,8 @@ Setiap kata memiliki **tabel i'rob 6 kolom** (Kata → Jenis → Kedudukan → I
 | Kategori | Jumlah |
 |---|---|
 | Kosakata frekuensi tinggi Al-Qur'an | 500 kata |
-| Kosakata Arab sehari-hari | 502 kata |
-| **Total** | **1.002 kata** |
+| Kosakata Arab sehari-hari | 734 kata |
+| **Total** | **1.234 kata** |
 
 Data morfologi bersumber dari **Quranic Arabic Corpus** (corpus.quran.com, lisensi GNU GPL), teks Al-Qur'an dari **Tanzil** (tanzil.net), audio tilawah dan tafsir dari **AlQuran Cloud API** (alquran.cloud). Metodologi i'rob mengacu pada kitab **An-Nahwu al-Wadhih** dan **Metode Al-Munir**.
 

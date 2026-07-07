@@ -25,7 +25,7 @@ export function AboutView() {
         <p>
           Membantu pengguna menguasai ~80–90% kosakata berfrekuensi tinggi Al-Qur&apos;an
           (500 kata inti dari Quranic Arabic Corpus) dan memperluas penguasaan bahasa Arab
-          dengan 502 kata sehari-hari, total 1002 kata. Setiap kata dilengkapi{" "}
+          dengan 734 kata sehari-hari, total 1.234 kata. Setiap kata dilengkapi{" "}
           <strong>tabel i&apos;rob Al-Munir</strong> (6 kolom: Jenis, Kedudukan,{" "}
           I&apos;rob, Tanda, &apos;Amil) dan <strong>kesimpulan induktif{" "}
           Nahwu al-Wadhih</strong>.
@@ -161,8 +161,8 @@ export function AboutView() {
       <Section title="Keterbatasan" icon="M12 9v2m0 4h.01M5.07 19h13.86c1.54 0 2.5-1.67 1.73-3L13.73 4a2 2 0 0 0-3.46 0L3.34 16c-.77 1.33.19 3 1.73 3z">
         <ul className="list-inside list-disc space-y-1.5 text-sm text-ink-700">
           <li>
-            Database kata berisi 1002 kata: 500 kata berfrekuensi tinggi dari Al-Qur'an
-            (mencakup ~80–90% kosakata) ditambah 502 kata Arab sehari-hari untuk
+            Database kata berisi 1.234 kata: 500 kata berfrekuensi tinggi dari Al-Qur'an
+            (mencakup ~80–90% kosakata) ditambah 734 kata Arab sehari-hari untuk
             penggunaan praktis. Data dapat diperluas tanpa perubahan kode.
           </li>
           <li>
@@ -186,7 +186,8 @@ export function AboutView() {
           induktif Nahwu al-Wadhih, 30+ unit tests (Vitest).
         </p>
         <p className="mt-2">
-          <strong>v2.0</strong>: 1002 kata (500 Quran + 502 sehari-hari), Mode Kata dengan
+          <strong>v3.1</strong>: ekspansi ke 1.234 kata (500 Quran + 734 sehari-hari) dengan batch20-22.<br />
+          <strong>v2.0</strong>: 1.002 kata (500 Quran + 502 sehari-hari), Mode Kata dengan
           browsing &amp; diacritic toggle, Mode Kalimat dengan analisis per kata,
           bookmark dengan export/import JSON, TTS pengucapan, integrasi audio/tafsir AlQuran Cloud,
           dan redesain UI/UX dengan tema modern.

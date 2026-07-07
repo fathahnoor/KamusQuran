@@ -1,9 +1,9 @@
 # TODO ,  Kamus Quran
 
-> **v2.0**: 1002 kata, Mode Kata lengkap, Mode Kalimat, bookmark, voice, audio/tafsir
+> **v3.1**: 1.234 kata (500 Quran + 734 sehari-hari), batch19-22, kata ganti, kosakata harian
+> **v3.0**: I'rob Sistematis (Metode Al-Munir + Nahwu al-Wadhih)
+> **v2.0**: 1.002 kata, Mode Kata lengkap, Mode Kalimat, bookmark, voice, audio/tafsir
 > Deploy live di https://fathahnoor.github.io/KamusQuran/
-> 
-> 🚧 **v3.0 IN PROGRESS**: Implementasi i'rob sistematis mengikuti metodologi An-Nahwu al-Wadhih & Metode Al-Munir
 
 ---
 
