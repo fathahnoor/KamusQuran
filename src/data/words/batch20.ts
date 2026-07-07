@@ -1,0 +1,123 @@
+import type { CompactWord } from "../wordBuilder";
+
+// Batch 20: Kosakata sehari-hari (1-100): bilangan, warna, keluarga, tubuh, makanan, minuman.
+// Semua freq=0 (bukan kosakata Quran), rank 1279-1378.
+export const BATCH_20: CompactWord[] = [
+  // --- Bilangan / Numbers ---
+  { id: "waahid_num", ar: "وَاحِد", root: "وحد", mid: "satu", men: "one", pos: "number", freq: 0, rank: 1279, wazan: "faa'il", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },
+  { id: "ithnaan", ar: "اِثْنَان", root: "ثني", mid: "dua", men: "two", pos: "number", freq: 0, rank: 1280, wazan: "if'aal", form: "I", g: "masculine", num: "dual", def: "indefinite", irab: "raf" },
+  { id: "thalaatha", ar: "ثَلَاثَة", root: "ثلث", mid: "tiga", men: "three", pos: "number", freq: 0, rank: 1281, wazan: "fa'aala", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "raf" },
+  { id: "arba3a", ar: "أَرْبَعَة", root: "ربع", mid: "empat", men: "four", pos: "number", freq: 0, rank: 1282, wazan: "af'ala", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "raf" },
+  { id: "khamsa", ar: "خَمْسَة", root: "خمس", mid: "lima", men: "five", pos: "number", freq: 0, rank: 1283, wazan: "fa'la", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "raf" },
+  { id: "sitta", ar: "سِتَّة", root: "ستت", mid: "enam", men: "six", pos: "number", freq: 0, rank: 1284, wazan: "fi'la", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "raf" },
+  { id: "sab3a", ar: "سَبْعَة", root: "سبع", mid: "tujuh", men: "seven", pos: "number", freq: 0, rank: 1285, wazan: "fa'la", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "raf" },
+  { id: "thamaaniya", ar: "ثَمَانِيَة", root: "ثمن", mid: "delapan", men: "eight", pos: "number", freq: 0, rank: 1286, wazan: "fa'aala", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "raf" },
+  { id: "tis3a", ar: "تِسْعَة", root: "تسع", mid: "sembilan", men: "nine", pos: "number", freq: 0, rank: 1287, wazan: "fi'la", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "raf" },
+  { id: "3ashara", ar: "عَشَرَة", root: "عشر", mid: "sepuluh", men: "ten", pos: "number", freq: 0, rank: 1288, wazan: "fa'ala", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "raf" },
+  { id: "kull", ar: "كُلّ", root: "كلل", mid: "semua, setiap", men: "all, every", pos: "noun", freq: 0, rank: 1289, wazan: "fu'l", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },
+  { id: "ba3dh", ar: "بَعْض", root: "بعض", mid: "beberapa, sebagian", men: "some, part of", pos: "noun", freq: 0, rank: 1290, wazan: "fa'l", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },
+
+  // --- Warna / Colors ---
+  { id: "ahmar", ar: "أَحْمَر", root: "حمر", mid: "merah", men: "red", pos: "adjective", freq: 0, rank: 1291, wazan: "af'al", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },
+  { id: "azraq", ar: "أَزْرَق", root: "زرق", mid: "biru", men: "blue", pos: "adjective", freq: 0, rank: 1292, wazan: "af'al", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },
+  { id: "akhdhar", ar: "أَخْضَر", root: "خضر", mid: "hijau", men: "green", pos: "adjective", freq: 0, rank: 1293, wazan: "af'al", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },
+  { id: "asfar", ar: "أَصْفَر", root: "صفر", mid: "kuning", men: "yellow", pos: "adjective", freq: 0, rank: 1294, wazan: "af'al", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },
+  { id: "abyaDh", ar: "أَبْيَض", root: "بيض", mid: "putih", men: "white", pos: "adjective", freq: 0, rank: 1295, wazan: "af'al", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },
+  { id: "aswad", ar: "أَسْوَد", root: "سود", mid: "hitam", men: "black", pos: "adjective", freq: 0, rank: 1296, wazan: "af'al", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },
+  { id: "bunniy", ar: "بُنِّيّ", root: "بنن", mid: "coklat", men: "brown", pos: "adjective", freq: 0, rank: 1297, wazan: "fu''iy", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },
+  { id: "rumaadiy", ar: "رَمَادِيّ", root: "رمد", mid: "abu-abu", men: "gray", pos: "adjective", freq: 0, rank: 1298, wazan: "fa'aa'iy", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },
+
+  // --- Keluarga / Family ---
+  { id: "ab", ar: "أَب", root: "ابو", mid: "ayah, bapak", men: "father", pos: "noun", freq: 0, rank: 1299, wazan: "fa'", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },
+  { id: "umm", ar: "أُمّ", root: "امم", mid: "ibu", men: "mother", pos: "noun", freq: 0, rank: 1300, wazan: "fu'l", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "raf" },
+  { id: "ibn", ar: "اِبْن", root: "بنو", mid: "anak laki-laki, putra", men: "son", pos: "noun", freq: 0, rank: 1301, wazan: "if'l", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },
+  { id: "bint", ar: "بِنْت", root: "بنو", mid: "anak perempuan, putri", men: "daughter", pos: "noun", freq: 0, rank: 1302, wazan: "fi'l", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "raf" },
+  { id: "akh", ar: "أَخ", root: "اخو", mid: "saudara laki-laki", men: "brother", pos: "noun", freq: 0, rank: 1303, wazan: "fa'", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },
+  { id: "ukht", ar: "أُخْت", root: "اخو", mid: "saudara perempuan", men: "sister", pos: "noun", freq: 0, rank: 1304, wazan: "fu'l", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "raf" },
+  { id: "jadd", ar: "جَدّ", root: "جدد", mid: "kakek", men: "grandfather", pos: "noun", freq: 0, rank: 1305, wazan: "fa'l", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },
+  { id: "jadda", ar: "جَدَّة", root: "جدد", mid: "nenek", men: "grandmother", pos: "noun", freq: 0, rank: 1306, wazan: "fa'la", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "raf" },
+  { id: "3amm", ar: "عَمّ", root: "عمم", mid: "paman (dari ayah)", men: "paternal uncle", pos: "noun", freq: 0, rank: 1307, wazan: "fa'l", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },
+  { id: "khaal", ar: "خَال", root: "خول", mid: "paman (dari ibu)", men: "maternal uncle", pos: "noun", freq: 0, rank: 1308, wazan: "fa'l", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },
+  { id: "zawj", ar: "زَوْج", root: "زوج", mid: "suami", men: "husband", pos: "noun", freq: 0, rank: 1309, wazan: "fa'l", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },
+  { id: "zawja", ar: "زَوْجَة", root: "زوج", mid: "istri", men: "wife", pos: "noun", freq: 0, rank: 1310, wazan: "fa'la", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "raf" },
+  { id: "saadiq", ar: "صَدِيق", root: "صدق", mid: "teman, sahabat", men: "friend", pos: "noun", freq: 0, rank: 1311, wazan: "fa'iil", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },
+  { id: "jaar", ar: "جَار", root: "جور", mid: "tetangga", men: "neighbor", pos: "noun", freq: 0, rank: 1312, wazan: "fa'l", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },
+
+  // --- Tubuh / Body ---
+  { id: "ra2s", ar: "رَأْس", root: "رأس", mid: "kepala", men: "head", pos: "noun", freq: 0, rank: 1313, wazan: "fa'l", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "3ayn", ar: "عَيْن", root: "عين", mid: "mata", men: "eye", pos: "noun", freq: 0, rank: 1314, wazan: "fa'l", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "anf", ar: "أَنْف", root: "أنف", mid: "hidung", men: "nose", pos: "noun", freq: 0, rank: 1315, wazan: "fa'l", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "fam", ar: "فَم", root: "فمو", mid: "mulut", men: "mouth", pos: "noun", freq: 0, rank: 1316, wazan: "fa'", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "udhun", ar: "أُذُن", root: "أذن", mid: "telinga", men: "ear", pos: "noun", freq: 0, rank: 1317, wazan: "fu'ul", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "yad", ar: "يَد", root: "يدي", mid: "tangan", men: "hand", pos: "noun", freq: 0, rank: 1318, wazan: "fa'", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "rijl", ar: "رِجْل", root: "رجل", mid: "kaki", men: "foot, leg", pos: "noun", freq: 0, rank: 1319, wazan: "fi'l", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "iSba3", ar: "إِصْبَع", root: "صبع", mid: "jari", men: "finger", pos: "noun", freq: 0, rank: 1320, wazan: "if'a'", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "sinn", ar: "سِنّ", root: "سنن", mid: "gigi", men: "tooth", pos: "noun", freq: 0, rank: 1321, wazan: "fi'l", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "sha3r", ar: "شَعْر", root: "شعر", mid: "rambut", men: "hair", pos: "noun", freq: 0, rank: 1322, wazan: "fa'l", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "qalb", ar: "قَلْب", root: "قلب", mid: "jantung, hati", men: "heart", pos: "noun", freq: 0, rank: 1323, wazan: "fa'l", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "wajh", ar: "وَجْه", root: "وجه", mid: "wajah, muka", men: "face", pos: "noun", freq: 0, rank: 1324, wazan: "fa'l", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "lisaan", ar: "لِسَان", root: "لسن", mid: "lidah", men: "tongue", pos: "noun", freq: 0, rank: 1325, wazan: "fi'aal", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+
+  // --- Makanan & Minuman / Food & Drink ---
+  { id: "khubz", ar: "خُبْز", root: "خبز", mid: "roti", men: "bread", pos: "noun", freq: 0, rank: 1326, wazan: "fu'l", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "lahm", ar: "لَحْم", root: "لحم", mid: "daging", men: "meat", pos: "noun", freq: 0, rank: 1327, wazan: "fa'l", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "samak", ar: "سَمَك", root: "سمك", mid: "ikan", men: "fish", pos: "noun", freq: 0, rank: 1328, wazan: "fa'al", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "daJaaj", ar: "دَجَاج", root: "دجج", mid: "ayam", men: "chicken", pos: "noun", freq: 0, rank: 1329, wazan: "fa'aal", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "baaDha", ar: "بَيْضَة", root: "بيض", mid: "telur", men: "egg", pos: "noun", freq: 0, rank: 1330, wazan: "fa'la", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "sukkar", ar: "سُكَّر", root: "سكر", mid: "gula", men: "sugar", pos: "noun", freq: 0, rank: 1331, wazan: "fu''al", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "milH", ar: "مِلْح", root: "ملح", mid: "garam", men: "salt", pos: "noun", freq: 0, rank: 1332, wazan: "fi'l", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "zayt", ar: "زَيْت", root: "زيت", mid: "minyak", men: "oil", pos: "noun", freq: 0, rank: 1333, wazan: "fa'l", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "faakiha", ar: "فَاكِهَة", root: "فكه", mid: "buah", men: "fruit", pos: "noun", freq: 0, rank: 1334, wazan: "faa'ila", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "khudhar", ar: "خُضَر", root: "خضر", mid: "sayuran", men: "vegetables", pos: "noun", freq: 0, rank: 1335, wazan: "fu'al", form: "I", g: "feminine", num: "plural", def: "indefinite", irab: "nasb" },
+  { id: "ruz", ar: "أَرُزّ", root: "رزز", mid: "nasi, beras", men: "rice", pos: "noun", freq: 0, rank: 1336, wazan: "afu'l", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "Haliib", ar: "حَلِيب", root: "حلب", mid: "susu", men: "milk", pos: "noun", freq: 0, rank: 1337, wazan: "fa'iil", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "maa2", ar: "مَاء", root: "موه", mid: "air", men: "water", pos: "noun", freq: 0, rank: 1338, wazan: "fa'l", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "3aSiir", ar: "عَصِير", root: "عصر", mid: "jus", men: "juice", pos: "noun", freq: 0, rank: 1339, wazan: "fa'iil", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "shay", ar: "شَاي", root: "شاي", mid: "teh", men: "tea", pos: "noun", freq: 0, rank: 1340, wazan: "fa'", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+
+  // --- Pakaian / Clothing ---
+  { id: "qamiis", ar: "قَمِيص", root: "قمص", mid: "baju, kemeja", men: "shirt", pos: "noun", freq: 0, rank: 1341, wazan: "fa'iil", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "sirwaal", ar: "سِرْوَال", root: "سرول", mid: "celana", men: "pants, trousers", pos: "noun", freq: 0, rank: 1342, wazan: "fi'waal", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "Hidhaa2", ar: "حِذَاء", root: "حذي", mid: "sepatu", men: "shoes", pos: "noun", freq: 0, rank: 1343, wazan: "fi'aa'", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "qubba3a", ar: "قُبَّعَة", root: "قبع", mid: "topi", men: "hat", pos: "noun", freq: 0, rank: 1344, wazan: "fu''ala", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "naZZaara", ar: "نَظَّارَة", root: "نظر", mid: "kacamata", men: "glasses, spectacles", pos: "noun", freq: 0, rank: 1345, wazan: "fa''aala", form: "II", g: "feminine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "jaaket", ar: "جَاكِيت", root: "جكت", mid: "jaket", men: "jacket", pos: "noun", freq: 0, rank: 1346, wazan: "foreign", form: "unknown", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+
+  // --- Hewan / Animals ---
+  { id: "qiTT", ar: "قِطّ", root: "قطط", mid: "kucing", men: "cat", pos: "noun", freq: 0, rank: 1347, wazan: "fi'l", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "kalb", ar: "كَلْب", root: "كلب", mid: "anjing", men: "dog", pos: "noun", freq: 0, rank: 1348, wazan: "fa'l", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "Taa2ir", ar: "طَائِر", root: "طير", mid: "burung", men: "bird", pos: "noun", freq: 0, rank: 1349, wazan: "faa'il", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "HiSaan", ar: "حِصَان", root: "حصن", mid: "kuda", men: "horse", pos: "noun", freq: 0, rank: 1350, wazan: "fi'aal", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "baqara", ar: "بَقَرَة", root: "بقر", mid: "sapi", men: "cow", pos: "noun", freq: 0, rank: 1351, wazan: "fa'ala", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "ghanam", ar: "غَنَم", root: "غنم", mid: "kambing, domba", men: "goat, sheep", pos: "noun", freq: 0, rank: 1352, wazan: "fa'al", form: "I", g: "feminine", num: "collective", def: "indefinite", irab: "nasb" },
+  { id: "thu3baan", ar: "ثُعْبَان", root: "ثعب", mid: "ular", men: "snake", pos: "noun", freq: 0, rank: 1353, wazan: "fu'laan", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "namla", ar: "نَمْلَة", root: "نمل", mid: "semut", men: "ant", pos: "noun", freq: 0, rank: 1354, wazan: "fa'la", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "asad", ar: "أَسَد", root: "أسد", mid: "singa", men: "lion", pos: "noun", freq: 0, rank: 1355, wazan: "fa'al", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "namir", ar: "نَمِر", root: "نمر", mid: "harimau, macan", men: "tiger", pos: "noun", freq: 0, rank: 1356, wazan: "fa'il", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+
+  // --- Alam / Nature ---
+  { id: "shams", ar: "شَمْس", root: "شمس", mid: "matahari", men: "sun", pos: "noun", freq: 0, rank: 1357, wazan: "fa'l", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "qamar", ar: "قَمَر", root: "قمر", mid: "bulan (benda langit)", men: "moon", pos: "noun", freq: 0, rank: 1358, wazan: "fa'al", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "najm", ar: "نَجْم", root: "نجم", mid: "bintang", men: "star", pos: "noun", freq: 0, rank: 1359, wazan: "fa'l", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "samaa2", ar: "سَمَاء", root: "سمو", mid: "langit", men: "sky", pos: "noun", freq: 0, rank: 1360, wazan: "fa'aa'", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "arDh", ar: "أَرْض", root: "أرض", mid: "bumi, tanah", men: "earth, land", pos: "noun", freq: 0, rank: 1361, wazan: "fa'l", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "jabal", ar: "جَبَل", root: "جبل", mid: "gunung", men: "mountain", pos: "noun", freq: 0, rank: 1362, wazan: "fa'al", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "nahr", ar: "نَهْر", root: "نهر", mid: "sungai", men: "river", pos: "noun", freq: 0, rank: 1363, wazan: "fa'l", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "baHr", ar: "بَحْر", root: "بحر", mid: "laut", men: "sea, ocean", pos: "noun", freq: 0, rank: 1364, wazan: "fa'l", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "ghaaba", ar: "غَابَة", root: "غيب", mid: "hutan", men: "forest", pos: "noun", freq: 0, rank: 1365, wazan: "fa'la", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "naar", ar: "نَار", root: "نور", mid: "api", men: "fire", pos: "noun", freq: 0, rank: 1366, wazan: "fa'l", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "shajara", ar: "شَجَرَة", root: "شجر", mid: "pohon", men: "tree", pos: "noun", freq: 0, rank: 1367, wazan: "fa'ala", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "zahra", ar: "زَهْرَة", root: "زهر", mid: "bunga", men: "flower", pos: "noun", freq: 0, rank: 1368, wazan: "fa'la", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "Hajar", ar: "حَجَر", root: "حجر", mid: "batu", men: "stone, rock", pos: "noun", freq: 0, rank: 1369, wazan: "fa'al", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "Hadiqa", ar: "حَدِيقَة", root: "حدق", mid: "taman, kebun", men: "garden, park", pos: "noun", freq: 0, rank: 1370, wazan: "fa'iila", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "nasb" },
+
+  // --- Waktu / Time ---
+  { id: "yawm2", ar: "يَوْم", root: "يوم", mid: "hari", men: "day", pos: "noun", freq: 0, rank: 1371, wazan: "fa'l", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },
+  { id: "usbuu3", ar: "أُسْبُوع", root: "سبع", mid: "minggu, pekan", men: "week", pos: "noun", freq: 0, rank: 1372, wazan: "uf'uul", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "shahr", ar: "شَهْر", root: "شهر", mid: "bulan (kalender)", men: "month", pos: "noun", freq: 0, rank: 1373, wazan: "fa'l", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "sana", ar: "سَنَة", root: "سنو", mid: "tahun", men: "year", pos: "noun", freq: 0, rank: 1374, wazan: "fa'a", form: "I", g: "feminine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "SabaaH", ar: "صَبَاح", root: "صبح", mid: "pagi", men: "morning", pos: "noun", freq: 0, rank: 1375, wazan: "fa'aal", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "masaa2", ar: "مَسَاء", root: "مسي", mid: "sore, petang", men: "evening", pos: "noun", freq: 0, rank: 1376, wazan: "fa'aa'", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "layl", ar: "لَيْل", root: "ليل", mid: "malam", men: "night", pos: "noun", freq: 0, rank: 1377, wazan: "fa'l", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+  { id: "ams", ar: "أَمْس", root: "أمس", mid: "kemarin", men: "yesterday", pos: "adverb", freq: 0, rank: 1378, wazan: "fa'l", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "nasb" },
+];
