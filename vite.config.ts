@@ -9,8 +9,23 @@ import { resolve } from "node:path";
 const repoName = "KamusQuran";
 const base = process.env.BASE_PATH ?? `/${repoName}/`;
 
+/** Build timestamp in YYYYMMDDHHMMSS (UTC) — injected at build time for version tracking. */
+function buildTimestamp(): string {
+  const d = new Date();
+  const Y = d.getUTCFullYear().toString().padStart(2, "0");
+  const M = (d.getUTCMonth() + 1).toString().padStart(2, "0");
+  const D = d.getUTCDate().toString().padStart(2, "0");
+  const h = d.getUTCHours().toString().padStart(2, "0");
+  const m = d.getUTCMinutes().toString().padStart(2, "0");
+  const s = d.getUTCSeconds().toString().padStart(2, "0");
+  return `${Y}${M}${D}${h}${m}${s}`;
+}
+
 export default defineConfig({
   base,
+  define: {
+    __BUILD_TIMESTAMP__: JSON.stringify(buildTimestamp()),
+  },
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {

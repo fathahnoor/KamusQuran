@@ -55,6 +55,9 @@ export default function App() {
           Data: Quranic Arabic Corpus, Tanzil, AlQuran Cloud · Referensi:{" "}
           An-Nahwu al-Wadhih, Metode Al-Munir
         </p>
+        <p className="mt-2 font-mono text-[10px] text-ink-400 sm:text-xs">
+          Build: {__BUILD_TIMESTAMP__}
+        </p>
       </footer>
     </div>
   );
