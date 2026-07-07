@@ -225,13 +225,28 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
               </div>
               <button
                 onClick={() => (isSpeaking ? stopPronunciation() : pronounceWord(entry.arabic))}
+                disabled={!ttsSupported}
                 className={`flex shrink-0 items-center justify-center rounded-full p-2.5 transition-all sm:p-3 ${
-                  isSpeaking
+                  !ttsSupported
+                    ? "bg-ink-100 text-ink-400 border border-ink-200 opacity-60 cursor-not-allowed"
+                    : isSpeaking
                     ? "bg-gradient-to-br from-accent-600 to-accent-500 text-white shadow-md scale-105 animate-pulse-glow"
                     : "bg-accent-50 text-accent-700 border border-accent-200 hover:bg-accent-100"
                 }`}
-                aria-label={isSpeaking ? "Hentikan pengucapan kata" : "Bunyikan kata Arab"}
-                title={isSpeaking ? "Hentikan pengucapan" : "Bunyikan kata Arab"}
+                aria-label={
+                  !ttsSupported
+                    ? "Browser tidak mendukung fitur Text-to-Speech"
+                    : isSpeaking
+                    ? "Hentikan pengucapan kata"
+                    : "Bunyikan kata Arab"
+                }
+                title={
+                  !ttsSupported
+                    ? "Browser tidak mendukung Text-to-Speech (gunakan Chrome, Edge, atau Safari)"
+                    : isSpeaking
+                    ? "Hentikan pengucapan"
+                    : "Bunyikan kata Arab"
+                }
               >
                 {isSpeaking ? (
                   <svg className="h-5 w-5 sm:h-6 sm:w-6" viewBox="0 0 24 24" fill="currentColor">
