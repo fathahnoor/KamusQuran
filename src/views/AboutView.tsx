@@ -177,6 +177,7 @@ export function AboutView() {
 
       <Section title="Versi" icon="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6">
         <p>
+          <strong>v3.1</strong>: ekspansi ke 1.234 kata (500 Quran + 734 sehari-hari) dengan batch20-22.<br />
           <strong>v3.0</strong>: <strong>I&apos;rob Sistematis</strong>, tabel i&apos;rob 6 kolom{" "}
           ala Metode Al-Munir di Mode Kata + SentenceIrobTable (tabel ringkasan per kalimat){" "}
           + PerTokenIrobList (kartu lengkap per kata) di Mode Kalimat, color-coded rows{" "}
@@ -185,7 +186,6 @@ export function AboutView() {
           induktif Nahwu al-Wadhih, 30+ unit tests (Vitest).
         </p>
         <p className="mt-2">
-          <strong>v3.1</strong>: ekspansi ke 1.234 kata (500 Quran + 734 sehari-hari) dengan batch20-22.<br />
           <strong>v2.0</strong>: 1.002 kata (500 Quran + 502 sehari-hari), Mode Kata dengan
           browsing &amp; diacritic toggle, Mode Kalimat dengan analisis per kata,
           bookmark dengan export/import JSON, TTS pengucapan, integrasi audio AlQuran Cloud,
