@@ -41,7 +41,6 @@ Setiap kata memiliki **tabel i'rob 6 kolom** (Kata → Jenis → Kedudukan → I
   - Daftar lokasi kemunculan (surah:ayah)
   - Contoh ayat lengkap beserta terjemahan
   - Audio tilawah dari Mishary Alafasy
-  - Tafsir Jalalain berbahasa Indonesia
 
 ### Mode Kalimat
 - Masukkan kalimat Arab atau ayat Al-Qur'an bebas
@@ -118,7 +117,7 @@ npm test
 
 - [Quranic Arabic Corpus](https://corpus.quran.com/) - data morfologi, akar, lemma, i'rab, QADT
 - [Tanzil](https://tanzil.net/) - teks Al-Qur'an Uthmani dan terjemahan Kemenag
-- [AlQuran Cloud API](https://alquran.cloud/) - audio tilawah Mishary Alafasy dan tafsir Jalalain
+- [AlQuran Cloud API](https://alquran.cloud/) - audio tilawah Mishary Alafasy
 - [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API) - pengenalan suara browser-native
 
 ### Referensi Kitab

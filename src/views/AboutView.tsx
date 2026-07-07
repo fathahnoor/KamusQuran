@@ -98,8 +98,7 @@ export function AboutView() {
           </li>
           <li>
             <strong>AlQuran Cloud API (alquran.cloud)</strong>: audio tilawah
-            (Mishary Alafasy), tafsir Jalalayn (Bahasa Indonesia), dan endpoint search.
-            Gratis, tanpa API key, CORS-enabled.
+            (Mishary Alafasy) dan endpoint search. Gratis, tanpa API key, CORS-enabled.
           </li>
           <li>
             <strong>Web Speech API</strong>: pengenalan suara browser-native untuk
@@ -153,8 +152,8 @@ export function AboutView() {
       <Section title="Hosting" icon="M5 12a7 7 0 0 1 14 0M5 12a7 7 0 0 0 14 0M12 5v14M2 12h20">
         <p>
           Aplikasi dibangun sebagai static site (Vite + React) dan dapat dideploy ke
-          GitHub Pages. Semua data morfologi di-bundle; audio dan tafsir dimuat
-          on-demand dari AlQuran Cloud API (gratis, tanpa API key).
+          GitHub Pages. Semua data morfologi di-bundle; audio dimuat on-demand dari
+          AlQuran Cloud API (gratis, tanpa API key).
         </p>
       </Section>
 
@@ -189,7 +188,7 @@ export function AboutView() {
           <strong>v3.1</strong>: ekspansi ke 1.234 kata (500 Quran + 734 sehari-hari) dengan batch20-22.<br />
           <strong>v2.0</strong>: 1.002 kata (500 Quran + 502 sehari-hari), Mode Kata dengan
           browsing &amp; diacritic toggle, Mode Kalimat dengan analisis per kata,
-          bookmark dengan export/import JSON, TTS pengucapan, integrasi audio/tafsir AlQuran Cloud,
+          bookmark dengan export/import JSON, TTS pengucapan, integrasi audio AlQuran Cloud,
           dan redesain UI/UX dengan tema modern.
         </p>
       </Section>

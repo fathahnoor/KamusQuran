@@ -15,10 +15,6 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
   const [bookmarked, setBookmarked] = useState(false);
   const [activeAudio, setActiveAudio] = useState<number | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [tafsirText, setTafsirText] = useState<string | null>(null);
-  const [tafsirLoading, setTafsirLoading] = useState(false);
-  const [tafsirError, setTafsirError] = useState(false);
-  const [tafsirOpen, setTafsirOpen] = useState(false);
   const [audioLoading, setAudioLoading] = useState<number | null>(null);
   const [showDiacritics, setShowDiacritics] = useState(true);
   const [examplesEnriched, setExamplesEnriched] = useState<ExampleAyat[]>(entry.examples);
@@ -87,29 +83,19 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
   useEffect(() => {
     setBookmarked(isBookmarked(entry.id));
     setExamplesEnriched(entry.examples);
-    setTafsirText(null);
-    setTafsirLoading(false);
-    setTafsirError(false);
-    setTafsirOpen(false);
     if (ttsSupported) window.speechSynthesis.cancel();
     setIsSpeaking(false);
   }, [entry.id, entry.examples, ttsSupported]);
 
   useEffect(() => {
     let cancelled = false;
-    setTafsirLoading(true);
-    setTafsirError(false);
     async function enrich() {
-      let anySuccess = false;
-      let apiAttempts = 0;
       for (const ex of entry.examples) {
         // Skip examples that already have bundled text.
         if (ex.arabicText && ex.translation) continue;
-        apiAttempts++;
         try {
-          const { arabic, translation, tafsir } = await getAyahBilingual(ex.globalAyahNumber);
+          const { arabic, translation } = await getAyahBilingual(ex.globalAyahNumber);
           if (cancelled) return;
-          anySuccess = true;
           setExamplesEnriched((prev) =>
             prev.map((e) =>
               e.globalAyahNumber === ex.globalAyahNumber
@@ -122,16 +108,9 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
                 : e
             )
           );
-          if (tafsir && !cancelled) {
-            setTafsirText(tafsir.text);
-          }
         } catch {
           // Network failure: fall back to bundled data.
         }
-      }
-      if (!cancelled) {
-        setTafsirLoading(false);
-        if (apiAttempts > 0 && !anySuccess) setTafsirError(true);
       }
     }
     enrich();
@@ -364,57 +343,6 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
       {m.structuredIrab && (
         <div className="rounded-2xl border border-emerald-200/60 bg-white/90 p-4 shadow-sm sm:p-5">
           <IrobTable irab={m.structuredIrab} />
-        </div>
-      )}
-
-      {/* Tafsir loading */}
-      {tafsirLoading && (
-        <div className="flex items-center gap-3 rounded-2xl border border-ink-200/60 bg-white/80 p-4 shadow-sm sm:p-5" role="status" aria-live="polite">
-          <div className="h-5 w-5 animate-spin rounded-full border-2 border-ink-200 border-t-accent-500" />
-          <span className="text-sm text-ink-500">Memuat tafsir Jalalayn...</span>
-        </div>
-      )}
-      {tafsirError && !tafsirText && (
-        <div className="rounded-2xl border border-ink-200/60 bg-ink-50/60 p-4 sm:p-5" role="alert">
-          <p className="text-sm text-ink-500">
-            Tafsir tidak dapat dimuat (kemungkinan masalah jaringan). Data morfologi masih tersedia dari basis data lokal.
-          </p>
-        </div>
-      )}
-      {tafsirText && (
-        <div className="overflow-hidden rounded-2xl border border-ink-200/60 bg-white/90 shadow-sm">
-          <button
-            type="button"
-            onClick={() => setTafsirOpen((v) => !v)}
-            aria-expanded={tafsirOpen}
-            aria-controls="tafsir-jalalayn-body"
-            className="flex w-full items-center justify-between gap-2 px-4 pt-3.5 pb-2.5 text-left transition-colors hover:bg-accent-50/30 sm:px-5 sm:pt-4 sm:pb-3"
-          >
-            <h4 className="flex items-center gap-2 text-sm font-bold text-ink-700">
-              <span className="font-arabic text-base">تفسير</span>
-              <span className="text-ink-300">·</span>
-              <span>Tafsir (Jalalayn)</span>
-            </h4>
-            <svg
-              className={`h-4 w-4 shrink-0 text-ink-400 transition-transform ${tafsirOpen ? "rotate-180" : ""}`}
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <polyline points="6 9 12 15 18 9" />
-            </svg>
-          </button>
-          {tafsirOpen && (
-            <div
-              id="tafsir-jalalayn-body"
-              className="border-t border-ink-200/60 px-4 pt-2.5 pb-3.5 sm:px-5 sm:pt-3 sm:pb-4"
-            >
-              <p className="text-sm leading-relaxed text-ink-700">{tafsirText}</p>
-            </div>
-          )}
         </div>
       )}
 

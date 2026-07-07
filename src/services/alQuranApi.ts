@@ -7,8 +7,6 @@ const AUDIO_CDN = "https://cdn.islamic.network/quran/audio/128";
 export const EDITIONS = {
   /** Indonesian translation: Kemenag / Bahasa Indonesia. */
   idTranslation: "id.indonesian",
-  /** Indonesian tafsir: Tafsir Jalalayn (Bahasa Indonesia). */
-  idTafsir: "id.jalalayn",
   /** Indonesian translation: Quraish Shihab (Tafsir Al-Misbah summary). */
   idMuntakhab: "id.muntakhab",
   /** Arabic Uthmani text. */
@@ -47,14 +45,13 @@ export async function getAyah(
 export async function getAyahBilingual(
   globalAyahNumber: number,
   signal?: AbortSignal
-): Promise<{ arabic: AlQuranAyah; translation: AlQuranAyah | null; tafsir: AlQuranAyah | null }> {
-  const [arabic, translation, tafsir] = await Promise.all([
+): Promise<{ arabic: AlQuranAyah; translation: AlQuranAyah | null }> {
+  const [arabic, translation] = await Promise.all([
     getAyah(globalAyahNumber, EDITIONS.arUthmani, signal).catch(() => null),
     getAyah(globalAyahNumber, EDITIONS.idTranslation, signal).catch(() => null),
-    getAyah(globalAyahNumber, EDITIONS.idTafsir, signal).catch(() => null),
   ]);
   if (!arabic) throw new Error("Gagal memuat ayat Arab.");
-  return { arabic, translation, tafsir };
+  return { arabic, translation };
 }
 
 /** Search across an edition for a keyword (Arabic or Indonesian). */
