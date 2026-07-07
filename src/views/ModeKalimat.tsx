@@ -4,6 +4,7 @@ import { analyzeSentence, detectLanguage } from "../services/sentenceAnalysis";
 import { useVoiceRecognition } from "../services/voiceRecognition";
 import { SearchBar } from "../components/SearchBar";
 import { IrobTable } from "../components/IrobTable";
+import { SentenceIrobTable } from "../components/SentenceIrobTable";
 import { isArabicText } from "../utils/arabic";
 
 export function ModeKalimat() {
@@ -35,9 +36,9 @@ export function ModeKalimat() {
       <div className="rounded-2xl border border-ink-200/60 bg-white/90 p-5 shadow-sm backdrop-blur-sm sm:p-7">
         <h1 className="text-xl font-bold text-ink-900 sm:text-2xl">Mode Kalimat</h1>
         <p className="mt-1.5 text-sm text-ink-500">
-          Masukkan kalimat Arab atau Indonesia. Setiap kata akan diurai menampilkan
-          akar, lemma, arti, nahwu, dan sharf. Kalimat dari Al-Qur&apos;an mendapat
-          analisis dependency graph.
+          Masukkan kalimat Arab atau Indonesia. Setiap kata akan diurai dengan{" "}
+          tabel i&apos;rob Al-Munir (Jenis, Kedudukan, I&apos;rob, Tanda, &apos;Amil){" "}
+          serta akar, lemma, arti, nahwu, dan sharf.
         </p>
         <div className="mt-5">
           <SearchBar
@@ -73,25 +74,15 @@ export function ModeKalimat() {
             </div>
           )}
 
-          {/* Token breakdown */}
-          <div className="rounded-2xl border border-ink-200/60 bg-white/90 p-4 shadow-sm backdrop-blur-sm sm:p-5">
-            <h3 className="mb-3 flex items-center gap-2 text-sm font-bold text-ink-700">
-              <svg className="h-4 w-4 text-accent-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="8" y1="6" x2="21" y2="6" />
-                <line x1="8" y1="12" x2="21" y2="12" />
-                <line x1="8" y1="18" x2="21" y2="18" />
-                <line x1="3" y1="6" x2="3.01" y2="6" />
-                <line x1="3" y1="12" x2="3.01" y2="12" />
-                <line x1="3" y1="18" x2="3.01" y2="18" />
-              </svg>
-              Uraian Per Kata ({analysis.tokens.length} token)
-            </h3>
-            <div className="space-y-2.5 sm:space-y-3">
-              {analysis.tokens.map((token) => (
-                <TokenCard key={token.index} token={token} />
-              ))}
-            </div>
+          {/* 🆕 v3.0: Full-sentence I'rob table (Al-Munir style) — Arabic only */}
+          {analysis.inputLang === "ar" && (
+          <div className="rounded-2xl border border-accent-200/60 bg-white/90 p-4 shadow-sm backdrop-blur-sm sm:p-5">
+            <SentenceIrobTable tokens={analysis.tokens} />
           </div>
+          )}
+
+          {/* Token detail cards (collapsible) */}
+          <TokenDetailSection tokens={analysis.tokens} />
 
       {/* v3.0: I'rab Summary */}
       {analysis.observations.length > 0 && (
@@ -147,6 +138,48 @@ export function ModeKalimat() {
               Contoh Indonesia: &quot;Allah Maha Pengasih&quot;
             </p>
           </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function TokenDetailSection({ tokens }: { tokens: SentenceToken[] }) {
+  const [expanded, setExpanded] = useState(false);
+  return (
+    <div className="rounded-2xl border border-ink-200/60 bg-white/90 p-4 shadow-sm backdrop-blur-sm sm:p-5">
+      <button
+        onClick={() => setExpanded((v) => !v)}
+        className="flex w-full items-center justify-between gap-2"
+      >
+        <h3 className="flex items-center gap-2 text-sm font-bold text-ink-700">
+          <svg className="h-4 w-4 text-accent-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="8" y1="6" x2="21" y2="6" />
+            <line x1="8" y1="12" x2="21" y2="12" />
+            <line x1="8" y1="18" x2="21" y2="18" />
+            <line x1="3" y1="6" x2="3.01" y2="6" />
+            <line x1="3" y1="12" x2="3.01" y2="12" />
+            <line x1="3" y1="18" x2="3.01" y2="18" />
+          </svg>
+          Detail Morfologi ({tokens.length} kata)
+        </h3>
+        <svg
+          className={`h-4 w-4 shrink-0 text-ink-400 transition-transform ${expanded ? "rotate-180" : ""}`}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      </button>
+      {expanded && (
+        <div className="mt-3 space-y-2.5 sm:space-y-3">
+          {tokens.map((token) => (
+            <TokenCard key={token.index} token={token} />
+          ))}
         </div>
       )}
     </div>
