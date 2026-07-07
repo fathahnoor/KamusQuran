@@ -10,9 +10,13 @@
 
 ## Tentang
 
-Kamus Quran adalah aplikasi web untuk mempelajari bahasa Arab Al-Qur'an secara mendalam. Tidak sekadar menampilkan terjemahan, aplikasi ini memberikan **analisis linguistik level 3**: mulai dari akar triliteral, lemma, kelas kata (nahwu), pola morfologi (sharf), hingga i'rab dan contoh kemunculan langsung dari ayat Al-Qur'an.
+Kamus Quran adalah aplikasi web untuk mempelajari bahasa Arab Al-Qur'an secara mendalam. Tidak sekadar menampilkan terjemahan, aplikasi ini memberikan **analisis linguistik level 3** dan **i'rob sistematis**: mulai dari akar triliteral, lemma, kelas kata (nahwu), pola morfologi (sharf), hingga tabel i'rob 6 kolom ala **Metode Al-Munir** dan kesimpulan induktif ala **An-Nahwu al-Wadhih**.
 
-Basis data mencakup lebih dari **1.000 kata** yang terdiri dari kosakata frekuensi tinggi Al-Qur'an dan kosakata Arab sehari-hari, sehingga dengan menguasai koleksi ini pengguna dapat memahami sekitar **80-90% kosakata** yang muncul dalam Al-Qur'an.
+Basis data mencakup **1.002 kata** (500 kosakata frekuensi tinggi Al-Qur'an + 502 kosakata Arab sehari-hari), sehingga dengan menguasai koleksi ini pengguna dapat memahami sekitar **80-90% kosakata** yang muncul dalam Al-Qur'an.
+
+### I'rob Sistematis v3.0
+
+Setiap kata memiliki **tabel i'rob 6 kolom** (Kata → Jenis → Kedudukan → I'rob → Tanda → 'Amil) yang di-generate otomatis oleh **heuristic engine** (300+ baris aturan nahwu-sharf). Di Mode Kalimat, **SentenceIrobTable** menampilkan i'rob seluruh kalimat dalam satu tabel utuh dengan context-aware detection (huruf jarr, inna/akhwatuha, kaana/akhwatuha, idhafah, 'athf). Akurasi dijaga oleh **30+ unit tests** (Vitest).
 
 ---
 
@@ -42,9 +46,10 @@ Basis data mencakup lebih dari **1.000 kata** yang terdiri dari kosakata frekuen
 ### Mode Kalimat
 - Masukkan kalimat Arab atau ayat Al-Qur'an bebas
 - Tokenisasi otomatis: kalimat dipecah kata per kata
-- Setiap token ditampilkan dengan arti dan konteks morfologinya
+- **🆕 v3.0: SentenceIrobTable** — tabel i'rob Al-Munir utuh per kalimat (8 kolom: #, Kata, Arti, Jenis, Kedudukan, I'rob, Tanda, 'Amil)
 - **🆕 v3.0: Context-Aware I&apos;rob Engine** — deteksi otomatis huruf jarr, inna/akhwatuha, kaana/akhwatuha, idhafah, &apos;athf
-- **🆕 v3.0: Expandable IrobTable** per token dengan ringkasan i&apos;rob kalimat
+- **🆕 v3.0: Expandable IrobTable** per token dengan detail morfologi
+- Ringkasan i'rob kalimat + observasi struktural (jumlah fi'liyyah/ismiyyah)
 - Analisis struktur kalimat secara keseluruhan
 - Pendekatan hybrid: data QADT (Quranic Arabic Dependency Treebank) untuk ayat Al-Qur'an, ditambah pencocokan morfologi heuristik untuk kalimat bebas
 
@@ -67,11 +72,11 @@ Basis data mencakup lebih dari **1.000 kata** yang terdiri dari kosakata frekuen
 
 | Kategori | Jumlah |
 |---|---|
-| Kosakata frekuensi tinggi Al-Qur'an | 500+ kata |
-| Kosakata Arab sehari-hari | 100+ kata |
-| **Total** | **1.000+ kata** |
+| Kosakata frekuensi tinggi Al-Qur'an | 500 kata |
+| Kosakata Arab sehari-hari | 502 kata |
+| **Total** | **1.002 kata** |
 
-Data morfologi bersumber dari **Quranic Arabic Corpus** (corpus.quran.com, lisensi GNU GPL), teks Al-Qur'an dari **Tanzil** (tanzil.net), audio tilawah dan tafsir dari **AlQuran Cloud API** (alquran.cloud).
+Data morfologi bersumber dari **Quranic Arabic Corpus** (corpus.quran.com, lisensi GNU GPL), teks Al-Qur'an dari **Tanzil** (tanzil.net), audio tilawah dan tafsir dari **AlQuran Cloud API** (alquran.cloud). Metodologi i'rob mengacu pada kitab **An-Nahwu al-Wadhih** dan **Metode Al-Munir**.
 
 ---
 
@@ -79,6 +84,7 @@ Data morfologi bersumber dari **Quranic Arabic Corpus** (corpus.quran.com, lisen
 
 - **Frontend:** React + TypeScript
 - **Build tool:** Vite (code splitting aktif, lazy loading)
+- **Testing:** Vitest (30+ unit tests untuk heuristic engine i'rob)
 - **Deploy:** GitHub Pages via GitHub Actions (auto-deploy on push)
 - **Font Arab:** Amiri + Noto Naskh Arabic
 - **API eksternal:** AlQuran Cloud (audio + tafsir), Web Speech API (suara)
@@ -101,6 +107,9 @@ npm run dev
 
 # Build produksi
 npm run build
+
+# Jalankan unit tests
+npm test
 ```
 
 ---
@@ -111,6 +120,11 @@ npm run build
 - [Tanzil](https://tanzil.net/) - teks Al-Qur'an Uthmani dan terjemahan Kemenag
 - [AlQuran Cloud API](https://alquran.cloud/) - audio tilawah Mishary Alafasy dan tafsir Jalalain
 - [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API) - pengenalan suara browser-native
+
+### Referensi Kitab
+- **An-Nahwu al-Wadhih** (Jilid 1 Nahwu & Sharf) — metodologi deduksi induktif
+- **Metode Al-Munir** (Jilid 1-3 Nahwu & Sharf) — format tabel i'rob question-driven
+- **Kunci Jawaban Al-Munir** — contoh aplikasi i'rob per kata & per kalimat
 
 ---
 
