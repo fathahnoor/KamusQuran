@@ -63,27 +63,27 @@ export function BookmarkView({ onNavigateToKata }: BookmarkViewProps) {
 
   return (
     <div className="space-y-6">
-      <div className="rounded-lg border border-ink-200 bg-white p-6 shadow-sm">
-        <div className="flex items-center justify-between">
+      <div className="rounded-lg border border-ink-200 bg-white p-4 shadow-sm sm:p-6">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-ink-900">Bookmark</h1>
+            <h1 className="text-xl font-bold text-ink-900 sm:text-2xl">Bookmark</h1>
             <p className="mt-1 text-sm text-ink-500">
               Kumpulan kata tersimpan. Data disimpan lokal di browser — tidak ada login.
             </p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <button
               onClick={handleExport}
               disabled={bookmarks.length === 0}
               className="rounded-md border border-ink-300 px-3 py-2 text-sm font-medium text-ink-600 transition-colors hover:bg-ink-100 disabled:opacity-50"
             >
-              Export JSON
+              Export
             </button>
             <button
               onClick={handleImportClick}
               className="rounded-md border border-ink-300 px-3 py-2 text-sm font-medium text-ink-600 transition-colors hover:bg-ink-100"
             >
-              Import JSON
+              Import
             </button>
             <input
               ref={fileInputRef}
@@ -107,9 +107,8 @@ export function BookmarkView({ onNavigateToKata }: BookmarkViewProps) {
         )}
       </div>
 
-      {/* Bookmark list */}
-      {bookmarks.length === 0 ? (
-        <div className="rounded-lg border border-dashed border-ink-300 bg-white/50 p-8 text-center">
+      {/* Bookmark list */}        {bookmarks.length === 0 ? (
+        <div className="rounded-lg border border-dashed border-ink-300 bg-white/50 p-5 text-center sm:p-8">
           <p className="text-ink-500">Belum ada bookmark.</p>
           <button
             onClick={onNavigateToKata}
@@ -124,16 +123,16 @@ export function BookmarkView({ onNavigateToKata }: BookmarkViewProps) {
           {bookmarks.map((b) => (
             <div
               key={b.wordId}
-              className="flex items-center justify-between rounded-lg border border-ink-200 bg-white p-4 shadow-sm"
+              className="flex items-center justify-between rounded-lg border border-ink-200 bg-white p-3 shadow-sm sm:p-4"
             >
-              <div className="flex items-center gap-4">
-                <span className="font-arabic-display text-3xl font-bold text-accent-700" dir="rtl">
+              <div className="flex min-w-0 items-center gap-3 sm:gap-4">
+                <span className="font-arabic-display text-2xl font-bold text-accent-700 sm:text-3xl" dir="rtl">
                   {b.arabic}
                 </span>
-                <div>
-                  <div className="font-medium text-ink-800">{b.meaningId}</div>
+                <div className="min-w-0">
+                  <div className="truncate font-medium text-ink-800">{b.meaningId}</div>
                   <div className="text-xs text-ink-400">
-                    Akar: {b.root} · Disimpan: {new Date(b.createdAt).toLocaleDateString("id-ID")}
+                    {b.root} · {new Date(b.createdAt).toLocaleDateString("id-ID")}
                   </div>
                   {b.note && <div className="mt-1 text-xs italic text-ink-500">{b.note}</div>}
                 </div>

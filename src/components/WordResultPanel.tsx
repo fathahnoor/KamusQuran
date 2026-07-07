@@ -221,11 +221,11 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
   return (
     <div className="space-y-6">
       {/* Diacritic toggle + Pronunciation */}
-      <div className="flex justify-between">
+      <div className="flex flex-wrap items-center gap-2 justify-between">
         {ttsSupported ? (
           <button
             onClick={() => (isSpeaking ? stopPronunciation() : pronounceWord(entry.arabic))}
-            className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
+            className={`flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
               isSpeaking
                 ? "bg-accent-600 text-ink-50 hover:bg-accent-700"
                 : "border border-accent-300 bg-accent-50 text-accent-700 hover:bg-accent-100"
@@ -262,24 +262,24 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
       </div>
 
       {/* Header row: Arabic word + bookmark */}
-      <div className="flex items-start justify-between gap-4 rounded-lg border border-ink-200 bg-white p-6 shadow-sm">
-        <div className="flex-1">
-          <div className="font-arabic-display text-5xl font-bold leading-tight text-accent-700" dir="rtl">
+      <div className="flex items-start justify-between gap-3 rounded-lg border border-ink-200 bg-white p-4 shadow-sm sm:gap-4 sm:p-6">
+        <div className="flex-1 min-w-0">
+          <div className="font-arabic-display text-4xl font-bold leading-tight text-accent-700 sm:text-5xl" dir="rtl">
             {arText(entry.arabic)}
           </div>
-          <div className="mt-2 text-lg font-semibold text-ink-800">{entry.meaningId}</div>
+          <div className="mt-2 text-base font-semibold text-ink-800 sm:text-lg">{entry.meaningId}</div>
           {entry.meaningIdAlt && entry.meaningIdAlt.length > 0 && (
             <div className="text-sm text-ink-500">{entry.meaningIdAlt.join(" · ")}</div>
           )}
           {entry.rank && (
             <div className="mt-1 text-xs text-ink-400">
-              Peringkat frekuensi #{entry.rank} · {entry.frequency} kemunculan dalam Al-Qur&apos;an
+              Peringkat #{entry.rank} · {entry.frequency}× dalam Al-Qur&apos;an
             </div>
           )}
         </div>
         <button
           onClick={handleBookmark}
-          className={`flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+          className={`flex shrink-0 items-center gap-1.5 rounded-md px-2.5 py-2 text-xs font-medium transition-colors sm:px-3 sm:text-sm ${
             bookmarked
               ? "bg-accent-600 text-ink-50 hover:bg-accent-700"
               : "border border-ink-300 text-ink-600 hover:bg-ink-100"
@@ -294,7 +294,7 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
       </div>
 
       {/* Linguistic fields grid */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div className="grid grid-cols-2 gap-2 sm:grid-cols-2 sm:gap-4">
         <FieldCard label="Akar (Root)" value={arText(entry.root)} arabic />
         <FieldCard label="Lemma" value={arText(entry.lemma)} arabic />
         <FieldCard label="Kelas Kata (POS)" value={posLabel(m.posMajor)} />
@@ -324,7 +324,7 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
 
       {/* Nahwu note */}
       {entry.nahwuNote && (
-        <div className="rounded-lg border-l-4 border-accent-500 bg-accent-50/40 p-4">
+        <div className="rounded-lg border-l-4 border-accent-500 bg-accent-50/40 p-3 sm:p-4">
           <h4 className="mb-1 text-sm font-bold text-accent-700">نحو — Catatan Nahwu</h4>
           <p className="text-sm leading-relaxed text-ink-700">{entry.nahwuNote}</p>
         </div>
@@ -332,7 +332,7 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
 
       {/* Sharf note */}
       {entry.sharfNote && (
-        <div className="rounded-lg border-l-4 border-ink-500 bg-ink-100/60 p-4">
+        <div className="rounded-lg border-l-4 border-ink-500 bg-ink-100/60 p-3 sm:p-4">
           <h4 className="mb-1 text-sm font-bold text-ink-700">صرف — Catatan Sharf</h4>
           <p className="text-sm leading-relaxed text-ink-700">{entry.sharfNote}</p>
         </div>
@@ -340,7 +340,7 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
 
       {/* I'rab note */}
       {m.irabNote && (
-        <div className="rounded-lg border-l-4 border-ink-400 bg-ink-50 p-4">
+        <div className="rounded-lg border-l-4 border-ink-400 bg-ink-50 p-3 sm:p-4">
           <h4 className="mb-1 text-sm font-bold text-ink-600">إعراب — Keterangan I&apos;rab</h4>
           <p className="text-sm leading-relaxed text-ink-700">{m.irabNote}</p>
         </div>
@@ -348,26 +348,26 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
 
       {/* Tafsir */}
       {tafsirLoading && (
-        <div className="flex items-center gap-2 rounded-lg border border-ink-200 bg-white p-4 shadow-sm" role="status" aria-live="polite">
+        <div className="flex items-center gap-2 rounded-lg border border-ink-200 bg-white p-3 shadow-sm sm:p-4" role="status" aria-live="polite">
           <div className="h-4 w-4 animate-spin rounded-full border-2 border-ink-300 border-t-accent-600" />
           <span className="text-sm text-ink-500">Memuat tafsir Jalalayn...</span>
         </div>
       )}
       {tafsirError && !tafsirText && (
-        <div className="rounded-lg border border-ink-200 bg-ink-50 p-4" role="alert">
+        <div className="rounded-lg border border-ink-200 bg-ink-50 p-3 sm:p-4" role="alert">
           <p className="text-sm text-ink-500">
             Tafsir tidak dapat dimuat (kemungkinan masalah jaringan). Data morfologi masih tersedia dari basis data lokal.
           </p>
         </div>
       )}
       {tafsirText && (
-        <div className="rounded-lg border border-ink-200 bg-white p-4 shadow-sm">
+        <div className="rounded-lg border border-ink-200 bg-white p-3 shadow-sm sm:p-4">
           <h4 className="mb-1 text-sm font-bold text-ink-700">تفسير — Tafsir (Jalalayn)</h4>
           <p className="text-sm leading-relaxed text-ink-700">{tafsirText}</p>
         </div>
       )}
       {/* Occurrences */}
-      <div className="rounded-lg border border-ink-200 bg-white p-4 shadow-sm">
+      <div className="rounded-lg border border-ink-200 bg-white p-3 shadow-sm sm:p-4">
         <h4 className="mb-3 text-sm font-bold text-ink-700">
           Kemunculan dalam Al-Qur&apos;an ({entry.occurrences.length} ditampilkan)
         </h4>
@@ -388,7 +388,7 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
         <div className="space-y-3">
           <h4 className="text-sm font-bold text-ink-700">Contoh Ayat</h4>
           {examplesEnriched.map((ex) => (
-            <div key={ex.globalAyahNumber} className="rounded-lg border border-ink-200 bg-white p-4 shadow-sm">
+            <div key={ex.globalAyahNumber} className="rounded-lg border border-ink-200 bg-white p-3 shadow-sm sm:p-4">
               <div className="mb-2 flex items-center justify-between">
                 <span className="text-xs font-semibold text-ink-500">
                   {formatSurahAyah(ex.surah, ex.ayah)}
@@ -413,7 +413,7 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
                     </button>
                   )}
               </div>
-              <p className="font-arabic text-2xl leading-loose text-ink-900" dir="rtl">
+              <p className="font-arabic text-xl leading-loose text-ink-900 sm:text-2xl" dir="rtl">
                 {renderHighlightedAyat(ex.arabicText, ex.wordForm)}
               </p>
               {ex.wordForm && (
@@ -429,7 +429,7 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
 
       {/* Raw morphological features for traceability */}
       {m.rawFeatures && (
-        <details className="rounded-lg border border-ink-200 bg-white p-4 text-xs">
+        <details className="rounded-lg border border-ink-200 bg-white p-3 text-xs sm:p-4">
           <summary className="cursor-pointer font-semibold text-ink-500">
             Data morfologi mentah (QAC)
           </summary>
@@ -444,10 +444,10 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
 
 function FieldCard({ label, value, arabic }: { label: string; value: string; arabic?: boolean }) {
   return (
-    <div className="rounded-lg border border-ink-200 bg-white p-3 shadow-sm">
-      <div className="text-xs font-semibold uppercase tracking-wide text-ink-400">{label}</div>
+    <div className="rounded-lg border border-ink-200 bg-white p-2.5 shadow-sm sm:p-3">
+      <div className="text-[10px] font-semibold uppercase tracking-wide text-ink-400 sm:text-xs">{label}</div>
       <div
-        className={`mt-1 text-sm font-medium text-ink-800 ${arabic ? "font-arabic text-lg" : ""}`}
+        className={`mt-1 text-sm font-medium text-ink-800 ${arabic ? "font-arabic text-base sm:text-lg" : ""}`}
         dir={arabic ? "rtl" : "ltr"}
       >
         {value}

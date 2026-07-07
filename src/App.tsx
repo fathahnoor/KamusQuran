@@ -29,7 +29,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-ink-50 text-ink-900">
       <Header current={view} onNavigate={navigate} />
-      <main className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+      <main className="mx-auto max-w-5xl px-3 py-5 pb-24 sm:px-6 sm:py-8 sm:pb-8 lg:px-8">
         {view === "kata" && <ModeKata />}
         {view === "kalimat" && (
           <Suspense fallback={<ViewFallback />}>
@@ -47,7 +47,7 @@ export default function App() {
           </Suspense>
         )}
       </main>
-      <footer className="border-t border-ink-200 bg-ink-100/60 py-6 text-center text-sm text-ink-500">
+      <footer className="border-t border-ink-200 bg-ink-100/60 py-6 pb-20 text-center text-xs text-ink-500 sm:pb-6 sm:text-sm">
         <p>
           Kamus Quran — alat belajar bahasa Arab Al-Qur&apos;an · Data: Quranic Arabic
           Corpus, Tanzil, AlQuran Cloud

@@ -30,8 +30,8 @@ export function ModeKalimat() {
 
   return (
     <div className="space-y-6">
-      <div className="rounded-lg border border-ink-200 bg-white p-6 shadow-sm">
-        <h1 className="text-2xl font-bold text-ink-900">Mode Kalimat</h1>
+      <div className="rounded-lg border border-ink-200 bg-white p-4 shadow-sm sm:p-6">
+        <h1 className="text-xl font-bold text-ink-900 sm:text-2xl">Mode Kalimat</h1>
         <p className="mt-1 text-sm text-ink-500">
           Masukkan kalimat Arab atau Indonesia. Setiap kata akan diurai menampilkan
           akar, lemma, arti, nahwu, dan sharf. Kalimat dari Al-Qur&apos;an mendapat
@@ -56,7 +56,7 @@ export function ModeKalimat() {
         <div className="space-y-4">
           {/* Quranic ayah banner */}
           {analysis.isQuranicAyah && (
-            <div className="rounded-lg border border-accent-500 bg-accent-50/40 p-4">
+            <div className="rounded-lg border border-accent-500 bg-accent-50/40 p-3 sm:p-4">
               <p className="text-sm font-semibold text-accent-700">
                 ✓ Kalimat ini cocok dengan ayat Al-Qur&apos;an
                 {analysis.matchedAyah && ` — ${analysis.matchedAyah}`}
@@ -68,11 +68,11 @@ export function ModeKalimat() {
           )}
 
           {/* Token breakdown */}
-          <div className="rounded-lg border border-ink-200 bg-white p-4 shadow-sm">
+          <div className="rounded-lg border border-ink-200 bg-white p-3 shadow-sm sm:p-4">
             <h3 className="mb-3 text-sm font-bold text-ink-700">
               Uraian Per Kata ({analysis.tokens.length} token)
             </h3>
-            <div className="space-y-3">
+            <div className="space-y-2 sm:space-y-3">
               {analysis.tokens.map((token) => (
                 <TokenCard key={token.index} token={token} />
               ))}
@@ -81,7 +81,7 @@ export function ModeKalimat() {
 
           {/* Sentence-level observations */}
           {analysis.observations.length > 0 && (
-            <div className="rounded-lg border-l-4 border-accent-500 bg-accent-50/30 p-4">
+            <div className="rounded-lg border-l-4 border-accent-500 bg-accent-50/30 p-3 sm:p-4">
               <h3 className="mb-2 text-sm font-bold text-accent-700">
                 Observasi Tingkat Kalimat
               </h3>
@@ -111,7 +111,7 @@ export function ModeKalimat() {
 
       {/* Initial state hint */}
       {!analysis && (
-        <div className="rounded-lg border border-dashed border-ink-300 bg-white/50 p-8 text-center">
+        <div className="rounded-lg border border-dashed border-ink-300 bg-white/50 p-5 text-center sm:p-8">
           <p className="text-ink-500">
             Masukkan kalimat untuk dianalisis, atau gunakan input suara.
           </p>
@@ -130,16 +130,16 @@ export function ModeKalimat() {
 function TokenCard({ token }: { token: SentenceToken }) {
   return (
     <div
-      className={`rounded-md border p-3 ${
+      className={`rounded-md border p-2.5 sm:p-3 ${
         token.matched
           ? "border-ink-200 bg-ink-50/40"
           : "border-dashed border-ink-300 bg-ink-50/20"
       }`}
     >
-      <div className="flex items-baseline justify-between gap-3">
-        <div className="flex items-baseline gap-3">
+      <div className="flex items-baseline justify-between gap-2 sm:gap-3">
+        <div className="flex min-w-0 items-baseline gap-2 sm:gap-3">
           <span className="text-xs text-ink-400">#{token.index + 1}</span>
-          <span className="font-arabic text-2xl font-medium text-ink-900" dir="rtl">
+          <span className="font-arabic text-xl font-medium text-ink-900 sm:text-2xl" dir="rtl">
             {token.surface}
           </span>
         </div>
@@ -153,7 +153,7 @@ function TokenCard({ token }: { token: SentenceToken }) {
           </span>
         )}
       </div>
-      <div className="mt-2 grid grid-cols-2 gap-x-4 gap-y-1 text-xs sm:grid-cols-3">
+      <div className="mt-2 grid grid-cols-1 gap-x-4 gap-y-1 text-xs sm:grid-cols-2 sm:gap-x-4 lg:grid-cols-3">
         {token.lemma && <Info label="Lemma" value={token.lemma} arabic />}
         {token.root && <Info label="Akar" value={token.root} arabic />}
         {token.meaningId && <Info label="Arti" value={token.meaningId} />}

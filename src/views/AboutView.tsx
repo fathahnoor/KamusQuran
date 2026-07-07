@@ -1,8 +1,8 @@
 export function AboutView() {
   return (
     <div className="space-y-6">
-      <div className="rounded-lg border border-ink-200 bg-white p-6 shadow-sm">
-        <h1 className="text-2xl font-bold text-ink-900">Tentang &amp; Metodologi</h1>
+      <div className="rounded-lg border border-ink-200 bg-white p-4 shadow-sm sm:p-6">
+        <h1 className="text-xl font-bold text-ink-900 sm:text-2xl">Tentang &amp; Metodologi</h1>
         <p className="mt-1 text-sm text-ink-500">
           Kamus Quran adalah alat belajar bahasa Arab Al-Qur&apos;an dengan fokus pada
           kosakatab, nahwu, sharf, dan analisis morfologi.
@@ -12,7 +12,7 @@ export function AboutView() {
       <Section title="Tujuan">
         <p>
           Membantu pengguna menguasai ~80–90% kosakatab frekuensi tinggi Al-Qur&apos;an
-          (300 kata berdasarkan data Quranic Arabic Corpus) serta memahami struktur
+          (500 kata berdasarkan data Quranic Arabic Corpus) serta memahami struktur
           nahwu dan sharf melalui pencarian dan analisis praktis.
         </p>
       </Section>
@@ -84,7 +84,7 @@ export function AboutView() {
       <Section title="Keterbatasan v1">
         <ul className="list-inside list-disc space-y-1 text-sm text-ink-700">
           <li>
-            Database kata berisi 300 kata berfrekuensi tinggi yang mencakup
+            Database kata berisi 500 kata berfrekuensi tinggi yang mencakup
             ~80–90% kosakata Al-Qur'an. Data dapat diperluas tanpa perubahan kode.
           </li>
           <li>
@@ -100,9 +100,9 @@ export function AboutView() {
 
       <Section title="Versi">
         <p>
-          <strong>v1.0</strong> — 300 kata berfrekuensi tinggi, Mode Kata dengan
+          <strong>v1.1</strong> — 500 kata berfrekuensi tinggi, Mode Kata dengan
           browsing &amp; diacritic toggle, Mode Kalimat dengan analisis per kata,
-          bookmark dengan export/import JSON, dan integrasi audio/tafsir AlQuran Cloud.
+          bookmark dengan export/import JSON, TTS pengucapan, dan integrasi audio/tafsir AlQuran Cloud.
         </p>
       </Section>
 
@@ -115,7 +115,7 @@ export function AboutView() {
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-lg border border-ink-200 bg-white p-4 shadow-sm">
+    <div className="rounded-lg border border-ink-200 bg-white p-3 shadow-sm sm:p-4">
       <h2 className="mb-2 text-sm font-bold text-ink-700">{title}</h2>
       <div className="space-y-1 text-sm leading-relaxed text-ink-700">{children}</div>
     </div>

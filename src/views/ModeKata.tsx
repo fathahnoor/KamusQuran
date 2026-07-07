@@ -58,8 +58,8 @@ export function ModeKata() {
 
   return (
     <div className="space-y-6">
-      <div className="rounded-lg border border-ink-200 bg-white p-6 shadow-sm">
-        <h1 className="text-2xl font-bold text-ink-900">Mode Kata</h1>
+      <div className="rounded-lg border border-ink-200 bg-white p-4 shadow-sm sm:p-6">
+        <h1 className="text-xl font-bold text-ink-900 sm:text-2xl">Mode Kata</h1>
         <p className="mt-1 text-sm text-ink-500">
           Cari kata Al-Qur&apos;an berdasarkan input Arab atau Indonesia. Lihat akar, lemma,
           nahwu, sharf, i&apos;rab, frekuensi, dan kemunculan.
@@ -76,22 +76,22 @@ export function ModeKata() {
             inputLang={inputLang}
           />
         </div>
-        <div className="mt-3 flex items-center gap-3">
+        <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1">
           <p className="text-xs text-ink-400">
-            Basis data: {wordCount()} kata frekuensi tinggi
+            Basis data: {wordCount()} kata
           </p>
           <button
             onClick={() => setShowBrowse((v) => !v)}
             className="text-xs font-medium text-accent-600 hover:text-accent-700"
           >
-            {showBrowse ? "Sembunyikan daftar" : "Jelajahi semua kata →"}
+            {showBrowse ? "Sembunyikan" : "Jelajahi semua →"}
           </button>
         </div>
       </div>
 
       {/* Word browsing by frequency */}
       {showBrowse && !selected && (
-        <div className="rounded-lg border border-ink-200 bg-white p-4 shadow-sm">
+        <div className="rounded-lg border border-ink-200 bg-white p-3 shadow-sm sm:p-4">
           <h3 className="mb-3 text-sm font-bold text-ink-700">
             Kata Berdasarkan Frekuensi ({browseWords.length} kata)
           </h3>
@@ -124,7 +124,7 @@ export function ModeKata() {
       {activeQuery && !selected && (
         <div className="space-y-2">
           {results.length === 0 ? (
-            <div className="rounded-lg border border-ink-200 bg-white p-6 text-center text-ink-500">
+            <div className="rounded-lg border border-ink-200 bg-white p-4 text-center text-ink-500 sm:p-6">
               <p>Tidak ada hasil untuk &quot;{activeQuery}&quot;.</p>
               <p className="mt-1 text-sm">
                 Coba kata Arab tanpa harakat, atau kata kunci Indonesia yang lebih umum.
@@ -137,20 +137,20 @@ export function ModeKata() {
                 <button
                   key={entry.id}
                   onClick={() => setSelected(entry)}
-                  className="flex w-full items-center justify-between rounded-lg border border-ink-200 bg-white p-4 text-left shadow-sm transition-colors hover:border-accent-500 hover:bg-accent-50/30"
+                  className="flex w-full items-center justify-between rounded-lg border border-ink-200 bg-white p-3 text-left shadow-sm transition-colors hover:border-accent-500 hover:bg-accent-50/30 sm:p-4"
                 >
-                  <div className="flex items-center gap-4">
-                    <span className="font-arabic-display text-3xl font-bold text-accent-700" dir="rtl">
+                  <div className="flex items-center gap-3 sm:gap-4">
+                    <span className="font-arabic-display text-2xl font-bold text-accent-700 sm:text-3xl" dir="rtl">
                       {entry.arabic}
                     </span>
-                    <div>
-                      <div className="font-medium text-ink-800">{entry.meaningId}</div>
+                    <div className="min-w-0">
+                      <div className="truncate font-medium text-ink-800">{entry.meaningId}</div>
                       <div className="text-xs text-ink-400">
-                        Akar: {entry.root} · {entry.frequency}× · {posShort(entry.pos)}
+                        {entry.root} · {entry.frequency}× · {posShort(entry.pos)}
                       </div>
                     </div>
                   </div>
-                  <svg className="h-5 w-5 text-ink-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <svg className="h-5 w-5 shrink-0 text-ink-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <polyline points="9 18 15 12 9 6" />
                   </svg>
                 </button>
@@ -178,7 +178,7 @@ export function ModeKata() {
 
       {/* Initial state hint */}
       {!activeQuery && (
-        <div className="rounded-lg border border-dashed border-ink-300 bg-white/50 p-8 text-center">
+        <div className="rounded-lg border border-dashed border-ink-300 bg-white/50 p-5 text-center sm:p-8">
           <p className="text-ink-500">
             Mulai dengan mengetik kata Arab atau Indonesia, atau gunakan input suara.
           </p>
