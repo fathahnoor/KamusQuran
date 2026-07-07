@@ -124,7 +124,7 @@ npm test
 ### Referensi Kitab
 - **An-Nahwu al-Wadhih** (Jilid 1 Nahwu & Sharf) — metodologi deduksi induktif
 - **Metode Al-Munir** (Jilid 1-3 Nahwu & Sharf) — format tabel i'rob question-driven
-- **Kunci Jawaban Al-Munir** — contoh aplikasi i'rob per kata & per kalimat
+
 
 ---
 

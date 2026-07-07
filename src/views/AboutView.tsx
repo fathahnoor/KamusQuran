@@ -96,7 +96,7 @@ export function AboutView() {
             <strong>Kitab Nahwu-Sharf (Nopush/)</strong>:{" "}
             <em>An-Nahwu al-Wadhih</em> (Jilid 1 Nahwu &amp; Sharf),{" "}
             <em>Metode Al-Munir</em> (Jilid 1-3 Nahwu &amp; Sharf),{" "}
-            <em>Kunci Jawaban Al-Munir</em> — sebagai referensi metodologi i&apos;rob.
+
           </li>
         </ul>
       </Section>

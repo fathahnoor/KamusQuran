@@ -309,4 +309,4 @@ Nahwu al-Wadhih Inductive: **Amati → Klasifikasi → Simpulkan** (observation 
   - `src/components/WordResultPanel.tsx` — integrasi `<IrobTable>`
   - `src/services/sentenceAnalysis.ts` — upgrade context-aware i'rob
   - `src/views/ModeKalimat.tsx` — tabel i'rob penuh per kalimat
-- **Referensi Kitab (Nopush/):** An-Nahwu al-Wadhih Jilid 1 (Nahwu + Sharf), Metode Al-Munir Jilid 1-3, Kunci Jawaban Al-Munir
+- **Referensi Kitab (Nopush/):** An-Nahwu al-Wadhih Jilid 1 (Nahwu + Sharf), Metode Al-Munir Jilid 1-3
