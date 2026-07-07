@@ -10,6 +10,7 @@ import { BATCH_07 } from "./words/batch07";
 import { BATCH_08 } from "./words/batch08";
 import { BATCH_09 } from "./words/batch09";
 import { BATCH_10 } from "./words/batch10";
+import { BATCH_11 } from "./words/batch11";
 import { stripDiacritics } from "../utils/arabic";
 
 // Aggregate all batches and build full WordEntry objects.
@@ -24,10 +25,11 @@ const ALL_COMPACT: CompactWord[] = [
   ...BATCH_08,
   ...BATCH_09,
   ...BATCH_10,
+  ...BATCH_11,
 ];
 
 /**
- * The bundled high-frequency word index (~300 words per design.md).
+ * The bundled high-frequency word index (~600 words per design.md).
  * Compact data is expanded into full WordEntry objects with auto-generated
  * nahwu/sharf notes via the wordBuilder.
  * Duplicates (same Arabic lemma with different IDs) are deduplicated,

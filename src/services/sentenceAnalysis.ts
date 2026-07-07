@@ -83,12 +83,12 @@ function analyzeIndonesianSentence(input: string): SentenceAnalysis {
   const observations: SentenceObservation[] = [];
   if (matchedCount === 0) {
     observations.push({
-      summary: "Tidak ada kata yang cocok dengan kosakatab Quran. Coba gunakan kata Arab atau terjemahan yang lebih spesifik.",
+      summary: "Tidak ada kata yang cocok dengan kosakata Quran. Coba gunakan kata Arab atau terjemahan yang lebih spesifik.",
       notes: ["Masukkan kalimat Arab akan memberikan analisis morfologi yang lebih akurat."],
     });
   } else {
     observations.push({
-      summary: `${matchedCount} dari ${tokens.length} kata berhasil dipetakan ke entri kosakatab Quran.`,
+      summary: `${matchedCount} dari ${tokens.length} kata berhasil dipetakan ke entri kosakata Quran.`,
       notes: ["Untuk analisis nahwu tingkat kalimat (dependency graph), masukkan kalimat dalam bahasa Arab."],
     });
   }
@@ -201,7 +201,7 @@ function buildSentenceObservations(tokens: SentenceToken[], _input: string): Sen
   const unmatched = tokens.filter((t) => !t.matched);
   if (unmatched.length > 0) {
     observations.push({
-      summary: `${unmatched.length} kata tidak ditemukan dalam kosakatab Quran — ditampilkan dengan tebakan POS berdasarkan heuristik.`,
+      summary: `${unmatched.length} kata tidak ditemukan dalam kosakata Quran — ditampilkan dengan tebakan POS berdasarkan heuristik.`,
       notes: unmatched.map((t) => `"${t.surface}" → diperkirakan: ${t.posMajor ?? "tidak diketahui"}`),
     });
   }

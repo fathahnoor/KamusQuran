@@ -12,7 +12,7 @@ export function AboutView() {
       <Section title="Tujuan">
         <p>
           Membantu pengguna menguasai ~80–90% kosakatab frekuensi tinggi Al-Qur&apos;an
-          (500 kata berdasarkan data Quranic Arabic Corpus) serta memahami struktur
+          (600 kata: 500 kata berfrekuensi tinggi dari Quranic Arabic Corpus + 100 kata Arab sehari-hari) serta memahami struktur
           nahwu dan sharf melalui pencarian dan analisis praktis.
         </p>
       </Section>
@@ -84,8 +84,9 @@ export function AboutView() {
       <Section title="Keterbatasan v1">
         <ul className="list-inside list-disc space-y-1 text-sm text-ink-700">
           <li>
-            Database kata berisi 500 kata berfrekuensi tinggi yang mencakup
-            ~80–90% kosakata Al-Qur'an. Data dapat diperluas tanpa perubahan kode.
+            Database kata berisi 600 kata: 500 kata berfrekuensi tinggi dari Al-Qur'an
+            (mencakup ~80–90% kosakata) ditambah 100 kata Arab sehari-hari untuk
+            penggunaan praktis. Data dapat diperluas tanpa perubahan kode.
           </li>
           <li>
             Pengenalan suara hanya berfungsi di Chrome, Edge, dan Safari (online).
@@ -100,7 +101,7 @@ export function AboutView() {
 
       <Section title="Versi">
         <p>
-          <strong>v1.1</strong> — 500 kata berfrekuensi tinggi, Mode Kata dengan
+          <strong>v1.2</strong> — 600 kata (500 Quran + 100 sehari-hari), Mode Kata dengan
           browsing &amp; diacritic toggle, Mode Kalimat dengan analisis per kata,
           bookmark dengan export/import JSON, TTS pengucapan, dan integrasi audio/tafsir AlQuran Cloud.
         </p>
