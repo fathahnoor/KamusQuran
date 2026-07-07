@@ -21,6 +21,7 @@ import { BATCH_18 } from "./words/batch18";
 import { BATCH_19 } from "./words/batch19";
 import { BATCH_20 } from "./words/batch20";
 import { BATCH_21 } from "./words/batch21";
+import { BATCH_22 } from "./words/batch22";
 import { stripDiacritics } from "../utils/arabic";
 
 // Aggregate all batches and build full WordEntry objects.
@@ -46,6 +47,7 @@ const ALL_COMPACT: CompactWord[] = [
   ...BATCH_19,
   ...BATCH_20,
   ...BATCH_21,
+  ...BATCH_22,
 ];
 
 /**
