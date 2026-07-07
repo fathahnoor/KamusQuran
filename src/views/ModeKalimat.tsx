@@ -3,6 +3,7 @@ import type { SentenceAnalysis, SentenceToken } from "../types";
 import { analyzeSentence, detectLanguage } from "../services/sentenceAnalysis";
 import { useVoiceRecognition } from "../services/voiceRecognition";
 import { SearchBar } from "../components/SearchBar";
+import { isArabicText } from "../utils/arabic";
 
 export function ModeKalimat() {
   const [input, setInput] = useState("");
@@ -128,6 +129,7 @@ export function ModeKalimat() {
 }
 
 function TokenCard({ token }: { token: SentenceToken }) {
+  const surfaceIsArabic = isArabicText(token.surface);
   return (
     <div
       className={`rounded-md border p-2.5 sm:p-3 ${
@@ -139,9 +141,15 @@ function TokenCard({ token }: { token: SentenceToken }) {
       <div className="flex items-baseline justify-between gap-2 sm:gap-3">
         <div className="flex min-w-0 items-baseline gap-2 sm:gap-3">
           <span className="text-xs text-ink-400">#{token.index + 1}</span>
-          <span className="font-arabic text-xl font-medium text-ink-900 sm:text-2xl" dir="rtl">
-            {token.surface}
-          </span>
+          {surfaceIsArabic ? (
+            <span className="font-arabic text-xl font-medium text-ink-900 sm:text-2xl" dir="rtl">
+              {token.surface}
+            </span>
+          ) : (
+            <span className="text-xl font-medium text-ink-900 sm:text-2xl" dir="ltr">
+              {token.surface}
+            </span>
+          )}
         </div>
         {token.matched ? (
           <span className="rounded bg-accent-100 px-2 py-0.5 text-xs font-medium text-accent-700">
@@ -158,19 +166,19 @@ function TokenCard({ token }: { token: SentenceToken }) {
         {token.root && <Info label="Akar" value={token.root} arabic />}
         {token.meaningId && <Info label="Arti" value={token.meaningId} />}
         {token.posMajor && <Info label="Kelas Kata" value={token.posMajor} />}
-        {token.morpho?.irab && token.morpho.irab !== "unknown" && (
+        {surfaceIsArabic && token.morpho?.irab && token.morpho.irab !== "unknown" && (
           <Info label="I'rab" value={token.morpho.irab} />
         )}
-        {token.morpho?.syntacticRoleLabel && (
+        {surfaceIsArabic && token.morpho?.syntacticRoleLabel && (
           <Info label="Fungsi Sintaktis" value={token.morpho.syntacticRoleLabel} />
         )}
       </div>
-      {token.nahwuNote && (
+      {surfaceIsArabic && token.nahwuNote && (
         <p className="mt-2 text-xs leading-relaxed text-ink-500">
           <span className="font-semibold text-accent-600">Nahwu:</span> {token.nahwuNote}
         </p>
       )}
-      {token.sharfNote && (
+      {surfaceIsArabic && token.sharfNote && (
         <p className="mt-2 text-xs leading-relaxed text-ink-500">
           <span className="font-semibold text-ink-600">Sharf:</span> {token.sharfNote}
         </p>
