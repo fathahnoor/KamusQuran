@@ -78,7 +78,7 @@ export function ModeKata() {
         </div>
         <div className="mt-3 flex items-center gap-3">
           <p className="text-xs text-ink-400">
-            Basis data: {wordCount()} kata frekuensi tinggi (target ~300 kata v1)
+            Basis data: {wordCount()} kata frekuensi tinggi
           </p>
           <button
             onClick={() => setShowBrowse((v) => !v)}

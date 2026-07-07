@@ -90,7 +90,7 @@ export function useVoiceRecognition(onFinalResult: (transcript: string) => void)
   const start = useCallback((lang: "ar" | "id") => {
     const Ctor = ctorRef.current;
     if (!Ctor) {
-      setError("Browser ini tidak mendukung pengenalan suara. Gunakan Chrome, Edge, atau Safari.");
+      setError("Browser ini tidak mendukung pengenalan suara. Gunakan Chrome, Edge, atau Safari (bukan Firefox).");
       return;
     }
     // Stop any existing session before starting a new one.
@@ -101,10 +101,17 @@ export function useVoiceRecognition(onFinalResult: (transcript: string) => void)
     recognition.interimResults = true;
     recognition.maxAlternatives = 1;
 
+    // Safety timeout: if no result after 10 seconds, stop and show hint.
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
     recognition.onstart = () => {
       setListening(true);
       setError(null);
       setInterimTranscript("");
+      // Auto-stop after 10s if nothing happens.
+      timeoutId = setTimeout(() => {
+        recognition.stop();
+      }, 10000);
     };
 
     recognition.onresult = (event: SpeechRecognitionEvent) => {
@@ -128,18 +135,22 @@ export function useVoiceRecognition(onFinalResult: (transcript: string) => void)
     };
 
     recognition.onerror = (ev: SpeechRecognitionErrorEvent) => {
+      if (timeoutId) clearTimeout(timeoutId);
       const messages: Record<string, string> = {
-        "no-speech": "Tidak ada suara terdeteksi. Coba lagi.",
-        "audio-capture": "Tidak dapat mengakses mikrofon. Periksa izin perangkat.",
-        "not-allowed": "Izin mikrofon ditolak. Aktifkan izin mikrofon di pengaturan browser.",
-        network: "Kesalahan jaringan saat pengenalan suara.",
-        service: "Layanan pengenalan suara tidak tersedia.",
+        "no-speech": "Tidak ada suara terdeteksi. Pastikan mikrofon berfungsi dan bicara setelah klik tombol.",
+        "audio-capture": "Tidak dapat mengakses mikrofon. Periksa izin perangkat dan pastikan mikrofon terhubung.",
+        "not-allowed": "Izin mikrofon ditolak. Aktifkan izin mikrofon di pengaturan browser (klik ikon kunci di address bar).",
+        network: "Kesalahan jaringan saat pengenalan suara. Periksa koneksi internet Anda.",
+        service: "Layanan pengenalan suara tidak tersedia. Coba beberapa saat lagi.",
+        aborted: "",
       };
-      setError(messages[ev.error] ?? `Kesalahan pengenalan suara: ${ev.error}`);
+      const msg = messages[ev.error] ?? `Kesalahan pengenalan suara: ${ev.error}`;
+      if (msg) setError(msg);
       setListening(false);
     };
 
     recognition.onend = () => {
+      if (timeoutId) clearTimeout(timeoutId);
       setListening(false);
       setInterimTranscript("");
     };
@@ -147,8 +158,9 @@ export function useVoiceRecognition(onFinalResult: (transcript: string) => void)
     recognitionRef.current = recognition;
     try {
       recognition.start();
-    } catch {
-      // start() can throw if called too rapidly; ignore.
+    } catch (e) {
+      // start() can throw if called too rapidly or if another session is active.
+      setError("Tidak dapat memulai pengenalan suara. Tunggu sebentar dan coba lagi.");
       setListening(false);
     }
   }, []);

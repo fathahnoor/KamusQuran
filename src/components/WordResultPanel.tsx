@@ -20,6 +20,8 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
   const [audioLoading, setAudioLoading] = useState<number | null>(null);
   const [showDiacritics, setShowDiacritics] = useState(true);
   const [examplesEnriched, setExamplesEnriched] = useState<ExampleAyat[]>(entry.examples);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const ttsSupported = typeof window !== "undefined" && "speechSynthesis" in window;
 
   // Helper to optionally strip diacritics from Arabic text.
   const arText = (text: string) => (showDiacritics ? text : stripDiacritics(text));
@@ -99,7 +101,10 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
     setTafsirText(null);
     setTafsirLoading(false);
     setTafsirError(false);
-  }, [entry.id, entry.examples]);
+    // Stop any ongoing TTS when switching words.
+    if (ttsSupported) window.speechSynthesis.cancel();
+    setIsSpeaking(false);
+  }, [entry.id, entry.examples, ttsSupported]);
 
   // Lazily fetch Indonesian translation + tafsir + audio URL for example ayat.
   useEffect(() => {
@@ -148,12 +153,35 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
         audioRef.current.pause();
         audioRef.current = null;
       }
+      // Stop any ongoing TTS on unmount.
+      if (ttsSupported) window.speechSynthesis.cancel();
     };
   }, [entry.id, entry.examples]);
 
   const handleBookmark = () => {
     const newState = toggleBookmark(entry);
     setBookmarked(newState);
+  };
+
+  // Pronounce the Arabic headword using browser TTS (SpeechSynthesis API).
+  const pronounceWord = (arabicText: string) => {
+    if (!ttsSupported) return;
+    // Cancel any ongoing speech.
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(arabicText);
+    utterance.lang = "ar-SA";
+    utterance.rate = 0.8; // Slightly slower for clarity.
+    utterance.onstart = () => setIsSpeaking(true);
+    utterance.onend = () => setIsSpeaking(false);
+    utterance.onerror = () => setIsSpeaking(false);
+    window.speechSynthesis.speak(utterance);
+  };
+
+  // Stop pronunciation.
+  const stopPronunciation = () => {
+    if (!ttsSupported) return;
+    window.speechSynthesis.cancel();
+    setIsSpeaking(false);
   };
 
   const playAudio = (globalAyahNumber: number) => {
@@ -192,8 +220,39 @@ export function WordResultPanel({ entry }: WordResultPanelProps) {
 
   return (
     <div className="space-y-6">
-      {/* Diacritic toggle */}
-      <div className="flex justify-end">
+      {/* Diacritic toggle + Pronunciation */}
+      <div className="flex justify-between">
+        {ttsSupported ? (
+          <button
+            onClick={() => (isSpeaking ? stopPronunciation() : pronounceWord(entry.arabic))}
+            className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
+              isSpeaking
+                ? "bg-accent-600 text-ink-50 hover:bg-accent-700"
+                : "border border-accent-300 bg-accent-50 text-accent-700 hover:bg-accent-100"
+            }`}
+            aria-label={isSpeaking ? "Hentikan pengucapan" : "Dengar pengucapan kata"}
+          >
+            {isSpeaking ? (
+              <>
+                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+                  <rect x="6" y="6" width="12" height="12" rx="2" />
+                </svg>
+                Berhenti
+              </>
+            ) : (
+              <>
+                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+                  <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+                </svg>
+                Dengar Pengucapan
+              </>
+            )}
+          </button>
+        ) : (
+          <div />
+        )}
         <button
           onClick={() => setShowDiacritics((v) => !v)}
           className="rounded-md border border-ink-300 px-2.5 py-1 text-xs font-medium text-ink-500 transition-colors hover:bg-ink-100"

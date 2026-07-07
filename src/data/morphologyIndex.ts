@@ -6,6 +6,10 @@ import { BATCH_03 } from "./words/batch03";
 import { BATCH_04 } from "./words/batch04";
 import { BATCH_05 } from "./words/batch05";
 import { BATCH_06 } from "./words/batch06";
+import { BATCH_07 } from "./words/batch07";
+import { BATCH_08 } from "./words/batch08";
+import { BATCH_09 } from "./words/batch09";
+import { BATCH_10 } from "./words/batch10";
 import { stripDiacritics } from "../utils/arabic";
 
 // Aggregate all batches and build full WordEntry objects.
@@ -16,6 +20,10 @@ const ALL_COMPACT: CompactWord[] = [
   ...BATCH_04,
   ...BATCH_05,
   ...BATCH_06,
+  ...BATCH_07,
+  ...BATCH_08,
+  ...BATCH_09,
+  ...BATCH_10,
 ];
 
 /**
@@ -120,6 +128,8 @@ export function searchWords(query: string, limit = 50): WordEntry[] {
   } else {
     // 3. Indonesian meaning matching — word-level to avoid false positives.
     // Split meaning into individual words and match against query words.
+    // '/' is included as a delimiter so 'ghayah/ibtida' splits into separate words.
+    const SPLIT_RE = /[\s,;·()/]+/;
     const queryWords = qLower.split(/\s+/).filter(Boolean);
     for (const w of HIGH_FREQ_WORDS) {
       const meaning = w.meaningId.toLowerCase();
@@ -130,18 +140,21 @@ export function searchWords(query: string, limit = 50): WordEntry[] {
         continue;
       }
       // Word-level match: query must match a whole word in the meaning.
-      const meaningWords = meaning.split(/[\s,;·()]+/).filter(Boolean);
+      const meaningWords = meaning.split(SPLIT_RE).filter(Boolean);
       let bestAltScore = 0;
       for (const qw of queryWords) {
         // Exact word match (highest score for word-level).
+        // Also match very short queries (<=3 chars) only on exact word match
+        // to prevent false positives like 'ayah' matching 'ghayah'.
         if (meaningWords.includes(qw)) {
-          if (!results.has(w) || bestAltScore < 70) {
+          if (bestAltScore < 70) {
             results.add(w);
             bestAltScore = Math.max(bestAltScore, 70);
           }
           continue;
         }
         // Word starts-with match (for inflected forms like "beriman" → "iman").
+        // Only for query words >= 4 chars to reduce false positives.
         for (const mw of meaningWords) {
           if (mw.startsWith(qw) && qw.length >= 4) {
             if (bestAltScore < 55) {
@@ -153,11 +166,9 @@ export function searchWords(query: string, limit = 50): WordEntry[] {
               results.add(w);
               bestAltScore = Math.max(bestAltScore, 55);
             }
-          } else if (mw.includes(qw) && qw.length >= 4 && bestAltScore < 45) {
-            // Within-word substring fallback (e.g. "iman" in "beriman").
-            results.add(w);
-            bestAltScore = Math.max(bestAltScore, 45);
           }
+          // Within-word substring fallback removed — it caused false positives
+          // like 'ayah' matching 'ghayah'. startsWith handles most inflected forms.
         }
       }
       if (bestAltScore > 0) {
@@ -166,7 +177,7 @@ export function searchWords(query: string, limit = 50): WordEntry[] {
       // Check alternative meanings.
       for (const alt of w.meaningIdAlt ?? []) {
         const altLower = alt.toLowerCase();
-        const altWords = altLower.split(/[\s,;·()]+/).filter(Boolean);
+        const altWords = altLower.split(SPLIT_RE).filter(Boolean);
         for (const qw of queryWords) {
           if (altWords.includes(qw) || altLower === qLower) {
             if (!results.has(w)) {
