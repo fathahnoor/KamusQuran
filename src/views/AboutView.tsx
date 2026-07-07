@@ -14,7 +14,7 @@ export function AboutView() {
           <div>
             <h1 className="text-xl font-bold text-ink-900 sm:text-2xl">Tentang &amp; Metodologi</h1>
             <p className="mt-0.5 text-sm text-ink-500">
-              Kamus Quran v3.0 — alat belajar bahasa Arab Al-Qur&apos;an dengan fokus pada
+              Kamus Quran v3.0, alat belajar bahasa Arab Al-Qur&apos;an dengan fokus pada
               kosakata, nahwu, sharf, i&apos;rob sistematis, dan analisis morfologi.
             </p>
           </div>
@@ -66,7 +66,7 @@ export function AboutView() {
           </li>
           <li>
             <strong>PerTokenIrobList</strong>: kartu IrobTable lengkap per kata (6 kolom){" "}
-            yang selalu terlihat — sama seperti di Mode Kata. Tidak perlu klik untuk{" "}
+            yang selalu terlihat, sama seperti di Mode Kata. Tidak perlu klik untuk{" "}
             melihat i&apos;rob setiap kata dalam kalimat.
           </li>
           <li>
@@ -178,7 +178,7 @@ export function AboutView() {
 
       <Section title="Versi" icon="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6">
         <p>
-          <strong>v3.0</strong>: <strong>I&apos;rob Sistematis</strong> — tabel i&apos;rob 6 kolom{" "}
+          <strong>v3.0</strong>: <strong>I&apos;rob Sistematis</strong>, tabel i&apos;rob 6 kolom{" "}
           ala Metode Al-Munir di Mode Kata + SentenceIrobTable (tabel ringkasan per kalimat){" "}
           + PerTokenIrobList (kartu lengkap per kata) di Mode Kalimat, color-coded rows{" "}
           by irabStatus, context-aware sentence i&apos;rob engine (deteksi{" "}

@@ -4,16 +4,16 @@ All notable changes to Kamus Quran will be documented in this file.
 
 ---
 
-## [v3.0] — I'rob Sistematis (2026-07)
+## [v3.0] ,  I'rob Sistematis (2026-07)
 
-### ✨ I'rob Sistematis — Metode Al-Munir + Nahwu al-Wadhih
+### ✨ I'rob Sistematis ,  Metode Al-Munir + Nahwu al-Wadhih
 
 - **Tabel I'rob 6 Kolom** di Mode Kata: Kata → Jenis → Kedudukan → I'rob → Tanda → 'Amil
 - **Kesimpulan Induktif** ala An-Nahwu al-Wadhih: penjelasan penalaran gramatikal
 - **Heuristic Engine** (300+ baris): auto-generate i'rob dari POS, gender, number, i'rab case, syntactic role
 - **Manual override**: field `tnd` dan `aml` di batch data untuk koreksi spesifik
 
-### ✨ Mode Kalimat — Full Sentence I'rob
+### ✨ Mode Kalimat ,  Full Sentence I'rob
 
 - **SentenceIrobTable**: tabel i'rob utuh per kalimat (8 kolom: #, Kata, Arti, Jenis, Kedudukan, I'rob, Tanda, 'Amil)
 - **Context-Aware Engine**: deteksi otomatis huruf jarr, inna/akhwatuha, kaana/akhwatuha, idhafah, 'athf
@@ -29,13 +29,13 @@ All notable changes to Kamus Quran will be documented in this file.
 ### 📝 Dokumentasi
 
 - AboutView: tambah i'rob sistematis, SentenceIrobTable, unit tests
-- Footer: "v3.0 — I'rob Sistematis (Metode Al-Munir + Nahwu al-Wadhih)"
+- Footer: "v3.0 ,  I'rob Sistematis (Metode Al-Munir + Nahwu al-Wadhih)"
 - README: i'rob section, referensi kitab, 1002 kata, Vitest, npm test
 - Meta description: sebut v3.0 + i'rob sistematis
 
 ---
 
-## [v2.0] — 1002 Kata + UI Modern (2026-06)
+## [v2.0] ,  1002 Kata + UI Modern (2026-06)
 
 ### 📚 Dataset Expansion
 
@@ -79,7 +79,7 @@ All notable changes to Kamus Quran will be documented in this file.
 
 ---
 
-## [v1.0] — Initial Release (2026-05)
+## [v1.0] ,  Initial Release (2026-05)
 
 ### 🏗️ Foundation
 
@@ -90,30 +90,30 @@ All notable changes to Kamus Quran will be documented in this file.
 ### 📖 Mode Kata (Basic)
 
 - 300 kata frekuensi tinggi (batch01-06)
-- `wordBuilder.ts` — compact format → full WordEntry
-- `morphologyIndex.ts` — search, deduplikasi, pre-sorted indices
-- `arabic.ts` — stripDiacritics, tokenizeArabic, isArabicText
+- `wordBuilder.ts` ,  compact format → full WordEntry
+- `morphologyIndex.ts` ,  search, deduplikasi, pre-sorted indices
+- `arabic.ts` ,  stripDiacritics, tokenizeArabic, isArabicText
 - Pencarian Arab + Indonesia
 - WordResultPanel dengan field morfologi dasar
 
 ### 🔤 Mode Kalimat (Basic)
 
-- `sentenceAnalysis.ts` — tokenisasi + POS matching hybrid
-- `ModeKalimat.tsx` — token cards dengan info lemma/root/arti
+- `sentenceAnalysis.ts` ,  tokenisasi + POS matching hybrid
+- `ModeKalimat.tsx` ,  token cards dengan info lemma/root/arti
 
 ### 🎤 Voice + Bookmark
 
-- `voiceRecognition.ts` — Web Speech API untuk ar-SA & id-ID
-- `bookmarks.ts` — localStorage + export/import
+- `voiceRecognition.ts` ,  Web Speech API untuk ar-SA & id-ID
+- `bookmarks.ts` ,  localStorage + export/import
 
 ### 🎵 Audio + Tafsir
 
-- `alQuranApi.ts` — AlQuran Cloud integration (Mishary + Jalalayn)
+- `alQuranApi.ts` ,  AlQuran Cloud integration (Mishary + Jalalayn)
 
 ### 📄 Pages
 
-- AboutView — metodologi, sumber data, version info
-- BookmarkView — daftar bookmark dengan empty state CTA
+- AboutView ,  metodologi, sumber data, version info
+- BookmarkView ,  daftar bookmark dengan empty state CTA
 
 ### 🚀 CI/CD
 

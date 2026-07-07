@@ -6,7 +6,7 @@ import { generateStructuredIrab } from "./irabHeuristics";
 
 // --- Jenis (Word Type) --------------------------------------
 
-describe("inferJenis — Word Type Classification", () => {
+describe("inferJenis: Word Type Classification", () => {
   it("should classify noun singular masculine", () => {
     const result = generateStructuredIrab({
       arabic: "كِتَاب",
@@ -101,7 +101,7 @@ describe("inferJenis — Word Type Classification", () => {
 
 // --- I'rab Status -------------------------------------------
 
-describe("inferIrabStatus — Grammatical Status", () => {
+describe("inferIrabStatus: Grammatical Status", () => {
   it("should return Marfu' for raf noun", () => {
     const result = generateStructuredIrab({
       arabic: "كِتَابٌ",
@@ -154,7 +154,7 @@ describe("inferIrabStatus — Grammatical Status", () => {
 
 // --- Tanda I'rab --------------------------------------------
 
-describe("inferTanda — I'rab Sign/Marker", () => {
+describe("inferTanda: I'rab Sign/Marker", () => {
   it("should give Dhammah for mufrad marfu'", () => {
     const result = generateStructuredIrab({
       arabic: "زَيْدٌ",
@@ -238,7 +238,7 @@ describe("inferTanda — I'rab Sign/Marker", () => {
 
 // --- 'Amil --------------------------------------------------
 
-describe("inferAmil — Governor/Cause of I'rab", () => {
+describe("inferAmil: Governor/Cause of I'rab", () => {
   it("should return Ibtida' for mubtada", () => {
     const result = generateStructuredIrab({
       arabic: "اللَّهُ",
@@ -300,7 +300,7 @@ describe("Manual Override (tnd / aml)", () => {
 
 // --- Penjelasan (Inductive Conclusion) ----------------------
 
-describe("buildPenjelasan — Inductive Conclusion", () => {
+describe("buildPenjelasan: Inductive Conclusion", () => {
   it("should generate a meaningful conclusion", () => {
     const result = generateStructuredIrab({
       arabic: "كِتَابٌ",

@@ -35,7 +35,7 @@ const IRAB_LEGEND: { label: string; color: string; dot: string }[] = [
 ];
 
 /**
- * SentenceIrobTable — full-sentence i'rob breakdown in tabular format.
+ * SentenceIrobTable: full-sentence i'rob breakdown in tabular format.
  *
  * Features:
  * - Color-coded rows by irabStatus (left border): green=Marfu', blue=Manshub,
@@ -117,7 +117,7 @@ export function SentenceIrobTable({ tokens }: SentenceIrobTableProps) {
                         }
                       }}
                     >
-                      {/* Main row — clickable */}
+                      {/* Main row (clickable) */}
                       <div
                         className={`flex w-full items-center text-left transition-colors hover:bg-accent-50/20 cursor-pointer ${
                           rowIdx % 2 === 0 ? "bg-white" : "bg-ink-50/30"
@@ -137,7 +137,7 @@ export function SentenceIrobTable({ tokens }: SentenceIrobTableProps) {
                           {token.surface}
                         </div>
                         <div className="whitespace-nowrap px-2 py-2.5 text-ink-600">
-                          {token.meaningId || "—"}
+                          {token.meaningId || "–"}
                         </div>
                         <div className="whitespace-nowrap px-2 py-2.5 text-ink-700">
                           {s.jenis}
@@ -248,7 +248,7 @@ export function SentenceIrobTable({ tokens }: SentenceIrobTableProps) {
                     {token.surface}
                   </span>
                   {token.meaningId && (
-                    <span className="text-xs text-ink-400">— {token.meaningId}</span>
+                    <span className="text-xs text-ink-400">· {token.meaningId}</span>
                   )}
                   {!matched && (
                     <span className="ml-auto shrink-0 rounded-full bg-ink-100 px-2 py-0.5 text-[10px] font-bold text-ink-500">
@@ -314,7 +314,7 @@ export function SentenceIrobTable({ tokens }: SentenceIrobTableProps) {
         ))}
       </div>
 
-      {/* Inductive conclusion (Nahwu al-Wadhih) — combined sentence-level summary */}
+      {/* Inductive conclusion (Nahwu al-Wadhih style), combined sentence-level summary */}
       <div className="rounded-xl border-l-4 border-accent-400 bg-gradient-to-r from-accent-50/60 to-white/80 p-3.5 sm:p-4">
         <p className="flex items-start gap-2 text-xs leading-relaxed text-ink-600 sm:text-sm">
           <span className="mt-0.5 shrink-0 rounded bg-accent-100 px-1.5 py-0.5 font-arabic text-xs text-accent-700">

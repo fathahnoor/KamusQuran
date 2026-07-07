@@ -13,7 +13,7 @@ interface IrabRow {
 }
 
 /**
- * IrobTable — structured i'rab table.
+ * IrobTable: structured i'rab table.
  *
  * Columns: Kata → Jenis → Kedudukan → I'rob → Tanda → 'Amil
  *

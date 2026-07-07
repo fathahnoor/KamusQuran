@@ -9,7 +9,7 @@ import { resolve } from "node:path";
 const repoName = "KamusQuran";
 const base = process.env.BASE_PATH ?? `/${repoName}/`;
 
-/** Build timestamp in YYYYMMDDHHMMSS (GMT+7 / WIB) — injected at build time for version tracking. */
+/** Build timestamp in YYYYMMDDHHMMSS (GMT+7/WIB), injected at build time for version tracking. */
 function buildTimestamp(): string {
   const d = new Date(Date.now() + 7 * 60 * 60 * 1000); // GMT+7 / WIB
   const Y = d.getUTCFullYear().toString();

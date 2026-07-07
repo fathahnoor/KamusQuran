@@ -7,12 +7,12 @@ interface PerTokenIrobListProps {
 }
 
 /**
- * PerTokenIrobList — shows a full IrobTable card for EACH token in a sentence.
+ * PerTokenIrobList: shows a full IrobTable card for EACH token in a sentence.
  *
  * Mirrors Mode Kata's WordResultPanel: every token gets its own card with
  * Arabic word, meaning, full 6-column IrobTable (Kata → Jenis → Kedudukan →
  * I'rob → Tanda → 'Amil), inductive conclusion, and quick linguistic info.
- * All cards are visible by default — no clicking needed.
+ * All cards are visible by default, no clicking needed.
  */
 export function PerTokenIrobList({ tokens }: PerTokenIrobListProps) {
   const irabTokens = tokens.filter((t) => t.structuredIrab);
