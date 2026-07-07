@@ -71,7 +71,7 @@ Setiap kata memiliki **tabel i'rob 6 kolom** (Kata → Jenis → Kedudukan → I
 
 | Kategori | Jumlah |
 |---|---|
-| Kosakata frekuensi tinggi Al-Qur'an | 500 kata |
+| Kosakata frekuensi tinggi Al-Qur'an | 500+ kata |
 | Kosakata Arab sehari-hari | 750+ kata |
 | **Total** | **1.250+ kata** |
 

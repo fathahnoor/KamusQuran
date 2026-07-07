@@ -24,7 +24,7 @@ export function AboutView() {
       <Section title="Tujuan" icon="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5">
         <p>
           Membantu pengguna menguasai ~80–90% kosakata berfrekuensi tinggi Al-Qur&apos;an
-          (500 kata inti dari Quranic Arabic Corpus) dan memperluas penguasaan bahasa Arab
+          (500+ kata inti dari Quranic Arabic Corpus) dan memperluas penguasaan bahasa Arab
           dengan 750+ kata sehari-hari, total 1.250+ kata. Setiap kata dilengkapi{" "}
           <strong>tabel i&apos;rob Al-Munir</strong> (6 kolom: Jenis, Kedudukan,{" "}
           I&apos;rob, Tanda, &apos;Amil) dan <strong>kesimpulan induktif{" "}
