@@ -24,8 +24,8 @@ export function AboutView() {
       <Section title="Tujuan" icon="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5">
         <p>
           Membantu pengguna menguasai kosakata berfrekuensi tinggi Al-Qur&apos;an
-          (500+ kata inti dari Quranic Arabic Corpus), memperluas penguasaan bahasa Arab
-          dengan 750+ kata sehari-hari, dan 9.000+ kata dari kitab Nahwu/Sharf, total 10.000+ kata. Setiap kata dilengkapi{" "}
+          (1.800+ kata dari Quranic Arabic Corpus, mencakup 1.227/1.651 akar kata — 74,3%), memperluas penguasaan bahasa Arab
+          dengan 750+ kata sehari-hari, dan 9.000+ kata dari kitab Nahwu/Sharf, total 11.850+ kata. Setiap kata dilengkapi{" "}
           <strong>tabel i&apos;rob 6 kolom</strong> (Jenis, Kedudukan,{" "}
           I&apos;rob, Tanda, &apos;Amil) dan <strong>kesimpulan induktif</strong>.
         </p>
@@ -157,9 +157,9 @@ export function AboutView() {
       <Section title="Keterbatasan" icon="M12 9v2m0 4h.01M5.07 19h13.86c1.54 0 2.5-1.67 1.73-3L13.73 4a2 2 0 0 0-3.46 0L3.34 16c-.77 1.33.19 3 1.73 3z">
         <ul className="list-inside list-disc space-y-1.5 text-sm text-ink-700">
           <li>
-            Database kata berisi 10.000+ kata: 500+ kata berfrekuensi tinggi dari Al-Qur'an
+            Database kata berisi 11.850+ kata: 1.800+ kata dari Al-Qur'an (mencakup 74,3% akar Quran)
             + 750+ kata Arab sehari-hari + 9.000+ kosakata dari kitab Nahwu/Sharf
-            (diekspansi melalui 97 batch auto-generated dari kitab rujukan). Data dapat diperluas tanpa perubahan kode.
+            (diekspansi melalui 97 batch auto-generated dari kitab rujukan + 6 batch Quran root completion). Data dapat diperluas tanpa perubahan kode.
           </li>
           <li>
             Pengenalan suara hanya berfungsi di Chrome, Edge, dan Safari (online).
