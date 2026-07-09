@@ -23,6 +23,15 @@ import { BATCH_20 } from "./words/batch20";
 import { BATCH_21 } from "./words/batch21";
 import { BATCH_22 } from "./words/batch22";
 import { BATCH_23 } from "./words/batch23";
+import { BATCH_24 } from "./words/batch24";
+import { BATCH_25 } from "./words/batch25";
+import { BATCH_26 } from "./words/batch26";
+import { BATCH_27 } from "./words/batch27";
+import { BATCH_28 } from "./words/batch28";
+import { BATCH_29 } from "./words/batch29";
+import { BATCH_30 } from "./words/batch30";
+import { BATCH_31 } from "./words/batch31";
+import { BATCH_32 } from "./words/batch32";
 import { stripDiacritics, normalizeAlef } from "../utils/arabic";
 
 // Aggregate all batches and build full WordEntry objects.
@@ -50,6 +59,15 @@ const ALL_COMPACT: CompactWord[] = [
   ...BATCH_21,
   ...BATCH_22,
   ...BATCH_23,
+  ...BATCH_24,
+  ...BATCH_25,
+  ...BATCH_26,
+  ...BATCH_27,
+  ...BATCH_28,
+  ...BATCH_29,
+  ...BATCH_30,
+  ...BATCH_31,
+  ...BATCH_32,
 ];
 
 /**
