@@ -82,6 +82,43 @@ import { BATCH_79 } from "./words/batch79";
 import { BATCH_80 } from "./words/batch80";
 import { BATCH_81 } from "./words/batch81";
 import { BATCH_82 } from "./words/batch82";
+import { BATCH_83 } from "./words/batch83";
+import { BATCH_84 } from "./words/batch84";
+import { BATCH_85 } from "./words/batch85";
+import { BATCH_86 } from "./words/batch86";
+import { BATCH_87 } from "./words/batch87";
+import { BATCH_88 } from "./words/batch88";
+import { BATCH_89 } from "./words/batch89";
+import { BATCH_90 } from "./words/batch90";
+import { BATCH_91 } from "./words/batch91";
+import { BATCH_92 } from "./words/batch92";
+import { BATCH_93 } from "./words/batch93";
+import { BATCH_94 } from "./words/batch94";
+import { BATCH_95 } from "./words/batch95";
+import { BATCH_96 } from "./words/batch96";
+import { BATCH_97 } from "./words/batch97";
+import { BATCH_98 } from "./words/batch98";
+import { BATCH_99 } from "./words/batch99";
+import { BATCH_100 } from "./words/batch100";
+import { BATCH_101 } from "./words/batch101";
+import { BATCH_102 } from "./words/batch102";
+import { BATCH_103 } from "./words/batch103";
+import { BATCH_104 } from "./words/batch104";
+import { BATCH_105 } from "./words/batch105";
+import { BATCH_106 } from "./words/batch106";
+import { BATCH_107 } from "./words/batch107";
+import { BATCH_108 } from "./words/batch108";
+import { BATCH_109 } from "./words/batch109";
+import { BATCH_110 } from "./words/batch110";
+import { BATCH_111 } from "./words/batch111";
+import { BATCH_112 } from "./words/batch112";
+import { BATCH_113 } from "./words/batch113";
+import { BATCH_114 } from "./words/batch114";
+import { BATCH_115 } from "./words/batch115";
+import { BATCH_116 } from "./words/batch116";
+import { BATCH_117 } from "./words/batch117";
+import { BATCH_118 } from "./words/batch118";
+import { BATCH_119 } from "./words/batch119";
 import { stripDiacritics, normalizeAlef } from "../utils/arabic";
 
 // Aggregate all batches and build full WordEntry objects.
@@ -168,6 +205,43 @@ const ALL_COMPACT: CompactWord[] = [
   ...BATCH_80,
   ...BATCH_81,
   ...BATCH_82,
+  ...BATCH_83,
+  ...BATCH_84,
+  ...BATCH_85,
+  ...BATCH_86,
+  ...BATCH_87,
+  ...BATCH_88,
+  ...BATCH_89,
+  ...BATCH_90,
+  ...BATCH_91,
+  ...BATCH_92,
+  ...BATCH_93,
+  ...BATCH_94,
+  ...BATCH_95,
+  ...BATCH_96,
+  ...BATCH_97,
+  ...BATCH_98,
+  ...BATCH_99,
+  ...BATCH_100,
+  ...BATCH_101,
+  ...BATCH_102,
+  ...BATCH_103,
+  ...BATCH_104,
+  ...BATCH_105,
+  ...BATCH_106,
+  ...BATCH_107,
+  ...BATCH_108,
+  ...BATCH_109,
+  ...BATCH_110,
+  ...BATCH_111,
+  ...BATCH_112,
+  ...BATCH_113,
+  ...BATCH_114,
+  ...BATCH_115,
+  ...BATCH_116,
+  ...BATCH_117,
+  ...BATCH_118,
+  ...BATCH_119,
 ];
 
 /**
