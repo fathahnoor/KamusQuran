@@ -9,6 +9,7 @@ import {
 } from "../data/morphologyIndex";
 import { useVoiceRecognition } from "../services/voiceRecognition";
 import { detectLanguage } from "../services/sentenceAnalysis";
+import { translateText } from "../services/translation";
 import { SearchBar } from "../components/SearchBar";
 import { WordResultPanel } from "../components/WordResultPanel";
 
@@ -180,17 +181,7 @@ export function ModeKata() {
       {activeQuery && !selected && (
         <div className="space-y-2">
           {results.length === 0 ? (
-            <div className="rounded-2xl border border-ink-200/60 bg-white/80 p-6 text-center text-ink-500 sm:p-8">
-              <svg className="mx-auto mb-3 h-10 w-10 text-ink-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="11" cy="11" r="8" />
-                <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                <line x1="8" y1="11" x2="14" y2="11" />
-              </svg>
-              <p className="font-medium">Tidak ada hasil untuk &quot;{activeQuery}&quot;.</p>
-              <p className="mt-1.5 text-sm text-ink-400">
-                Coba kata Arab tanpa harakat, atau kata kunci Indonesia yang lebih umum.
-              </p>
-            </div>
+            <NoResultsFallback query={activeQuery} inputLang={inputLang} />
           ) : (
             <>
               <p className="text-sm text-ink-500">
@@ -275,4 +266,104 @@ function posShort(p: string): string {
     proper_noun: "Nama diri",
   };
   return labels[p] ?? p;
+}
+
+/** Fallback: when no word found in database, try translation API. */
+function NoResultsFallback({
+  query,
+  inputLang,
+}: {
+  query: string;
+  inputLang: "ar" | "id";
+}) {
+  const [apiResult, setApiResult] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [apiError, setApiError] = useState(false);
+
+  useEffect(() => {
+    if (!query.trim()) return;
+    let cancelled = false;
+    const from = inputLang === "ar" ? "ar" : "id";
+    const to = from === "ar" ? "id" : "ar";
+
+    setIsLoading(true);
+    setApiError(false);
+    setApiResult(null);
+
+    translateText(query.trim(), from as "ar" | "id", to as "ar" | "id")
+      .then((result) => {
+        if (!cancelled) {
+          if (result) {
+            setApiResult(result);
+          } else {
+            setApiError(true);
+          }
+          setIsLoading(false);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setApiError(true);
+          setIsLoading(false);
+        }
+      });
+
+    return () => { cancelled = true; };
+  }, [query, inputLang]);
+
+  if (isLoading) {
+    return (
+      <div className="rounded-2xl border border-accent-200/60 bg-white/80 p-6 text-center sm:p-8 animate-fade-in">
+        <div className="mx-auto mb-3 h-10 w-10 animate-spin rounded-full border-2 border-accent-300 border-t-accent-600" />
+        <p className="font-medium text-ink-500">
+          Menerjemahkan &quot;{query}&quot;…
+        </p>
+        <p className="mt-1.5 text-sm text-ink-400">
+          Kata tidak ditemukan dalam database — mencoba terjemahan API.
+        </p>
+      </div>
+    );
+  }
+
+  if (apiResult) {
+    return (
+      <div className="rounded-2xl border border-emerald-300/60 bg-gradient-to-r from-emerald-50 to-emerald-50/30 p-5 sm:p-6 animate-fade-in">
+        <div className="flex items-center gap-2 mb-2">
+          <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-bold text-emerald-700">
+            Terjemahan
+          </span>
+          <span className="text-xs text-ink-400">via API</span>
+        </div>
+        <p
+          className={`text-xl font-medium text-ink-800 ${
+            inputLang === "id" ? "font-arabic" : ""
+          }`}
+          dir={inputLang === "id" ? "rtl" : "ltr"}
+        >
+          {apiResult}
+        </p>
+        <p className="mt-2 text-xs text-ink-400">
+          &quot;{query}&quot; tidak ada dalam database Kamus Quran.
+        </p>
+      </div>
+    );
+  }
+
+  if (apiError) {
+    return (
+      <div className="rounded-2xl border border-ink-200/60 bg-white/80 p-6 text-center text-ink-500 sm:p-8">
+        <svg className="mx-auto mb-3 h-10 w-10 text-ink-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="11" cy="11" r="8" />
+          <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          <line x1="8" y1="11" x2="14" y2="11" />
+        </svg>
+        <p className="font-medium">Tidak ada hasil untuk &quot;{query}&quot;.</p>
+        <p className="mt-1.5 text-sm text-ink-400">
+          Terjemahan API juga tidak tersedia. Coba kata Arab tanpa harakat, atau kata kunci Indonesia yang lebih umum.
+        </p>
+      </div>
+    );
+  }
+
+  return null;
 }

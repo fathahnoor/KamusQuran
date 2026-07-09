@@ -1,7 +1,8 @@
-import { useState, useCallback, useMemo, useEffect } from "react";
+import { useState, useCallback, useMemo, useEffect, useRef } from "react";
 import type { SentenceAnalysis, SentenceToken } from "../types";
 import { analyzeSentence, detectLanguage } from "../services/sentenceAnalysis";
 import { getAyah, EDITIONS } from "../services/alQuranApi";
+import { translateText } from "../services/translation";
 import { useVoiceRecognition } from "../services/voiceRecognition";
 import { SearchBar } from "../components/SearchBar";
 import { IrobTable } from "../components/IrobTable";
@@ -384,45 +385,166 @@ function QuranTranslationBanner({
 
 /** Banner menampilkan arti kalimat: di bawah SearchBar, di atas QADT. */
 function SentenceMeaningBanner({ analysis }: { analysis: SentenceAnalysis }) {
+  const [apiTranslation, setApiTranslation] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [apiError, setApiError] = useState(false);
+  const latestInput = useRef(analysis.input);
+
+  useEffect(() => {
+    const input = analysis.input.trim();
+    if (!input) return;
+
+    // Only fetch if we haven't already for this input
+    // (cache in translateText handles dedup, but we also guard against stale results)
+    const from = analysis.inputLang === "ar" ? "ar" : "id";
+    const to = from === "ar" ? "id" : "ar";
+    let cancelled = false;
+    latestInput.current = input;
+
+    setIsLoading(true);
+    setApiError(false);
+    setApiTranslation(null);
+
+    translateText(input, from as "ar" | "id", to as "ar" | "id")
+      .then((result) => {
+        if (!cancelled && latestInput.current === analysis.input) {
+          if (result) {
+            setApiTranslation(result);
+          } else {
+            setApiError(true);
+          }
+          setIsLoading(false);
+        }
+      })
+      .catch(() => {
+        if (!cancelled && latestInput.current === analysis.input) {
+          setApiError(true);
+          setIsLoading(false);
+        }
+      });
+
+    return () => { cancelled = true; };
+  }, [analysis.input, analysis.inputLang, analysis.tokens]);
+
+  // Fallback: word-by-word concatenation
+  const fallbackMeaning = useMemo(() => {
+    if (analysis.inputLang !== "ar") return null;
+    const parts = analysis.tokens.map((t) => t.meaningId || t.surface);
+    const joined = parts.join(" ");
+    // If all words have meaningId (matched), fallback is "clean" enough
+    // If any word is unmatched, the fallback will be ugly Arabic-Latin mix
+    return joined || null;
+  }, [analysis.tokens, analysis.inputLang]);
+
   // Indonesian input: show Arabic translation
-  if (analysis.inputLang === "id" && analysis.arabicSummary) {
+  if (analysis.inputLang === "id") {
+    const display = apiTranslation || analysis.arabicSummary;
+    if (!display && !isLoading) return null;
+
     return (
       <div className="rounded-2xl border border-accent-300/60 bg-gradient-to-r from-accent-50 to-accent-50/30 p-4 sm:p-5 animate-fade-in">
-        <p className="flex items-center gap-2 text-sm font-semibold text-accent-700">
-          <svg className="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M5 12h14M12 5l7 7-7 7" />
-          </svg>
-          Arti Kalimat
-        </p>
-        <p className="mt-1.5 text-lg leading-relaxed text-ink-800">
-          {analysis.arabicSummary}
-        </p>
+        <TranslationHeader isLoading={isLoading} hasApiResult={!!apiTranslation} />
+        {isLoading ? (
+          <TranslationSkeleton />
+        ) : (
+          <p className="mt-1.5 text-lg leading-relaxed text-ink-800">
+            {apiTranslation || analysis.arabicSummary}
+          </p>
+        )}
       </div>
     );
   }
 
-  // Arabic input: show Indonesian translation from token meanings
+  // Arabic input: show Indonesian translation
   if (analysis.inputLang === "ar") {
-    const indoMeanings = analysis.tokens
-      .map((t) => t.meaningId || t.surface)
-      .join(" ");
-    
-    if (!indoMeanings) return null;
+    // If still loading, show skeleton
+    if (isLoading) {
+      return (
+        <div className="rounded-2xl border border-accent-300/60 bg-gradient-to-r from-accent-50 to-accent-50/30 p-4 sm:p-5 animate-fade-in">
+          <TranslationHeader isLoading={true} hasApiResult={false} />
+          <TranslationSkeleton />
+        </div>
+      );
+    }
 
-    return (
-      <div className="rounded-2xl border border-accent-300/60 bg-gradient-to-r from-accent-50 to-accent-50/30 p-4 sm:p-5 animate-fade-in">
-        <p className="flex items-center gap-2 text-sm font-semibold text-accent-700">
-          <svg className="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M5 12h14M12 5l7 7-7 7" />
-          </svg>
-          Arti Kalimat
-        </p>
-        <p className="mt-1.5 text-lg leading-relaxed text-ink-800">
-          {indoMeanings}
-        </p>
-      </div>
-    );
+    // API translation available
+    if (apiTranslation) {
+      return (
+        <div className="rounded-2xl border border-accent-300/60 bg-gradient-to-r from-accent-50 to-accent-50/30 p-4 sm:p-5 animate-fade-in">
+          <TranslationHeader isLoading={false} hasApiResult={true} />
+          <p className="mt-1.5 text-lg leading-relaxed text-ink-800">{apiTranslation}</p>
+        </div>
+      );
+    }
+
+    // API error — fall back to word-by-word if clean (all matched)
+    if (apiError) {
+      const allMatched = analysis.tokens.every((t) => t.matched);
+      if (allMatched && fallbackMeaning) {
+        return (
+          <div className="rounded-2xl border border-ink-200/60 bg-ink-50/60 p-4 sm:p-5 animate-fade-in">
+            <p className="flex items-center gap-2 text-sm font-semibold text-ink-500">
+              <svg className="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <line x1="12" y1="16" x2="12.01" y2="16" />
+              </svg>
+              Terjemahan API tidak tersedia — menampilkan arti per kata
+            </p>
+            <p className="mt-1.5 text-lg leading-relaxed text-ink-700">{fallbackMeaning}</p>
+          </div>
+        );
+      }
+      // Has unmatched words AND API failed — show warning, no ugly fallback
+      return (
+        <div className="rounded-2xl border border-ink-200/60 bg-ink-50/60 p-4 sm:p-5 animate-fade-in">
+          <p className="flex items-center gap-2 text-sm font-semibold text-ink-500">
+            <svg className="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="12" />
+              <line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>
+            Terjemahan tidak tersedia (offline atau API error)
+          </p>
+        </div>
+      );
+    }
+
+    // No API result yet, no error — shouldn't normally reach here
+    return null;
   }
 
   return null;
+}
+
+function TranslationHeader({
+  isLoading,
+  hasApiResult,
+}: {
+  isLoading: boolean;
+  hasApiResult: boolean;
+}) {
+  return (
+    <p className="flex items-center gap-2 text-sm font-semibold text-accent-700">
+      <svg className="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M5 12h14M12 5l7 7-7 7" />
+      </svg>
+      Arti Kalimat
+      {isLoading && (
+        <span className="text-xs font-normal text-accent-500 animate-pulse">(menerjemahkan…)</span>
+      )}
+      {hasApiResult && (
+        <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-bold text-emerald-700">API</span>
+      )}
+    </p>
+  );
+}
+
+function TranslationSkeleton() {
+  return (
+    <div className="mt-1.5 space-y-2 animate-pulse">
+      <div className="h-5 w-full rounded bg-ink-200/50" />
+      <div className="h-5 w-3/4 rounded bg-ink-200/50" />
+    </div>
+  );
 }
