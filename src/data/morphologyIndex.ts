@@ -62,6 +62,26 @@ import { BATCH_59 } from "./words/batch59";
 import { BATCH_60 } from "./words/batch60";
 import { BATCH_61 } from "./words/batch61";
 import { BATCH_62 } from "./words/batch62";
+import { BATCH_63 } from "./words/batch63";
+import { BATCH_64 } from "./words/batch64";
+import { BATCH_65 } from "./words/batch65";
+import { BATCH_66 } from "./words/batch66";
+import { BATCH_67 } from "./words/batch67";
+import { BATCH_68 } from "./words/batch68";
+import { BATCH_69 } from "./words/batch69";
+import { BATCH_70 } from "./words/batch70";
+import { BATCH_71 } from "./words/batch71";
+import { BATCH_72 } from "./words/batch72";
+import { BATCH_73 } from "./words/batch73";
+import { BATCH_74 } from "./words/batch74";
+import { BATCH_75 } from "./words/batch75";
+import { BATCH_76 } from "./words/batch76";
+import { BATCH_77 } from "./words/batch77";
+import { BATCH_78 } from "./words/batch78";
+import { BATCH_79 } from "./words/batch79";
+import { BATCH_80 } from "./words/batch80";
+import { BATCH_81 } from "./words/batch81";
+import { BATCH_82 } from "./words/batch82";
 import { stripDiacritics, normalizeAlef } from "../utils/arabic";
 
 // Aggregate all batches and build full WordEntry objects.
@@ -128,6 +148,26 @@ const ALL_COMPACT: CompactWord[] = [
   ...BATCH_60,
   ...BATCH_61,
   ...BATCH_62,
+  ...BATCH_63,
+  ...BATCH_64,
+  ...BATCH_65,
+  ...BATCH_66,
+  ...BATCH_67,
+  ...BATCH_68,
+  ...BATCH_69,
+  ...BATCH_70,
+  ...BATCH_71,
+  ...BATCH_72,
+  ...BATCH_73,
+  ...BATCH_74,
+  ...BATCH_75,
+  ...BATCH_76,
+  ...BATCH_77,
+  ...BATCH_78,
+  ...BATCH_79,
+  ...BATCH_80,
+  ...BATCH_81,
+  ...BATCH_82,
 ];
 
 /**
