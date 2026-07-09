@@ -55,6 +55,11 @@ export function ModeKalimat() {
         </div>
       </div>
 
+      {/* Arti kalimat — di bawah kotak pencarian, di atas QADT */}
+      {analysis && (
+        <SentenceMeaningBanner analysis={analysis} />
+      )}
+
       {/* Analysis result */}
       {analysis && (
         <div className="space-y-4 animate-fade-in">
@@ -71,24 +76,6 @@ export function ModeKalimat() {
               </p>
               <p className="mt-1.5 pl-7 text-xs text-accent-600">
                 Analisis dependency graph (QADT) tersedia untuk ayat ini.
-              </p>
-            </div>
-          )}
-
-          {/* Arabic translation banner (Indonesian input) */}
-          {analysis.arabicSummary && (
-            <div className="rounded-2xl border border-accent-300/60 bg-gradient-to-r from-accent-50 to-accent-50/30 p-4 sm:p-5">
-              <p className="flex items-center gap-2 text-sm font-semibold text-accent-700">
-                <svg className="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-                Terjemahan Arab
-              </p>
-              <p className="mt-1.5 text-lg leading-relaxed text-ink-800">
-                {analysis.arabicSummary}
-              </p>
-              <p className="mt-1 text-xs text-ink-500">
-                I&apos;rob dianalisis dari struktur kalimat Arab hasil terjemahan.
               </p>
             </div>
           )}
@@ -310,4 +297,49 @@ function Info({ label, value, arabic }: { label: string; value: string; arabic?:
       </span>
     </div>
   );
+}
+
+/** Banner menampilkan arti kalimat: di bawah SearchBar, di atas QADT. */
+function SentenceMeaningBanner({ analysis }: { analysis: SentenceAnalysis }) {
+  // Indonesian input: show Arabic translation
+  if (analysis.inputLang === "id" && analysis.arabicSummary) {
+    return (
+      <div className="rounded-2xl border border-accent-300/60 bg-gradient-to-r from-accent-50 to-accent-50/30 p-4 sm:p-5 animate-fade-in">
+        <p className="flex items-center gap-2 text-sm font-semibold text-accent-700">
+          <svg className="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+          Arti Kalimat
+        </p>
+        <p className="mt-1.5 text-lg leading-relaxed text-ink-800">
+          {analysis.arabicSummary}
+        </p>
+      </div>
+    );
+  }
+
+  // Arabic input: show Indonesian translation from token meanings
+  if (analysis.inputLang === "ar") {
+    const indoMeanings = analysis.tokens
+      .map((t) => t.meaningId || t.surface)
+      .join(" ");
+    
+    if (!indoMeanings) return null;
+
+    return (
+      <div className="rounded-2xl border border-accent-300/60 bg-gradient-to-r from-accent-50 to-accent-50/30 p-4 sm:p-5 animate-fade-in">
+        <p className="flex items-center gap-2 text-sm font-semibold text-accent-700">
+          <svg className="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+          Arti Kalimat
+        </p>
+        <p className="mt-1.5 text-lg leading-relaxed text-ink-800">
+          {indoMeanings}
+        </p>
+      </div>
+    );
+  }
+
+  return null;
 }
