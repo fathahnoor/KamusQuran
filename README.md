@@ -2,7 +2,7 @@
 
 > Kamus bahasa Arab Al-Qur'an berbasis web dengan analisis morfologi mendalam, i'rob sistematis, pencarian suara, dan analisis kalimat. Gratis, tanpa login, bisa diakses langsung dari browser.
 >
-> I'rob Sistematis dengan heuristic engine + context-aware sentence analysis. 10.000+ kosakata.
+> I'rob Sistematis dengan heuristic engine + context-aware sentence analysis. 10.000+ kosakata. Terjemahan kalimat utuh via API.
 
 **[Buka Aplikasi](https://fathahnoor.github.io/KamusQuran/)** &nbsp;|&nbsp; **[Laporkan Bug](https://github.com/fathahnoor/KamusQuran/issues)**
 
@@ -45,7 +45,7 @@ Setiap kata memiliki **tabel i'rob 6 kolom** (Kata → Jenis → Kedudukan → I
 ### Mode Kalimat
 - Masukkan kalimat Arab atau ayat Al-Qur'an bebas
 - **Terjemahan Kemenag RI**: deteksi otomatis cuplikan ayat Quran, tampilkan terjemahan resmi
-- **Arti Kalimat bilingual**: terjemahan Indonesia↔Arab untuk input kedua bahasa
+- **Arti Kalimat bilingual via API**: terjemahan kalimat utuh Arab↔Indonesia (Google Translate)
 - Tokenisasi otomatis: kalimat dipecah kata per kata
 - **SentenceIrobTable**: tabel i'rob utuh per kalimat (8 kolom: #, Kata, Arti, Jenis, Kedudukan, I'rob, Tanda, 'Amil)
 - **Context-Aware I&apos;rob Engine**: deteksi otomatis huruf jarr, inna/akhwatuha, kaana/akhwatuha, idhafah, &apos;athf

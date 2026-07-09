@@ -4,6 +4,29 @@ All notable changes to Kamus Quran will be documented in this file.
 
 ---
 
+## [v3.4] — Terjemahan Kalimat via API (2026-07)
+
+### ✨ Mode Kalimat: Terjemahan Kalimat Utuh via API
+
+- **Google Translate API** sebagai primary engine untuk terjemahan kalimat utuh Arab↔Indonesia
+- **MyMemory API** sebagai fallback jika Google Translate gagal
+- Arti Kalimat tidak lagi gabungan kata-per-kata (campuran Latin-Arab yang membingungkan)
+- Loading skeleton, error state, graceful fallback ke word-by-word hanya jika semua kata matched
+- Cache in-memory untuk menghindari panggilan API berulang
+
+### ✨ Mode Kata: Auto-Translate Kata Tak Dikenal
+
+- **NoResultsFallback**: jika kata tidak ada di database, otomatis terjemahkan via API
+- Tampilkan hasil terjemahan dengan badge "Terjemahan" (emerald)
+- Loading spinner saat menerjemahkan, error state jika API gagal
+
+### 🛠️ Teknis
+
+- `src/services/translation.ts`: service baru dengan dual-engine (Google + MyMemory) + cache
+- 3 file baru/terupdate: `translation.ts`, `ModeKalimat.tsx`, `ModeKata.tsx`
+
+---
+
 ## [v3.3] — Complete Phase Plan + 10.000+ Kata (2026-07)
 
 ### 📚 Dataset Completion: 10.000+ Kata

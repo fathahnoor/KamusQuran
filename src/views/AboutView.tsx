@@ -14,8 +14,8 @@ export function AboutView() {
           <div>
             <h1 className="text-xl font-bold text-ink-900 sm:text-2xl">Tentang &amp; Metodologi</h1>
             <p className="mt-0.5 text-sm text-ink-500">
-              Kamus Quran v3.3, alat belajar bahasa Arab Al-Qur&apos;an dengan
-              10.000+ kosakata, nahwu, sharf, i&apos;rob sistematis, terjemahan Kemenag, dan analisis morfologi.
+              Kamus Quran v3.4, alat belajar bahasa Arab Al-Qur&apos;an dengan
+              10.000+ kosakata, nahwu, sharf, i&apos;rob sistematis, terjemahan Kemenag, terjemahan kalimat via API, dan analisis morfologi.
             </p>
           </div>
         </div>
@@ -174,6 +174,7 @@ export function AboutView() {
 
       <Section title="Versi" icon="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6">
         <p>
+          <strong>v3.4</strong>: terjemahan kalimat utuh via Google Translate API (ganti word-by-word), fallback MyMemory, Mode Kata auto-translate kata tak dikenal.<br />
           <strong>v3.3</strong>: ekspansi ke 10.000+ kata (batch24-119 dari kitab Nahwu/Sharf), selesaikan 97 fase phase plan.<br />
           <strong>v3.2</strong>: ekspansi ke 7.000+ kata (batch24-82), terjemahan Kemenag RI di Mode Kalimat, arti kalimat bilingual.<br />
           <strong>v3.1</strong>: ekspansi ke 1.250+ kata (500+ Quran + 750+ sehari-hari) dengan batch20-22.<br />

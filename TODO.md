@@ -1,5 +1,6 @@
 # TODO ,  Kamus Quran
 
+> **v3.4**: terjemahan kalimat utuh via Google Translate API + fallback MyMemory, auto-translate kata tak dikenal
 > **v3.3**: 10.000+ kata, batch23-119 (kitab Nahwu/Sharf), 97 fase phase plan selesai
 > **v3.2**: 7.000+ kata, batch23-82, terjemahan Kemenag, arti kalimat bilingual
 > **v3.1**: 1.250+ kata (500+ Quran + 750+ sehari-hari), batch19-22, kata ganti, kosakata harian
