@@ -119,6 +119,12 @@ import { BATCH_116 } from "./words/batch116";
 import { BATCH_117 } from "./words/batch117";
 import { BATCH_118 } from "./words/batch118";
 import { BATCH_119 } from "./words/batch119";
+import { BATCH_120 } from "./words/batch120";
+import { BATCH_121 } from "./words/batch121";
+import { BATCH_122 } from "./words/batch122";
+import { BATCH_123 } from "./words/batch123";
+import { BATCH_124 } from "./words/batch124";
+import { BATCH_125 } from "./words/batch125";
 import { stripDiacritics, normalizeAlef } from "../utils/arabic";
 
 // Aggregate all batches and build full WordEntry objects.
@@ -242,6 +248,12 @@ const ALL_COMPACT: CompactWord[] = [
   ...BATCH_117,
   ...BATCH_118,
   ...BATCH_119,
+  ...BATCH_120,
+  ...BATCH_121,
+  ...BATCH_122,
+  ...BATCH_123,
+  ...BATCH_124,
+  ...BATCH_125,
 ];
 
 /**
