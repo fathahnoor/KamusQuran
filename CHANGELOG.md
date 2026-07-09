@@ -4,6 +4,31 @@ All notable changes to Kamus Quran will be documented in this file.
 
 ---
 
+## [v3.2] — Massive Corpus Expansion + Kemenag Translation (2026-07)
+
+### 📚 Dataset Expansion: 7.000+ Kata
+
+- **5.000+ kata baru** dari kitab Nahwu/Sharf (PDF extraction via phase plan)
+- **batch23-82**: 60 batch auto-generated dari 60 fase PDF
+- Total database: 1.250+ → **7.000+ kata**
+- POS detection: noun, verb, particle auto-detected
+- Root derivation + root-based meaning fallbacks
+
+### ✨ Mode Kalimat: Terjemahan Kemenag + Bilingual
+
+- **QuranTranslationBanner**: deteksi otomatis cuplikan ayat Quran, tampilkan terjemahan resmi Kemenag RI via AlQuran Cloud API
+- **SentenceMeaningBanner**: arti kalimat bilingual (Indonesia→Arab dan Arab→Indonesia)
+- Loading/error states untuk API fetch
+- Async fetch dengan cancel token (no race condition)
+
+### 🔧 Data Quality
+
+- Audit script (`scripts/audit_words.mjs`) untuk validasi data
+- Dedup: normalized Arabic + diacritic-aware deduplication
+- Root fallback curation dari dictionary existing
+
+---
+
 ## [v3.1] ,  Ekspansi 1.250+ Kata (2026-07)
 
 ### 📚 Dataset Expansion

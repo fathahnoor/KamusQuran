@@ -1,5 +1,6 @@
 # TODO ,  Kamus Quran
 
+> **v3.2**: 7.000+ kata, batch23-82 (PDF Nahwu/Sharf), terjemahan Kemenag, arti kalimat bilingual
 > **v3.1**: 1.250+ kata (500+ Quran + 750+ sehari-hari), batch19-22, kata ganti, kosakata harian
 > **v3.0**: I'rob Sistematis (Metode Al-Munir + Nahwu al-Wadhih)
 > **v2.0**: 1.002 kata, Mode Kata lengkap, Mode Kalimat, bookmark, voice, audio/tafsir

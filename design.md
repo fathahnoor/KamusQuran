@@ -4,7 +4,7 @@
 
 **Kamus Quran** is a web application intended to help general users, especially learners of Qur'anic Arabic, enrich vocabulary and study **nahwu** and **sharf** through a practical search-oriented experience.
 
-The core educational goal is to help users master approximately **80–90% of the most frequent vocabulary appearing in the Qur'an**, estimated at around **300 high-frequency words**, while also enabling deeper exploration of morphology, syntax, and contextual occurrence across the Qur'an.
+The core educational goal is to help users master approximately **80–90% of the most frequent vocabulary appearing in the Qur'an**, estimated at **7.000+ words** (expanded from an initial core of 300 high-frequency words), while also enabling deeper exploration of morphology, syntax, and contextual occurrence across the Qur'an.
 
 This application is not only a dictionary. It should function as a **Qur'anic linguistic learning tool** focused on:
 - Qur'anic vocabulary acquisition
@@ -302,7 +302,7 @@ This document captures clarified product intent from stakeholder interview.
 
 Important decisions already fixed:
 - The app focuses on helping learners of nahwu and sharf enrich Qur'anic vocabulary
-- Coverage target is around 300 high-frequency Qur'anic words representing roughly 80–90% of common vocabulary exposure
+- Coverage has expanded to 7.000+ words (500+ Quranic high-frequency, 750+ daily Arabic, 6.000+ from Nahwu/Sharf textbooks)
 - Inputs support Arabic and Indonesian
 - Voice recognition is required
 - Two core modes exist: **kata** and **kalimat**

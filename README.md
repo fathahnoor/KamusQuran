@@ -12,7 +12,7 @@
 
 Kamus Quran adalah aplikasi web untuk mempelajari bahasa Arab Al-Qur'an secara mendalam. Tidak sekadar menampilkan terjemahan, aplikasi ini memberikan **analisis linguistik level 3** dan **i'rob sistematis**: mulai dari akar triliteral, lemma, kelas kata (nahwu), pola morfologi (sharf), hingga tabel i'rob 6 kolom ala **Metode Al-Munir** dan kesimpulan induktif ala **An-Nahwu al-Wadhih**.
 
-Basis data mencakup **1.250+ kata** (500+ kosakata frekuensi tinggi Al-Qur'an + 750+ kosakata Arab sehari-hari), sehingga dengan menguasai koleksi ini pengguna dapat memahami sekitar **80-90% kosakata** yang muncul dalam Al-Qur'an.
+Basis data mencakup **7.000+ kata** (dikurasi dari Quranic Arabic Corpus, kamus Arab sehari-hari, dan kitab Nahwu/Sharf), sehingga dengan menguasai koleksi ini pengguna dapat memahami sebagian besar kosakata yang muncul dalam Al-Qur'an dan teks Arab klasik.
 
 ### I'rob Sistematis
 
@@ -44,6 +44,8 @@ Setiap kata memiliki **tabel i'rob 6 kolom** (Kata → Jenis → Kedudukan → I
 
 ### Mode Kalimat
 - Masukkan kalimat Arab atau ayat Al-Qur'an bebas
+- **Terjemahan Kemenag RI**: deteksi otomatis cuplikan ayat Quran, tampilkan terjemahan resmi
+- **Arti Kalimat bilingual**: terjemahan Indonesia↔Arab untuk input kedua bahasa
 - Tokenisasi otomatis: kalimat dipecah kata per kata
 - **SentenceIrobTable**: tabel i'rob Al-Munir utuh per kalimat (8 kolom: #, Kata, Arti, Jenis, Kedudukan, I'rob, Tanda, 'Amil)
 - **Context-Aware I&apos;rob Engine**: deteksi otomatis huruf jarr, inna/akhwatuha, kaana/akhwatuha, idhafah, &apos;athf
@@ -73,9 +75,10 @@ Setiap kata memiliki **tabel i'rob 6 kolom** (Kata → Jenis → Kedudukan → I
 |---|---|
 | Kosakata frekuensi tinggi Al-Qur'an | 500+ kata |
 | Kosakata Arab sehari-hari | 750+ kata |
-| **Total** | **1.250+ kata** |
+| Kosakata dari kitab Nahwu/Sharf (PDF) | 6.000+ kata |
+| **Total** | **7.000+ kata** |
 
-Data morfologi bersumber dari **Quranic Arabic Corpus** (corpus.quran.com, lisensi GNU GPL), teks Al-Qur'an dari **Tanzil** (tanzil.net), audio tilawah dan tafsir dari **AlQuran Cloud API** (alquran.cloud). Metodologi i'rob mengacu pada kitab **An-Nahwu al-Wadhih** dan **Metode Al-Munir**.
+Data morfologi bersumber dari **Quranic Arabic Corpus** (corpus.quran.com, lisensi GNU GPL), teks Al-Qur'an dari **Tanzil** (tanzil.net), audio tilawah dan terjemahan dari **AlQuran Cloud API** (alquran.cloud). Metodologi i'rob mengacu pada kitab **An-Nahwu al-Wadhih** dan **Metode Al-Munir**. Kosakata Nahwu/Sharf diekstrak dari PDF kitab rujukan (Nopush/).
 
 ---
 

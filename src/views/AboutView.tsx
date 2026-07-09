@@ -14,8 +14,8 @@ export function AboutView() {
           <div>
             <h1 className="text-xl font-bold text-ink-900 sm:text-2xl">Tentang &amp; Metodologi</h1>
             <p className="mt-0.5 text-sm text-ink-500">
-              Kamus Quran v3.0, alat belajar bahasa Arab Al-Qur&apos;an dengan fokus pada
-              kosakata, nahwu, sharf, i&apos;rob sistematis, dan analisis morfologi.
+              Kamus Quran v3.2, alat belajar bahasa Arab Al-Qur&apos;an dengan
+              7.000+ kosakata, nahwu, sharf, i&apos;rob sistematis, terjemahan Kemenag, dan analisis morfologi.
             </p>
           </div>
         </div>
@@ -23,9 +23,9 @@ export function AboutView() {
 
       <Section title="Tujuan" icon="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5">
         <p>
-          Membantu pengguna menguasai ~80–90% kosakata berfrekuensi tinggi Al-Qur&apos;an
-          (500+ kata inti dari Quranic Arabic Corpus) dan memperluas penguasaan bahasa Arab
-          dengan 750+ kata sehari-hari, total 1.250+ kata. Setiap kata dilengkapi{" "}
+          Membantu pengguna menguasai kosakata berfrekuensi tinggi Al-Qur&apos;an
+          (500+ kata inti dari Quranic Arabic Corpus), memperluas penguasaan bahasa Arab
+          dengan 750+ kata sehari-hari, dan 6.000+ kata dari kitab Nahwu/Sharf, total 7.000+ kata. Setiap kata dilengkapi{" "}
           <strong>tabel i&apos;rob Al-Munir</strong> (6 kolom: Jenis, Kedudukan,{" "}
           I&apos;rob, Tanda, &apos;Amil) dan <strong>kesimpulan induktif{" "}
           Nahwu al-Wadhih</strong>.
@@ -125,7 +125,7 @@ export function AboutView() {
 
       <Section title="Mode Kalimat: Pendekatan Hybrid" icon="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z">
         <p>
-          Untuk kalimat dari Al-Qur&apos;an, aplikasi menggunakan data dependency
+          Untuk kalimat dari Al-Qur&apos;an, aplikasi menampilkan <strong>terjemahan resmi Kemenag RI</strong> secara otomatis. Selain itu, aplikasi menggunakan data dependency
           graph dari QADT (annotasi scholar). Untuk input kalimat bebas, aplikasi
           melakukan tokenisasi dan pencocokan morfologi per kata terhadap data
           Quranic Arabic Corpus yang di-bundle, ditambah tebakan POS berbasis
@@ -160,9 +160,9 @@ export function AboutView() {
       <Section title="Keterbatasan" icon="M12 9v2m0 4h.01M5.07 19h13.86c1.54 0 2.5-1.67 1.73-3L13.73 4a2 2 0 0 0-3.46 0L3.34 16c-.77 1.33.19 3 1.73 3z">
         <ul className="list-inside list-disc space-y-1.5 text-sm text-ink-700">
           <li>
-            Database kata berisi 1.250+ kata: 500+ kata berfrekuensi tinggi dari Al-Qur'an
-            (mencakup ~80–90% kosakata) ditambah 750+ kata Arab sehari-hari untuk
-            penggunaan praktis. Data dapat diperluas tanpa perubahan kode.
+            Database kata berisi 7.000+ kata: 500+ kata berfrekuensi tinggi dari Al-Qur'an
+            + 750+ kata Arab sehari-hari + 6.000+ kosakata dari kitab Nahwu/Sharf
+            (diekspansi melalui 60 batch auto-generated dari PDF rujukan). Data dapat diperluas tanpa perubahan kode.
           </li>
           <li>
             Pengenalan suara hanya berfungsi di Chrome, Edge, dan Safari (online).
@@ -177,6 +177,7 @@ export function AboutView() {
 
       <Section title="Versi" icon="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6">
         <p>
+          <strong>v3.2</strong>: ekspansi ke 7.000+ kata (batch24-82 dari PDF Nahwu/Sharf), terjemahan Kemenag RI di Mode Kalimat, arti kalimat bilingual.<br />
           <strong>v3.1</strong>: ekspansi ke 1.250+ kata (500+ Quran + 750+ sehari-hari) dengan batch20-22.<br />
           <strong>v3.0</strong>: <strong>I&apos;rob Sistematis</strong>, tabel i&apos;rob 6 kolom{" "}
           ala Metode Al-Munir di Mode Kata + SentenceIrobTable (tabel ringkasan per kalimat){" "}

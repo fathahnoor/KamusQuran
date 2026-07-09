@@ -48,7 +48,7 @@ export default function App() {
       </main>
       <footer className="border-t border-ink-200/60 bg-white/50 py-6 pb-20 text-center text-xs text-ink-500 backdrop-blur-sm sm:pb-6 sm:text-sm">
         <p>
-          <strong>Kamus Quran v3.1</strong>, 1.250+ kata · I&apos;rob Sistematis{" "}
+          <strong>Kamus Quran v3.2</strong>, 7.000+ kata · I&apos;rob Sistematis{" "}
           (Metode Al-Munir + Nahwu al-Wadhih)
         </p>
         <p className="mt-1">
