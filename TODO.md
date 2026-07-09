@@ -1,6 +1,7 @@
 # TODO ,  Kamus Quran
 
-> **v3.2**: 7.000+ kata, batch23-82 (PDF Nahwu/Sharf), terjemahan Kemenag, arti kalimat bilingual
+> **v3.3**: 10.000+ kata, batch23-119 (kitab Nahwu/Sharf), 97 fase phase plan selesai
+> **v3.2**: 7.000+ kata, batch23-82, terjemahan Kemenag, arti kalimat bilingual
 > **v3.1**: 1.250+ kata (500+ Quran + 750+ sehari-hari), batch19-22, kata ganti, kosakata harian
 > **v3.0**: I'rob Sistematis (Metode Al-Munir + Nahwu al-Wadhih)
 > **v2.0**: 1.002 kata, Mode Kata lengkap, Mode Kalimat, bookmark, voice, audio/tafsir
@@ -11,12 +12,12 @@
 # 🔥 v3.0 ,  I'rob Sistematis (Metode Al-Munir + Nahwu al-Wadhih)
 
 ## Referensi Kitab (folder `Nopush/`):
-- `An-Nahwu al-Wadhih Jilid 1_Nahwu.pdf` ,  klasifikasi kata → mu'rab/mabni → kedudukan → i'rob → tanda (inductive)
-- `An-Nahwu al-Wadhih Jilid 1_Sharf.pdf` ,  wazan, pola morfologi, tasrif
-- `Metode Al-Munir-Jilid 1-Nahwu.pdf` ,  i'rob dasar dengan tabel terstruktur (question-driven: "Apa kata ini? Apa kedudukannya? Apa i'robnya? Apa tandanya?")
-- `Metode Al-Munir-Jilid 2-Sharf.pdf` ,  pola sharf sistematis dengan tabel
-- `Metode Al-Munir-Jilid 3-Nahwu.pdf` ,  i'rob lanjutan, isim-isim khusus, fi'il mudhari', amil jazm, pola kalimat kompleks
-- `Kunci Jawaban-Al-Munir-Jilid 1-Nahwu.pdf` ,  contoh jawaban i'rob per kata & per kalimat
+- `An-Nahwu al-Wadhih Jilid 1_Nahwu` — klasifikasi kata → mu'rab/mabni → kedudukan → i'rob → tanda (inductive)
+- `An-Nahwu al-Wadhih Jilid 1_Sharf` — wazan, pola morfologi, tasrif
+- `Metode Al-Munir-Jilid 1-Nahwu` — i'rob dasar dengan tabel terstruktur (question-driven: "Apa kata ini? Apa kedudukannya? Apa i'robnya? Apa tandanya?")
+- `Metode Al-Munir-Jilid 2-Sharf` — pola sharf sistematis dengan tabel
+- `Metode Al-Munir-Jilid 3-Nahwu` — i'rob lanjutan, isim-isim khusus, fi'il mudhari', amil jazm, pola kalimat kompleks
+- `Kunci Jawaban-Al-Munir-Jilid 1-Nahwu` — contoh jawaban i'rob per kata & per kalimat
 
 ## Pola I'rob yang Diterapkan:
 Al-Munir Tabular Format: **Kata → Jenis → Kedudukan → I'rob → Tanda → 'Amil/Sebab**

@@ -14,8 +14,8 @@ export function AboutView() {
           <div>
             <h1 className="text-xl font-bold text-ink-900 sm:text-2xl">Tentang &amp; Metodologi</h1>
             <p className="mt-0.5 text-sm text-ink-500">
-              Kamus Quran v3.2, alat belajar bahasa Arab Al-Qur&apos;an dengan
-              7.000+ kosakata, nahwu, sharf, i&apos;rob sistematis, terjemahan Kemenag, dan analisis morfologi.
+              Kamus Quran v3.3, alat belajar bahasa Arab Al-Qur&apos;an dengan
+              10.000+ kosakata, nahwu, sharf, i&apos;rob sistematis, terjemahan Kemenag, dan analisis morfologi.
             </p>
           </div>
         </div>
@@ -25,10 +25,9 @@ export function AboutView() {
         <p>
           Membantu pengguna menguasai kosakata berfrekuensi tinggi Al-Qur&apos;an
           (500+ kata inti dari Quranic Arabic Corpus), memperluas penguasaan bahasa Arab
-          dengan 750+ kata sehari-hari, dan 6.000+ kata dari kitab Nahwu/Sharf, total 7.000+ kata. Setiap kata dilengkapi{" "}
-          <strong>tabel i&apos;rob Al-Munir</strong> (6 kolom: Jenis, Kedudukan,{" "}
-          I&apos;rob, Tanda, &apos;Amil) dan <strong>kesimpulan induktif{" "}
-          Nahwu al-Wadhih</strong>.
+          dengan 750+ kata sehari-hari, dan 9.000+ kata dari kitab Nahwu/Sharf, total 10.000+ kata. Setiap kata dilengkapi{" "}
+          <strong>tabel i&apos;rob 6 kolom</strong> (Jenis, Kedudukan,{" "}
+          I&apos;rob, Tanda, &apos;Amil) dan <strong>kesimpulan induktif</strong>.
         </p>
         <p className="mt-2">
           Di Mode Kalimat, tersedia{" "}
@@ -38,14 +37,13 @@ export function AboutView() {
         </p>
       </Section>
 
-      <Section title="I&apos;rob Sistematis v3.0 (Metode Al-Munir + Nahwu al-Wadhih)" icon="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z">
+      <Section title="I&apos;rob Sistematis" icon="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z">
         <p>
-          Mulai v3.0, setiap kata dilengkapi <strong>tabel i&apos;rob 6 kolom</strong>{" "}
-          mengikuti metodologi <em>Metode Al-Munir</em>:{" "}
+          Setiap kata dilengkapi <strong>tabel i&apos;rob 6 kolom</strong>:{" "}
           <span className="font-semibold text-accent-700">
             Kata → Jenis → Kedudukan → I&apos;rob → Tanda → &apos;Amil
           </span>
-          . Ditambah <strong>kesimpulan induktif</strong> ala <em>An-Nahwu al-Wadhih</em>{" "}
+          . Ditambah <strong>kesimpulan induktif</strong>{" "}
           yang menjelaskan penalaran gramatikal setiap kata.
         </p>
         <ul className="list-inside list-disc space-y-1 text-sm text-ink-700">
@@ -105,10 +103,9 @@ export function AboutView() {
             input Arab (ar-SA) dan Indonesia (id-ID).
           </li>
           <li>
-            <strong>Kitab Nahwu-Sharf (Nopush/)</strong>:{" "}
+            <strong>Kitab Nahwu-Sharf</strong>:{" "}
             <em>An-Nahwu al-Wadhih</em> (Jilid 1 Nahwu &amp; Sharf),{" "}
-            <em>Metode Al-Munir</em> (Jilid 1-3 Nahwu &amp; Sharf),{" "}
-
+            <em>Metode Al-Munir</em> (Jilid 1-3 Nahwu &amp; Sharf)
           </li>
         </ul>
       </Section>
@@ -160,9 +157,9 @@ export function AboutView() {
       <Section title="Keterbatasan" icon="M12 9v2m0 4h.01M5.07 19h13.86c1.54 0 2.5-1.67 1.73-3L13.73 4a2 2 0 0 0-3.46 0L3.34 16c-.77 1.33.19 3 1.73 3z">
         <ul className="list-inside list-disc space-y-1.5 text-sm text-ink-700">
           <li>
-            Database kata berisi 7.000+ kata: 500+ kata berfrekuensi tinggi dari Al-Qur'an
-            + 750+ kata Arab sehari-hari + 6.000+ kosakata dari kitab Nahwu/Sharf
-            (diekspansi melalui 60 batch auto-generated dari PDF rujukan). Data dapat diperluas tanpa perubahan kode.
+            Database kata berisi 10.000+ kata: 500+ kata berfrekuensi tinggi dari Al-Qur'an
+            + 750+ kata Arab sehari-hari + 9.000+ kosakata dari kitab Nahwu/Sharf
+            (diekspansi melalui 97 batch auto-generated dari kitab rujukan). Data dapat diperluas tanpa perubahan kode.
           </li>
           <li>
             Pengenalan suara hanya berfungsi di Chrome, Edge, dan Safari (online).
@@ -177,14 +174,15 @@ export function AboutView() {
 
       <Section title="Versi" icon="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6">
         <p>
-          <strong>v3.2</strong>: ekspansi ke 7.000+ kata (batch24-82 dari PDF Nahwu/Sharf), terjemahan Kemenag RI di Mode Kalimat, arti kalimat bilingual.<br />
+          <strong>v3.3</strong>: ekspansi ke 10.000+ kata (batch24-119 dari kitab Nahwu/Sharf), selesaikan 97 fase phase plan.<br />
+          <strong>v3.2</strong>: ekspansi ke 7.000+ kata (batch24-82), terjemahan Kemenag RI di Mode Kalimat, arti kalimat bilingual.<br />
           <strong>v3.1</strong>: ekspansi ke 1.250+ kata (500+ Quran + 750+ sehari-hari) dengan batch20-22.<br />
           <strong>v3.0</strong>: <strong>I&apos;rob Sistematis</strong>, tabel i&apos;rob 6 kolom{" "}
-          ala Metode Al-Munir di Mode Kata + SentenceIrobTable (tabel ringkasan per kalimat){" "}
+          di Mode Kata + SentenceIrobTable (tabel ringkasan per kalimat){" "}
           + PerTokenIrobList (kartu lengkap per kata) di Mode Kalimat, color-coded rows{" "}
           by irabStatus, context-aware sentence i&apos;rob engine (deteksi{" "}
           jarr/inna/kaana/idhafah/&apos;athf), heuristic engine 300+ baris, kesimpulan{" "}
-          induktif Nahwu al-Wadhih, 30+ unit tests (Vitest).
+          induktif, 30+ unit tests (Vitest).
         </p>
         <p className="mt-2">
           <strong>v2.0</strong>: 1.002 kata (500 Quran + 502 sehari-hari), Mode Kata dengan

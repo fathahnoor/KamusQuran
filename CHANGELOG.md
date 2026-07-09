@@ -4,6 +4,17 @@ All notable changes to Kamus Quran will be documented in this file.
 
 ---
 
+## [v3.3] — Complete Phase Plan + 10.000+ Kata (2026-07)
+
+### 📚 Dataset Completion: 10.000+ Kata
+
+- **3.620 kata baru** dari fase 61-97 (batch83-119)
+- **97 fase phase plan SELESAI** — seluruh kosakata kitab Nahwu/Sharf terkuras
+- Total database: ~7.600+ → **10.000+ kata**
+- Batch range: batch01-119 (119 batch files)
+
+---
+
 ## [v3.2] — Massive Corpus Expansion + Kemenag Translation (2026-07)
 
 ### 📚 Dataset Expansion: 7.000+ Kata
