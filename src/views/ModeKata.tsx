@@ -319,7 +319,7 @@ function NoResultsFallback({
           Menerjemahkan &quot;{query}&quot;…
         </p>
         <p className="mt-1.5 text-sm text-ink-400">
-          Kata tidak ditemukan dalam database — mencoba terjemahan API.
+          Kata tidak ditemukan dalam database, mencoba terjemahan API.
         </p>
       </div>
     );

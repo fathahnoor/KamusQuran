@@ -1,6 +1,6 @@
 import type { CompactWord } from "../wordBuilder";
 
-// Batch 25: Fase 3 — auto-generated dari PDF Nahwu/Sharf (folder Nopush).
+// Batch 25: Fase 3 - auto-generated dari PDF Nahwu/Sharf (folder Nopush).
 // Referensi: scripts/pdf_words_phase_plan.json
 export const BATCH_25: CompactWord[] = [
   { id: "nZrna", ar: "نَظرنا", root: "نظر", mid: "melihat, memperhatikan, menatap (kami/kita)", men: "to look, to observe (kami/kita)", pos: "verb", freq: 0, rank: 1986, wazan: "unknown", form: "I", vf: "fiil_mudhari", irab: "raf" },

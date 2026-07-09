@@ -1,6 +1,6 @@
 import type { CompactWord } from "../wordBuilder";
 
-// Batch 30: Fase 8 — auto-generated dari PDF Nahwu/Sharf (folder Nopush).
+// Batch 30: Fase 8 - auto-generated dari PDF Nahwu/Sharf (folder Nopush).
 // Referensi: scripts/pdf_words_phase_plan.json
 export const BATCH_30: CompactWord[] = [
   { id: "wD3t", ar: "وَضَّعْت", root: "ضعت", mid: "kata Arab (akar: ضعت)", men: "Arabic word (root: ضعت)", pos: "noun", freq: 0, rank: 2466, wazan: "unknown", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },

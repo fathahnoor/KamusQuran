@@ -1,6 +1,6 @@
 import type { CompactWord } from "../wordBuilder";
 
-// Batch 35: Fase 13 — auto-generated dari PDF Nahwu/Sharf (folder Nopush).
+// Batch 35: Fase 13 - auto-generated dari PDF Nahwu/Sharf (folder Nopush).
 // Referensi: scripts/pdf_words_phase_plan.json
 export const BATCH_35: CompactWord[] = [
   { id: "kwr", ar: "كور", root: "كرر", mid: "menggulung, membulatkan", men: "to roll, round", pos: "noun", freq: 0, rank: 2998, wazan: "unknown", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },

@@ -1,6 +1,6 @@
 import type { CompactWord } from "../wordBuilder";
 
-// Batch 33: Fase 11 — auto-generated dari PDF Nahwu/Sharf (folder Nopush).
+// Batch 33: Fase 11 - auto-generated dari PDF Nahwu/Sharf (folder Nopush).
 // Referensi: scripts/pdf_words_phase_plan.json
 export const BATCH_33: CompactWord[] = [
   { id: "alzr3", ar: "الزرع", root: "زرع", mid: "tanaman, hasil tani", men: "the crops", pos: "verb", freq: 0, rank: 2800, wazan: "unknown", form: "I", vf: "fiil_mudhari", irab: "raf" },

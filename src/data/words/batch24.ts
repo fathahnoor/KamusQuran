@@ -1,6 +1,6 @@
 import type { CompactWord } from "../wordBuilder";
 
-// Batch 24: Fase 2 — auto-generated dari PDF Nahwu/Sharf (folder Nopush).
+// Batch 24: Fase 2 - auto-generated dari PDF Nahwu/Sharf (folder Nopush).
 // Referensi: scripts/pdf_words_phase_plan.json
 export const BATCH_24: CompactWord[] = [
   { id: "bHrf", ar: "بِحَرْف", root: "حرف", mid: "dengan huruf, partikel, kata tugas", men: "dengan particle, letter, preposition", pos: "noun", freq: 0, rank: 1901, wazan: "unknown", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },

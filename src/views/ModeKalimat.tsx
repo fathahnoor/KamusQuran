@@ -82,7 +82,7 @@ export function ModeKalimat() {
         </div>
       </div>
 
-      {/* Terjemahan Kemenag — jika input adalah cuplikan ayat Quran */}
+      {/* Terjemahan Kemenag: jika input adalah cuplikan ayat Quran */}
       {analysis?.isQuranicAyah && kemenagTranslation && (
         <QuranTranslationBanner
           translation={kemenagTranslation}
@@ -109,7 +109,7 @@ export function ModeKalimat() {
         </div>
       )}
 
-      {/* Arti kalimat — di bawah kotak pencarian, di atas QADT */}
+      {/* Arti kalimat: di bawah kotak pencarian, di atas QADT */}
       {analysis && (
         <SentenceMeaningBanner analysis={analysis} />
       )}
@@ -353,7 +353,7 @@ function Info({ label, value, arabic }: { label: string; value: string; arabic?:
   );
 }
 
-/** Banner terjemahan Kemenag — untuk cuplikan ayat Quran yang terdeteksi. */
+/** Banner terjemahan Kemenag: untuk cuplikan ayat Quran yang terdeteksi. */
 function QuranTranslationBanner({
   translation,
   ayahRef,
@@ -477,7 +477,7 @@ function SentenceMeaningBanner({ analysis }: { analysis: SentenceAnalysis }) {
       );
     }
 
-    // API error — fall back to word-by-word if clean (all matched)
+    // API error: fall back to word-by-word if clean (all matched)
     if (apiError) {
       const allMatched = analysis.tokens.every((t) => t.matched);
       if (allMatched && fallbackMeaning) {
@@ -489,13 +489,13 @@ function SentenceMeaningBanner({ analysis }: { analysis: SentenceAnalysis }) {
                 <line x1="12" y1="8" x2="12" y2="12" />
                 <line x1="12" y1="16" x2="12.01" y2="16" />
               </svg>
-              Terjemahan API tidak tersedia — menampilkan arti per kata
+              Terjemahan API tidak tersedia, menampilkan arti per kata
             </p>
             <p className="mt-1.5 text-lg leading-relaxed text-ink-700">{fallbackMeaning}</p>
           </div>
         );
       }
-      // Has unmatched words AND API failed — show warning, no ugly fallback
+      // Has unmatched words AND API failed: show warning, no ugly fallback
       return (
         <div className="rounded-2xl border border-ink-200/60 bg-ink-50/60 p-4 sm:p-5 animate-fade-in">
           <p className="flex items-center gap-2 text-sm font-semibold text-ink-500">
@@ -510,7 +510,7 @@ function SentenceMeaningBanner({ analysis }: { analysis: SentenceAnalysis }) {
       );
     }
 
-    // No API result yet, no error — shouldn't normally reach here
+    // No API result yet, no error: shouldn't normally reach here
     return null;
   }
 

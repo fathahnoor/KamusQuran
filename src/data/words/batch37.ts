@@ -1,6 +1,6 @@
 import type { CompactWord } from "../wordBuilder";
 
-// Batch 37: Fase 15 — auto-generated dari PDF Nahwu/Sharf (folder Nopush).
+// Batch 37: Fase 15 - auto-generated dari PDF Nahwu/Sharf (folder Nopush).
 // Referensi: scripts/pdf_words_phase_plan.json
 export const BATCH_37: CompactWord[] = [
   { id: "drws", ar: "دروس", root: "درس", mid: "pelajaran-pelajaran", men: "lessons", pos: "noun", freq: 0, rank: 3189, wazan: "unknown", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },

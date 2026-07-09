@@ -1,6 +1,6 @@
 import type { CompactWord } from "../wordBuilder";
 
-// Batch 42: Fase 20 — auto-generated dari PDF Nahwu/Sharf (folder Nopush).
+// Batch 42: Fase 20 - auto-generated dari PDF Nahwu/Sharf (folder Nopush).
 // Referensi: scripts/pdf_words_phase_plan.json
 export const BATCH_42: CompactWord[] = [
   { id: "fHSna", ar: "فحصنا", root: "حصن", mid: "kami memeriksa", men: "we examined", pos: "noun", freq: 0, rank: 3682, wazan: "unknown", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },

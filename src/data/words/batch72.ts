@@ -1,6 +1,6 @@
 import type { CompactWord } from "../wordBuilder";
 
-// Batch 72: Fase 50 — auto-generated dari PDF Nahwu/Sharf.
+// Batch 72: Fase 50 - auto-generated dari PDF Nahwu/Sharf.
 // Referensi: scripts/pdf_words_phase_plan.json
 export const BATCH_72: CompactWord[] = [
   { id: "Sdyfh", ar: "صَدِيفَه", root: "صدف", mid: "kata Arab (akar: صدف)", men: "Arabic word (root: صدف)", pos: "noun", freq: 0, rank: 6671, wazan: "unknown", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },

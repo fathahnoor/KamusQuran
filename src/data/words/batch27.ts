@@ -1,6 +1,6 @@
 import type { CompactWord } from "../wordBuilder";
 
-// Batch 27: Fase 5 — auto-generated dari PDF Nahwu/Sharf (folder Nopush).
+// Batch 27: Fase 5 - auto-generated dari PDF Nahwu/Sharf (folder Nopush).
 // Referensi: scripts/pdf_words_phase_plan.json
 export const BATCH_27: CompactWord[] = [
   { id: "almjrm", ar: "المجُرِم", root: "مجر", mid: "kata Arab (akar: مجر)", men: "Arabic word (root: مجر)", pos: "noun", freq: 0, rank: 2176, wazan: "unknown", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },

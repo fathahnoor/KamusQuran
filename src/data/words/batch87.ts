@@ -1,6 +1,6 @@
 import type { CompactWord } from "../wordBuilder";
 
-// Batch 87: Fase 65 — auto-generated dari PDF Nahwu/Sharf.
+// Batch 87: Fase 65 - auto-generated dari PDF Nahwu/Sharf.
 export const BATCH_87: CompactWord[] = [
   { id: "M2n2", ar: "مؤنئة", root: "مؤن", mid: "berkaitan dg mu'annats (feminin) (dengan al) (akar: مؤن)", men: "related to mu'annats (feminin) (dengan al) (root: مؤن)", pos: "noun", freq: 0, rank: 8162, wazan: "unknown", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },
   { id: "Wbbhdhh", ar: "وببهذه", root: "ببه", mid: "kata Arab (akar: ببه)", men: "Arabic word (root: ببه)", pos: "noun", freq: 0, rank: 8163, wazan: "unknown", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },

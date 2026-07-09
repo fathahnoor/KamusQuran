@@ -1,6 +1,6 @@
 import type { CompactWord } from "../wordBuilder";
 
-// Batch 64: Fase 42 — auto-generated dari PDF Nahwu/Sharf.
+// Batch 64: Fase 42 - auto-generated dari PDF Nahwu/Sharf.
 // Referensi: scripts/pdf_words_phase_plan.json
 export const BATCH_64: CompactWord[] = [
   { id: "F3lyr", ar: "فعليةر", root: "فعل", mid: "berkaitan dg kata kerja, fi'il, perbuatan (akar: فعل)", men: "related to kata kerja, fi'il, perbuatan (root: فعل)", pos: "noun", freq: 0, rank: 5880, wazan: "unknown", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },

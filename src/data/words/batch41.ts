@@ -1,6 +1,6 @@
 import type { CompactWord } from "../wordBuilder";
 
-// Batch 41: Fase 19 — auto-generated dari PDF Nahwu/Sharf (folder Nopush).
+// Batch 41: Fase 19 - auto-generated dari PDF Nahwu/Sharf (folder Nopush).
 // Referensi: scripts/pdf_words_phase_plan.json
 export const BATCH_41: CompactWord[] = [
   { id: "m3rba", ar: "معربًا", root: "عرب", mid: "berkaitan dg 'mu'rab' (akar: عرب)", men: "related to 'mu'rab' (root: عرب)", pos: "noun", freq: 0, rank: 3584, wazan: "unknown", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },

@@ -13,12 +13,12 @@
 # 🔥 v3.0 ,  I'rob Sistematis (Metode Al-Munir + Nahwu al-Wadhih)
 
 ## Referensi Kitab (folder `Nopush/`):
-- `An-Nahwu al-Wadhih Jilid 1_Nahwu` — klasifikasi kata → mu'rab/mabni → kedudukan → i'rob → tanda (inductive)
-- `An-Nahwu al-Wadhih Jilid 1_Sharf` — wazan, pola morfologi, tasrif
-- `Metode Al-Munir-Jilid 1-Nahwu` — i'rob dasar dengan tabel terstruktur (question-driven: "Apa kata ini? Apa kedudukannya? Apa i'robnya? Apa tandanya?")
-- `Metode Al-Munir-Jilid 2-Sharf` — pola sharf sistematis dengan tabel
-- `Metode Al-Munir-Jilid 3-Nahwu` — i'rob lanjutan, isim-isim khusus, fi'il mudhari', amil jazm, pola kalimat kompleks
-- `Kunci Jawaban-Al-Munir-Jilid 1-Nahwu` — contoh jawaban i'rob per kata & per kalimat
+- `An-Nahwu al-Wadhih Jilid 1_Nahwu`: klasifikasi kata → mu'rab/mabni → kedudukan → i'rob → tanda (inductive)
+- `An-Nahwu al-Wadhih Jilid 1_Sharf`: wazan, pola morfologi, tasrif
+- `Metode Al-Munir-Jilid 1-Nahwu`: i'rob dasar dengan tabel terstruktur (question-driven: "Apa kata ini? Apa kedudukannya? Apa i'robnya? Apa tandanya?")
+- `Metode Al-Munir-Jilid 2-Sharf`: pola sharf sistematis dengan tabel
+- `Metode Al-Munir-Jilid 3-Nahwu`: i'rob lanjutan, isim-isim khusus, fi'il mudhari', amil jazm, pola kalimat kompleks
+- `Kunci Jawaban-Al-Munir-Jilid 1-Nahwu`: contoh jawaban i'rob per kata & per kalimat
 
 ## Pola I'rob yang Diterapkan:
 Al-Munir Tabular Format: **Kata → Jenis → Kedudukan → I'rob → Tanda → 'Amil/Sebab**

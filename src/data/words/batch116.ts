@@ -1,6 +1,6 @@
 import type { CompactWord } from "../wordBuilder";
 
-// Batch 116: Fase 94 — auto-generated dari PDF Nahwu/Sharf.
+// Batch 116: Fase 94 - auto-generated dari PDF Nahwu/Sharf.
 export const BATCH_116: CompactWord[] = [
   { id: "AlqSaS", ar: "القِصَاصِ", root: "قصص", mid: "berkaitan dg menceritakan, menceritakan (akar: قصص)", men: "related to menceritakan, menceritakan (root: قصص)", pos: "verb", freq: 0, rank: 11015, wazan: "unknown", form: "I", vf: "fiil_mudhari", irab: "raf" },
   { id: "Llthays", ar: "للثايس", root: "للث", mid: "kata Arab (akar: للث)", men: "Arabic word (root: للث)", pos: "noun", freq: 0, rank: 11016, wazan: "unknown", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },

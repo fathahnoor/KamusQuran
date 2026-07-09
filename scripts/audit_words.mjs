@@ -60,7 +60,7 @@ console.log(`Total entries: ${allWords.length}\n`);
 const noOcc = allWords.filter(w => w.freq > 0 && !w.hasOcc);
 console.log('=== 1. freq > 0, NO occ (shows "0 dari N") ===');
 if (noOcc.length === 0) console.log('  ✅ None');
-else noOcc.forEach(w => console.log(`  ❌ [${w.file}] ${w.id} (${w.ar}): freq=${w.freq} — "${w.mid}"`));
+else noOcc.forEach(w => console.log(`  ❌ [${w.file}] ${w.id} (${w.ar}): freq=${w.freq} - "${w.mid}"`));
 
 // 2. occ > 10 (UI caps at 10)
 const occOver10 = allWords.filter(w => w.occCount > 10).sort((a, b) => b.occCount - a.occCount);
@@ -78,7 +78,7 @@ else occNoEx.forEach(w => console.log(`  ⚠️ [${w.file}] ${w.id} (${w.ar}): o
 const impNoOcc = noOcc.filter(w => w.freq >= 5).sort((a, b) => b.freq - a.freq);
 console.log('\n=== 4. freq >= 5, NO occ (most impactful) ===');
 if (impNoOcc.length === 0) console.log('  ✅ None');
-else impNoOcc.forEach(w => console.log(`  ❌ [${w.file}] ${w.id} (${w.ar}): freq=${w.freq}, rank=${w.rank} — "${w.mid}"`));
+else impNoOcc.forEach(w => console.log(`  ❌ [${w.file}] ${w.id} (${w.ar}): freq=${w.freq}, rank=${w.rank} - "${w.mid}"`));
 
 // 5. Duplicate IDs
 const idMap = new Map();
@@ -90,6 +90,5 @@ const dups = [...idMap.entries()].filter(([, entries]) => entries.length > 1);
 console.log('\n=== 5. Duplicate IDs ===');
 if (dups.length === 0) console.log('  ✅ None');
 else for (const [id, entries] of dups) {
-  console.log(`  ⚠️ id="${id}":`);
-  for (const e of entries) console.log(`      [${e.file}] ${e.ar}, freq=${e.freq}, rank=${e.rank} — "${e.mid}"`);
+  console.log(`  ⚠️ id="${id}":`);   for (const e of entries) console.log(`      [${e.file}] ${e.ar}, freq=${e.freq}, rank=${e.rank} - "${e.mid}"`);
 }

@@ -1,6 +1,6 @@
 import type { CompactWord } from "../wordBuilder";
 
-// Batch 76: Fase 54 — auto-generated dari PDF Nahwu/Sharf.
+// Batch 76: Fase 54 - auto-generated dari PDF Nahwu/Sharf.
 // Referensi: scripts/pdf_words_phase_plan.json
 export const BATCH_76: CompactWord[] = [
   { id: "Ytghlwa", ar: "يَْتَغْلُوا", root: "تغل", mid: "kata Arab (akar: تغل)", men: "Arabic word (root: تغل)", pos: "verb", freq: 0, rank: 7067, wazan: "unknown", form: "I", vf: "fiil_mudhari", irab: "raf" },

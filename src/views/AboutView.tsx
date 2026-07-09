@@ -24,7 +24,7 @@ export function AboutView() {
       <Section title="Tujuan" icon="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5">
         <p>
           Membantu pengguna menguasai kosakata berfrekuensi tinggi Al-Qur&apos;an
-          (1.800+ kata dari Quranic Arabic Corpus, mencakup 1.227/1.651 akar kata — 74,3%), memperluas penguasaan bahasa Arab
+          (1.800+ kata dari Quranic Arabic Corpus, mencakup 1.227/1.651 akar kata, atau 74,3%), memperluas penguasaan bahasa Arab
           dengan 750+ kata sehari-hari, dan 9.000+ kata dari kitab Nahwu/Sharf, total 11.850+ kata. Setiap kata dilengkapi{" "}
           <strong>tabel i&apos;rob 6 kolom</strong> (Jenis, Kedudukan,{" "}
           I&apos;rob, Tanda, &apos;Amil) dan <strong>kesimpulan induktif</strong>.

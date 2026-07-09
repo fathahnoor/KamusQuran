@@ -1,6 +1,6 @@
 import type { CompactWord } from "../wordBuilder";
 
-// Batch 22: Tambahan kosakata sehari-hari — profesi, hari, arah, material, alat, makanan,
+// Batch 22: Tambahan kosakata sehari-hari - profesi, hari, arah, material, alat, makanan,
 // kata kerja lanjutan, kata sifat lanjutan, kata benda abstrak. Rank 1489-1678 (~190 entries).
 export const BATCH_22: CompactWord[] = [
   // --- Profesi / Occupations ---

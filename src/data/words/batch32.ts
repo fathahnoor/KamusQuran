@@ -1,6 +1,6 @@
 import type { CompactWord } from "../wordBuilder";
 
-// Batch 32: Fase 10 — auto-generated dari PDF Nahwu/Sharf (folder Nopush).
+// Batch 32: Fase 10 - auto-generated dari PDF Nahwu/Sharf (folder Nopush).
 // Referensi: scripts/pdf_words_phase_plan.json
 export const BATCH_32: CompactWord[] = [
   { id: "alshta2", ar: "الشتاء", root: "شتء", mid: "al-musim dingin", men: "the winter", pos: "noun", freq: 0, rank: 2662, wazan: "unknown", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },

@@ -216,7 +216,7 @@ function applyContextAwareIrab(tokens: SentenceToken[]): void {
   }
 
   // Second pass: generate structured i'rab for each token with context.
-  // Skip unmatched tokens (Latin surface text) — i'rob is meaningless for them.
+  // Skip unmatched tokens (Latin surface text): i'rob is meaningless for them.
   for (let i = 0; i < tokens.length; i++) {
     const t = tokens[i]!;
     if (!t.matched) continue;

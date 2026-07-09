@@ -1,6 +1,6 @@
 import type { CompactWord } from "../wordBuilder";
 
-// Batch 39: Fase 17 — auto-generated dari PDF Nahwu/Sharf (folder Nopush).
+// Batch 39: Fase 17 - auto-generated dari PDF Nahwu/Sharf (folder Nopush).
 // Referensi: scripts/pdf_words_phase_plan.json
 export const BATCH_39: CompactWord[] = [
   { id: "3mlk", ar: "عملك", root: "عمل", mid: "pekerjaanmu", men: "your work", pos: "noun", freq: 0, rank: 3387, wazan: "unknown", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },

@@ -1,6 +1,6 @@
 import type { CompactWord } from "../wordBuilder";
 
-// Batch 29: Fase 7 — auto-generated dari PDF Nahwu/Sharf (folder Nopush).
+// Batch 29: Fase 7 - auto-generated dari PDF Nahwu/Sharf (folder Nopush).
 // Referensi: scripts/pdf_words_phase_plan.json
 export const BATCH_29: CompactWord[] = [
   { id: "af3ala", ar: "أفعالا", root: "فعل", mid: "berkaitan dg 'kata kerja, fi'il, perbuatan' (akar: فعل)", men: "related to 'kata kerja, fi'il, perbuatan' (root: فعل)", pos: "verb", freq: 0, rank: 2370, wazan: "unknown", form: "I", vf: "fiil_mudhari", irab: "raf" },

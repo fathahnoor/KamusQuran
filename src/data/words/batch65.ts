@@ -1,6 +1,6 @@
 import type { CompactWord } from "../wordBuilder";
 
-// Batch 65: Fase 43 — auto-generated dari PDF Nahwu/Sharf.
+// Batch 65: Fase 43 - auto-generated dari PDF Nahwu/Sharf.
 // Referensi: scripts/pdf_words_phase_plan.json
 export const BATCH_65: CompactWord[] = [
   { id: "Raj3a", ar: "راجعاً", root: "رجع", mid: "berkaitan dg tempat kembali, akhirat, tempat kembali (akar: رجع)", men: "related to tempat kembali, akhirat, tempat kembali (root: رجع)", pos: "noun", freq: 0, rank: 5979, wazan: "unknown", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },

@@ -1,6 +1,6 @@
 import type { CompactWord } from "../wordBuilder";
 
-// Batch 104: Fase 82 — auto-generated dari PDF Nahwu/Sharf.
+// Batch 104: Fase 82 - auto-generated dari PDF Nahwu/Sharf.
 export const BATCH_104: CompactWord[] = [
   { id: "Balblad", ar: "بالبلادٍ", root: "بلب", mid: "kata Arab (akar: بلب)", men: "Arabic word (root: بلب)", pos: "noun", freq: 0, rank: 9836, wazan: "unknown", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },
   { id: "YTwf", ar: "يَطُوْفُ", root: "يطو", mid: "kata Arab (akar: يطو)", men: "Arabic word (root: يطو)", pos: "verb", freq: 0, rank: 9837, wazan: "unknown", form: "I", vf: "fiil_mudhari", irab: "raf" },

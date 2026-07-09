@@ -411,7 +411,7 @@ export function searchWords(query: string, limit = 50): WordEntry[] {
   if (isArabic) {
     const qNoDiac = normalizeAlef(stripDiacritics(q));
     for (const w of HIGH_FREQ_WORDS) {
-      // Arabic substring — normalisasi alef + strip diacritics agar
+      // Arabic substring: normalisasi alef + strip diacritics agar
       // input tanpa hamza (mis. "احد") tetap match Quranic "أَحَد",
       // dan tidak kalah oleh entry daily dgn root yg cocok (ahad2).
       const wNorm = normalizeAlef(stripDiacritics(w.arabic));

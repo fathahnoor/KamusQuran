@@ -1,6 +1,6 @@
 import type { CompactWord } from "../wordBuilder";
 
-// Batch 23: Fase 1 — 100 kata paling sering muncul di 6 PDF Nahwu/Sharf (folder Nopush).
+// Batch 23: Fase 1 - 100 kata paling sering muncul di 6 PDF Nahwu/Sharf (folder Nopush).
 // Data diekstrak dari buku An-Nahwu al-Wadhih & Metode Al-Munir.
 // Referensi: scripts/pdf_words_phase_plan.json
 export const BATCH_23: CompactWord[] = [
@@ -116,7 +116,7 @@ export const BATCH_23: CompactWord[] = [
   { id: "haa", ar: "هَا", root: "ها", mid: "-nya (kata ganti objek fem.)", men: "her (attached pronoun)", pos: "pronoun", freq: 0, rank: 1894, g: "feminine", num: "singular", irab: "none" },
 
   // ================================================================
-  // KATA DENGAN KLITIK (Words with attached clitics — untuk deteksi langsung)
+  // KATA DENGAN KLITIK (Words with attached clitics - untuk deteksi langsung)
   // ================================================================
   { id: "minha", ar: "مِنْهَا", root: "من", mid: "darinya (perempuan/benda)", men: "from her/it", pos: "particle", freq: 0, rank: 1895, irab: "none" },
   { id: "fiha", ar: "فِيهَا", root: "في", mid: "di dalamnya", men: "in it/her", pos: "particle", freq: 0, rank: 1896, irab: "none" },

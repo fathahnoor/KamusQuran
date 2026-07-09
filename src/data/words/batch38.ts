@@ -1,6 +1,6 @@
 import type { CompactWord } from "../wordBuilder";
 
-// Batch 38: Fase 16 — auto-generated dari PDF Nahwu/Sharf (folder Nopush).
+// Batch 38: Fase 16 - auto-generated dari PDF Nahwu/Sharf (folder Nopush).
 // Referensi: scripts/pdf_words_phase_plan.json
 export const BATCH_38: CompactWord[] = [
   { id: "kba", ar: "كبا", root: "كبا", mid: "kata Arab (akar: كبا)", men: "Arabic word (root: كبا)", pos: "noun", freq: 0, rank: 3287, wazan: "unknown", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },

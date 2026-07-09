@@ -1,6 +1,6 @@
 import type { CompactWord } from "../wordBuilder";
 
-// Batch 75: Fase 53 — auto-generated dari PDF Nahwu/Sharf.
+// Batch 75: Fase 53 - auto-generated dari PDF Nahwu/Sharf.
 // Referensi: scripts/pdf_words_phase_plan.json
 export const BATCH_75: CompactWord[] = [
   { id: "Lwqw3", ar: "لوقوع", root: "لقع", mid: "kata Arab (akar: لقع)", men: "Arabic word (root: لقع)", pos: "noun", freq: 0, rank: 6969, wazan: "unknown", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },

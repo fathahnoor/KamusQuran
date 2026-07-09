@@ -1,5 +1,5 @@
 import type { CompactWord } from "../wordBuilder";
-// Batch 120: Quran root completion — auto-generated dari Quranic Arabic Corpus morphology.
+// Batch 120: Quran root completion - auto-generated dari Quranic Arabic Corpus morphology.
 export const BATCH_120: CompactWord[] = [
   { id: "ab", ar: "أَبّ", root: "ابب", mid: "tumbuhan, rumput, padang rumput", men: "Arabic word (root: ابب)", pos: "noun", freq: 1, rank: 11383, irab: "unknown" },
   { id: "athath", ar: "أَثاث", root: "اثث", mid: "perabot, peralatan rumah tangga", men: "Arabic word (root: اثث)", pos: "noun", freq: 2, rank: 11384, irab: "unknown" },

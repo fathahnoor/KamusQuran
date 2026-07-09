@@ -1,5 +1,5 @@
 import type { CompactWord } from "../wordBuilder";
-// Batch 125: Quran root completion — auto-generated dari Quranic Arabic Corpus morphology.
+// Batch 125: Quran root completion - auto-generated dari Quranic Arabic Corpus morphology.
 export const BATCH_125: CompactWord[] = [
   { id: "nsa'", ar: "نِساء", root: "نسو", mid: "kata Arab (akar: نسو)", men: "say", pos: "noun", freq: 59, rank: 11883, irab: "unknown" },
   { id: "ansya", ar: "أَنشَأَ", root: "نشا", mid: "kata Arab (akar: نشا)", men: "say", pos: "verb", freq: 28, rank: 11884, irab: "unknown" },

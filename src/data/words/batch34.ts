@@ -1,6 +1,6 @@
 import type { CompactWord } from "../wordBuilder";
 
-// Batch 34: Fase 12 — auto-generated dari PDF Nahwu/Sharf (folder Nopush).
+// Batch 34: Fase 12 - auto-generated dari PDF Nahwu/Sharf (folder Nopush).
 // Referensi: scripts/pdf_words_phase_plan.json
 export const BATCH_34: CompactWord[] = [
   { id: "san", ar: "سان", root: "سنن", mid: "dasar, fondasi", men: "foundation, basis", pos: "noun", freq: 0, rank: 2899, wazan: "unknown", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },

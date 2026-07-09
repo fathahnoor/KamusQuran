@@ -1,6 +1,6 @@
 import type { CompactWord } from "../wordBuilder";
 
-// Batch 115: Fase 93 — auto-generated dari PDF Nahwu/Sharf.
+// Batch 115: Fase 93 - auto-generated dari PDF Nahwu/Sharf.
 export const BATCH_115: CompactWord[] = [
   { id: "HDrn", ar: "حَضِرنَ", root: "حضر", mid: "berkaitan dg menghadiri, hadir (akar: حضر)", men: "related to menghadiri, hadir (root: حضر)", pos: "noun", freq: 0, rank: 10917, wazan: "unknown", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },
   { id: "Aljnshn", ar: "الجَنْشنُ", root: "جنش", mid: "kata Arab (akar: جنش)", men: "Arabic word (root: جنش)", pos: "verb", freq: 0, rank: 10918, wazan: "unknown", form: "I", vf: "fiil_mudhari", irab: "raf" },

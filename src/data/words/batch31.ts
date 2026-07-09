@@ -1,6 +1,6 @@
 import type { CompactWord } from "../wordBuilder";
 
-// Batch 31: Fase 9 — auto-generated dari PDF Nahwu/Sharf (folder Nopush).
+// Batch 31: Fase 9 - auto-generated dari PDF Nahwu/Sharf (folder Nopush).
 // Referensi: scripts/pdf_words_phase_plan.json
 export const BATCH_31: CompactWord[] = [
   { id: "try", ar: "ترى", root: "تري", mid: "kata Arab (akar: تري)", men: "Arabic word (root: تري)", pos: "noun", freq: 0, rank: 2566, wazan: "unknown", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },

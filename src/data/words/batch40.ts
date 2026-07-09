@@ -1,6 +1,6 @@
 import type { CompactWord } from "../wordBuilder";
 
-// Batch 40: Fase 18 — auto-generated dari PDF Nahwu/Sharf (folder Nopush).
+// Batch 40: Fase 18 - auto-generated dari PDF Nahwu/Sharf (folder Nopush).
 // Referensi: scripts/pdf_words_phase_plan.json
 export const BATCH_40: CompactWord[] = [
   { id: "3dhb", ar: "عذب", root: "عذب", mid: "berkaitan dg 'azab, siksa, penderitaan' (akar: عذب)", men: "related to 'azab, siksa, penderitaan' (root: عذب)", pos: "noun", freq: 0, rank: 3485, wazan: "unknown", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },

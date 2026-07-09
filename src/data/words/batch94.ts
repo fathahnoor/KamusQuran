@@ -1,6 +1,6 @@
 import type { CompactWord } from "../wordBuilder";
 
-// Batch 94: Fase 72 — auto-generated dari PDF Nahwu/Sharf.
+// Batch 94: Fase 72 - auto-generated dari PDF Nahwu/Sharf.
 export const BATCH_94: CompactWord[] = [
   { id: "AlSalHat", ar: "الصالِحَاتُ", root: "صلح", mid: "berkaitan dg saleh, baik, lurus (akar: صلح)", men: "related to saleh, baik, lurus (root: صلح)", pos: "verb", freq: 0, rank: 8851, wazan: "unknown", form: "I", vf: "fiil_mudhari", irab: "raf" },
   { id: "3alh", ar: "عَالِهٌ", root: "عله", mid: "berkaitan dg kata kerja, fi'il, perbuatan (-nya (pr)) (akar: عله)", men: "related to kata kerja, fi'il, perbuatan (-nya (pr)) (root: عله)", pos: "noun", freq: 0, rank: 8852, wazan: "unknown", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },
