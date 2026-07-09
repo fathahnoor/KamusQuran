@@ -344,12 +344,20 @@ function analyzeArabicSentence(input: string): SentenceAnalysis {
 
   applyContextAwareIrab(tokens);
   const observations = buildSentenceObservations(tokens, input);
-  const isQuranic = checkIfQuranicAyah(input, tokens);
+  const quranMatch = checkIfQuranicAyah(input, tokens);
 
   const irabSummary = buildIrabSummary(tokens);
   if (irabSummary) observations.unshift(irabSummary);
 
-  return { input, inputLang: "ar", isQuranicAyah: isQuranic, tokens, observations };
+  return {
+    input,
+    inputLang: "ar",
+    isQuranicAyah: quranMatch.isQuranic,
+    matchedAyah: quranMatch.matchedAyah,
+    matchedGlobalAyah: quranMatch.globalAyahNumber,
+    tokens,
+    observations,
+  };
 }
 
 /** Heuristic POS guess for unmatched Arabic tokens. */
@@ -439,18 +447,37 @@ function buildSentenceObservations(tokens: SentenceToken[], _input: string): Sen
   return observations;
 }
 
-/** Check whether input corresponds to a known Qur'anic ayah. */
-function checkIfQuranicAyah(input: string, tokens: SentenceToken[]): boolean {
+/** Quranic ayah match result. */
+interface QuranAyahMatch {
+  isQuranic: boolean;
+  matchedAyah?: `${number}:${number}`;
+  globalAyahNumber?: number;
+}
+
+/** Check whether input corresponds to a known Qur'anic ayah excerpt. */
+function checkIfQuranicAyah(input: string, tokens: SentenceToken[]): QuranAyahMatch {
   const bare = stripDiacritics(input).replace(/\s+/g, " ").trim();
-  if (tokens.length < 2) return false;
+  if (tokens.length < 2) return { isQuranic: false };
   for (const word of HIGH_FREQ_WORDS) {
     for (const ex of word.examples) {
       const exBare = stripDiacritics(ex.arabicText).replace(/\s+/g, " ").trim();
-      if (exBare === bare) return true;
-      if (bare.length >= exBare.length * 0.6 && exBare.includes(bare)) return true;
+      if (exBare === bare) {
+        return {
+          isQuranic: true,
+          matchedAyah: `${ex.surah}:${ex.ayah}`,
+          globalAyahNumber: ex.globalAyahNumber,
+        };
+      }
+      if (bare.length >= exBare.length * 0.6 && exBare.includes(bare)) {
+        return {
+          isQuranic: true,
+          matchedAyah: `${ex.surah}:${ex.ayah}`,
+          globalAyahNumber: ex.globalAyahNumber,
+        };
+      }
     }
   }
-  return false;
+  return { isQuranic: false };
 }
 
 // --- Public API ---------------------------------------------

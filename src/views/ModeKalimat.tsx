@@ -1,6 +1,7 @@
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, useEffect } from "react";
 import type { SentenceAnalysis, SentenceToken } from "../types";
 import { analyzeSentence, detectLanguage } from "../services/sentenceAnalysis";
+import { getAyah, EDITIONS } from "../services/alQuranApi";
 import { useVoiceRecognition } from "../services/voiceRecognition";
 import { SearchBar } from "../components/SearchBar";
 import { IrobTable } from "../components/IrobTable";
@@ -26,6 +27,31 @@ export function ModeKalimat() {
     if (!text) return;
     setAnalysis(analyzeSentence(text));
   }, [input]);
+
+  // Fetch Kemenag translation when a Quranic ayah is matched
+  const [kemenagTranslation, setKemenagTranslation] = useState<string | undefined>();
+  const [kemenagError, setKemenagError] = useState(false);
+  useEffect(() => {
+    if (!analysis?.isQuranicAyah || !analysis.matchedGlobalAyah) {
+      setKemenagTranslation(undefined);
+      setKemenagError(false);
+      return;
+    }
+    let cancelled = false;
+    setKemenagTranslation(undefined);
+    setKemenagError(false);
+    getAyah(analysis.matchedGlobalAyah, EDITIONS.idTranslation)
+      .then((ayah) => {
+        if (!cancelled) {
+          setKemenagTranslation(ayah.text);
+          setKemenagError(false);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setKemenagError(true);
+      });
+    return () => { cancelled = true; };
+  }, [analysis?.matchedGlobalAyah, analysis?.isQuranicAyah]);
 
   const placeholder = useMemo(() => {
     if (inputLang === "ar") return "اكتب جملة عربية...";
@@ -54,6 +80,33 @@ export function ModeKalimat() {
           />
         </div>
       </div>
+
+      {/* Terjemahan Kemenag — jika input adalah cuplikan ayat Quran */}
+      {analysis?.isQuranicAyah && kemenagTranslation && (
+        <QuranTranslationBanner
+          translation={kemenagTranslation}
+          ayahRef={analysis.matchedAyah}
+        />
+      )}
+
+      {analysis?.isQuranicAyah && !kemenagTranslation && !kemenagError && (
+        <div className="rounded-2xl border border-accent-200/60 bg-accent-50/30 p-4 sm:p-5 animate-pulse">
+          <p className="text-sm text-accent-600">Memuat terjemahan Kemenag...</p>
+        </div>
+      )}
+
+      {analysis?.isQuranicAyah && kemenagError && (
+        <div className="rounded-2xl border border-ink-200/60 bg-ink-50/60 p-4 sm:p-5">
+          <p className="flex items-center gap-2 text-sm font-semibold text-ink-500">
+            <svg className="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="12" />
+              <line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>
+            Terjemahan Kemenag tidak tersedia (offline atau API error)
+          </p>
+        </div>
+      )}
 
       {/* Arti kalimat — di bawah kotak pencarian, di atas QADT */}
       {analysis && (
@@ -295,6 +348,36 @@ function Info({ label, value, arabic }: { label: string; value: string; arabic?:
       <span className={arabic ? "font-arabic text-sm text-ink-700" : "text-ink-700"} dir={arabic ? "rtl" : "ltr"}>
         {value}
       </span>
+    </div>
+  );
+}
+
+/** Banner terjemahan Kemenag — untuk cuplikan ayat Quran yang terdeteksi. */
+function QuranTranslationBanner({
+  translation,
+  ayahRef,
+}: {
+  translation: string;
+  ayahRef?: string;
+}) {
+  return (
+    <div className="rounded-2xl border border-emerald-300/60 bg-gradient-to-r from-emerald-50 to-emerald-50/30 p-4 sm:p-5 animate-fade-in">
+      <p className="flex items-center gap-2 text-sm font-semibold text-emerald-700">
+        <svg className="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5z" />
+          <path d="M2 17l10 5 10-5" />
+          <path d="M2 12l10 5 10-5" />
+        </svg>
+        Terjemahan Kemenag RI
+        {ayahRef && (
+          <span className="font-mono text-xs font-normal text-emerald-500">
+            (QS {ayahRef})
+          </span>
+        )}
+      </p>
+      <p className="mt-1.5 text-base leading-relaxed text-ink-800 italic">
+        &ldquo;{translation}&rdquo;
+      </p>
     </div>
   );
 }

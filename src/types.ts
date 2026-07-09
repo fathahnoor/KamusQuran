@@ -354,6 +354,8 @@ export interface SentenceAnalysis {
   isQuranicAyah: boolean;
   /** Matched ayah location if Quranic. */
   matchedAyah?: AyahLocation;
+  /** Global ayah number for API translation lookup. */
+  matchedGlobalAyah?: number;
   /** Per-token breakdown. */
   tokens: SentenceToken[];
   /** Sentence-level observations. */
