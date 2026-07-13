@@ -4,7 +4,7 @@ import type { CompactWord } from "../wordBuilder";
 // Referensi: scripts/pdf_words_phase_plan.json
 export const BATCH_74: CompactWord[] = [
   { id: "TZl", ar: "تظل", root: "تظل", mid: "kata Arab (akar: تظل)", men: "Arabic word (root: تظل)", pos: "noun", freq: 0, rank: 6870, wazan: "unknown", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },
-  { id: "Tlmyda", ar: "تلميدًا", root: "تلم", mid: "berkaitan dg al-murid, siswa (akar: تلم)", men: "related to al-murid, siswa (root: تلم)", pos: "verb", freq: 0, rank: 6871, wazan: "unknown", form: "I", vf: "fiil_mudhari", irab: "raf" },
+  { id: "Tlmyda", ar: "تلميدًا", root: "تلم", mid: "berkaitan dg murid, siswa (akar: تلم)", men: "related to murid, siswa (root: تلم)", pos: "verb", freq: 0, rank: 6871, wazan: "unknown", form: "I", vf: "fiil_mudhari", irab: "raf" },
   { id: "Balmdrs", ar: "بالمدإرس", root: "بلم", mid: "kata Arab (akar: بلم)", men: "Arabic word (root: بلم)", pos: "noun", freq: 0, rank: 6872, wazan: "unknown", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },
   { id: "Alabtda2y", ar: "الابتدائية", root: "بتد", mid: "kata Arab (akar: بتد)", men: "Arabic word (root: بتد)", pos: "verb", freq: 0, rank: 6873, wazan: "unknown", form: "I", vf: "fiil_mudhari", irab: "raf" },
   { id: "AlSabyH", ar: "الصابيح", root: "صبح", mid: "berkaitan dg pagi (akar: صبح)", men: "related to pagi (root: صبح)", pos: "verb", freq: 0, rank: 6874, wazan: "unknown", form: "I", vf: "fiil_mudhari", irab: "raf" },
@@ -56,7 +56,7 @@ export const BATCH_74: CompactWord[] = [
   { id: "3lbba", ar: "علببا", root: "علب", mid: "kata Arab (akar: علب)", men: "Arabic word (root: علب)", pos: "noun", freq: 0, rank: 6920, wazan: "unknown", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },
   { id: "H3ytth", ar: "حعيتث", root: "حعت", mid: "kata Arab (akar: حعت)", men: "Arabic word (root: حعت)", pos: "noun", freq: 0, rank: 6921, wazan: "unknown", form: "I", g: "masculine", num: "singular", def: "indefinite", irab: "raf" },
   { id: "Ysdr", ar: "يسدر", root: "سدر", mid: "kata Arab (akar: سدر)", men: "Arabic word (root: سدر)", pos: "verb", freq: 0, rank: 6922, wazan: "unknown", form: "I", vf: "fiil_mudhari", irab: "raf" },
-  { id: "Atklm", ar: "اتكلم", root: "تكل", mid: "berkaitan dg al-berbicara (akar: تكل)", men: "related to al-berbicara (root: تكل)", pos: "verb", freq: 0, rank: 6923, wazan: "unknown", form: "I", vf: "fiil_mudhari", irab: "raf" },
+  { id: "Atklm", ar: "اتكلم", root: "تكل", mid: "berkaitan dg berbicara (akar: تكل)", men: "related to berbicara (root: تكل)", pos: "verb", freq: 0, rank: 6923, wazan: "unknown", form: "I", vf: "fiil_mudhari", irab: "raf" },
   { id: "Tj3l", ar: "تَجِعل", root: "تجع", mid: "kata Arab (akar: تجع)", men: "Arabic word (root: تجع)", pos: "verb", freq: 0, rank: 6924, wazan: "unknown", form: "I", vf: "fiil_mudhari", irab: "raf" },
   { id: "Ynsby", ar: "ينسبى", root: "نسب", mid: "berkaitan dg garis keturunan, nasab (akar: نسب)", men: "related to garis keturunan, nasab (root: نسب)", pos: "verb", freq: 0, rank: 6925, wazan: "unknown", form: "I", vf: "fiil_mudhari", irab: "raf" },
   { id: "YSmw", ar: "يصمو", root: "يصم", mid: "kata Arab (akar: يصم)", men: "Arabic word (root: يصم)", pos: "verb", freq: 0, rank: 6926, wazan: "unknown", form: "I", vf: "fiil_mudhari", irab: "raf" },
