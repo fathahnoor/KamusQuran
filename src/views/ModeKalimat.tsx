@@ -217,7 +217,7 @@ function TokenDetailSection({ tokens }: { tokens: SentenceToken[] }) {
     <div className="rounded-2xl border border-ink-200/60 bg-white/90 p-4 shadow-sm backdrop-blur-sm sm:p-5">
       <button
         onClick={() => setExpanded((v) => !v)}
-        className="flex w-full items-center justify-between gap-2"
+        className="flex min-h-[44px] w-full items-center justify-between gap-2 rounded-lg py-1 transition-colors hover:bg-ink-50 sm:py-1.5"
       >
         <h3 className="flex items-center gap-2 text-sm font-bold text-ink-700">
           <svg className="h-4 w-4 text-accent-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -285,7 +285,7 @@ function TokenCard({ token }: { token: SentenceToken }) {
           {hasIrab && (
             <button
               onClick={() => setIrabExpanded((v) => !v)}
-              className={`rounded-full px-2 py-0.5 text-[10px] font-bold transition-all ${
+              className={`min-h-[28px] rounded-full px-2.5 py-1 text-[10px] font-bold transition-all ${
                 irabExpanded
                   ? "bg-accent-500 text-white"
                   : "bg-accent-50 text-accent-700 hover:bg-accent-100"

@@ -103,7 +103,7 @@ export function ModeKata() {
           </p>
           <button
             onClick={() => setShowBrowse((v) => !v)}
-            className="flex items-center gap-1 text-xs font-semibold text-accent-600 transition-colors hover:text-accent-700"
+            className="flex min-h-[44px] items-center gap-1 text-xs font-semibold text-accent-600 transition-colors hover:text-accent-700"
           >
             {showBrowse ? (
               <>
@@ -160,7 +160,7 @@ export function ModeKata() {
                   setSelected(entry);
                   setShowBrowse(false);
                 }}
-                className="flex items-center justify-between rounded-xl border border-ink-200/60 bg-white px-3 py-2.5 text-left transition-all hover:border-accent-400 hover:bg-accent-50/30 hover:shadow-sm"
+                className="flex min-h-[52px] items-center justify-between rounded-xl border border-ink-200/60 bg-white px-3 py-3 text-left transition-all hover:border-accent-400 hover:bg-accent-50/30 hover:shadow-sm sm:py-2.5"
               >
                 <div className="flex items-center gap-2 overflow-hidden">
                   <span className="font-arabic text-lg text-accent-700" dir="rtl">
@@ -191,7 +191,7 @@ export function ModeKata() {
                 <button
                   key={entry.id}
                   onClick={() => setSelected(entry)}
-                  className="group flex w-full items-center justify-between rounded-xl border border-ink-200/60 bg-white/90 p-3.5 text-left shadow-sm transition-all hover:border-accent-400 hover:bg-accent-50/30 hover:shadow-md sm:p-4"
+                  className="group flex min-h-[56px] w-full items-center justify-between rounded-xl border border-ink-200/60 bg-white/90 p-3.5 text-left shadow-sm transition-all hover:border-accent-400 hover:bg-accent-50/30 hover:shadow-md sm:p-4"
                 >
                   <div className="flex items-center gap-3 sm:gap-4">
                     <span className="font-arabic-display text-2xl font-bold text-accent-700 sm:text-3xl" dir="rtl">
