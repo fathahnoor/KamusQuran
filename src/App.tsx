@@ -18,7 +18,7 @@ function ViewFallback() {
 }
 
 export default function App() {
-  const [view, setView] = useState<AppView>("kata");
+  const [view, setView] = useState<AppView>("kalimat");
 
   const navigate = useCallback((next: AppView) => {
     setView(next);
